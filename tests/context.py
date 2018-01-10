@@ -6,3 +6,4 @@ sys.path.insert(
 
 from QCbotB import sierra_parser
 from QCbotB import datastore
+from QCbotB import db_worker

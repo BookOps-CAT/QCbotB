@@ -37,17 +37,17 @@ class Bibs(Base):
     orders = relationship('Orders', cascade='all, delete-orphan')
 
     def __repr__(self):
-        return "<Bib(id='b%sa', b_date='%s', b_type='%s', title='%s', "
-        "author='%s, b_lang='%s', b_format='%s', b_call='%s', "
-        "c_format='%s', c_audn='%s', c_lang='%s', c_type='%s', "
-        "c_cutter'%s', c_dewey='%s', c_division='%s', subjects='%s', "
-        "subject_person='%s', crit_work='%s')>" % (
-            self.id, self.b_date, self.b_type, self.title,
-            self.author, self.b_lang, self.b_format,
-            self.b_call, self.c_format, self.c_audn,
-            self.c_lang, self.c_type, self.c_cutter,
-            self.c_dewey, self.c_division, self.subjects,
-            self.subject_person, self.crit_work)
+        return "<Bib(id='b%sa', b_date='%s', b_type='%s', title='%s', " \
+            "author='%s, b_lang='%s', b_format='%s', b_call='%s', " \
+            "c_format='%s', c_audn='%s', c_lang='%s', c_type='%s', " \
+            "c_cutter'%s', c_dewey='%s', c_division='%s', subjects='%s', " \
+            "subject_person='%s', crit_work='%s')>" % (
+                self.id, self.b_date, self.b_type, self.title,
+                self.author, self.b_lang, self.b_format,
+                self.b_call, self.c_format, self.c_audn,
+                self.c_lang, self.c_type, self.c_cutter,
+                self.c_dewey, self.c_division, self.subjects,
+                self.subject_person, self.crit_work)
 
 
 class Orders(Base):
@@ -62,11 +62,11 @@ class Orders(Base):
     ven_note = Column(String)
 
     def __repr__(self):
-        return "<Order(id='o%sa', b_id='b%sa', o_date='%s', "
-        "o_branch='%s', o_shelf='%s', o_audn='%s', copies='%s', "
-        "ven_note='%s')>" % (
-            self.id, self.b_id, self.o_date, self.o_branch,
-            self.o_shelf, self.o_audn, self.copies, self.ven_note)
+        return "<Order(id='o%sa', b_id='b%sa', o_date='%s', " \
+            "o_branch='%s', o_shelf='%s', o_audn='%s', copies='%s', " \
+            "ven_note='%s')>" % (
+                self.id, self.b_id, self.o_date, self.o_branch,
+                self.o_shelf, self.o_audn, self.copies, self.ven_note)
 
 
 class Conflicts(Base):
@@ -92,18 +92,18 @@ class Tickets(Base):
     copies = Column(Integer)
 
     def __repr__(self):
-        return "<Tickets(id='%s', timestamp='%s', conflict_id='%s', "
-        "servicenow_id='%s', b_id='%s', title='%s', o_id='%s')>" % (
-            self.id, self.timestamp, self.conflict_id,
-            self.servicenow_id, self.b_id, self.title, self.o_id)
+        return "<Tickets(id='%s', timestamp='%s', conflict_id='%s', " \
+            "servicenow_id='%s', b_id='%s', title='%s', o_id='%s')>" % (
+                self.id, self.timestamp, self.conflict_id,
+                self.servicenow_id, self.b_id, self.title, self.o_id)
 
 
 class DataAccessLayer:
 
     def __init__(self):
+        self.conn_string = conn_string
         self.engine = None
         self.session = None
-        self.conn_string = conn_string
 
     def connect(self):
         self.engine = create_engine(self.conn_string)

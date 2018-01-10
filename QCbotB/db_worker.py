@@ -11,8 +11,8 @@ module_logger = logging.getLogger('QCBtests')
 
 
 def insert_or_ignore(model, **kwargs):
-    dal.connect()
-    dal.session = dal.Session()
+    # dal.connect()
+    # dal.session = dal.Session()
     instance = dal.session.query(model).filter_by(id=kwargs['id']).first()
     if not instance:
         instance = model(**kwargs)
@@ -28,8 +28,8 @@ def insert_or_ignore(model, **kwargs):
 
 
 def delete_table_data(model):
-    dal.connect()
-    dal.session = dal.Session()
+    # dal.connect()
+    # dal.session = dal.Session()
     num_rows_deleted = dal.session.query(model).delete()
     dal.session.commit()
     dal.session.close()
