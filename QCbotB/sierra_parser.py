@@ -176,23 +176,24 @@ def find_bib_format(rec_type, t008, subjects, counter=None):
 
 
 def find_main_language(t008, t041, counter=None):
-    langs = []
+    langs = set()
     try:
-        langs.append(t008[35:38])
+        langs.add(t008[35:38])
     except IndexError:
         module_logger.error(
-            'IndexError; incorrect '
+            'IndexError: incorrect '
             '008 length in line {}, found data: {}'.format(
                 counter, t008))
         return None
-    if len(t041.strip()) != 0:
-        langs.extend(t041.split('~'))
-    main_lang = 'eng'
-    for lan in langs:
-        if lan != 'eng':
-            main_lang = lan
-            break
-    return main_lang
+    try:
+        if len(t041.strip()) != 0:
+            langs = sorted(langs.union(set(t041.split('~'))))
+    except TypeError:
+        module_logger.error(
+            'TypeError: incorrect type in 041, found data: {}'.format(
+                t041))
+        return None
+    return '~'.join(langs)
 
 
 def parse_title(data):
