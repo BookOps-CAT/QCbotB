@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
+<!--BPL data conflict list-->
+<!--Use to build datastore queries; use datastore name schema-->
+<!--To add new conflict for discovery, place it in the proper 'level', add new 'error code', and provide 'description' element, and build SQL statement in 'query' element-->
+<!--URL TO SCHEMA HERE-->
+<conflicts>
+	<level name = "bib">
+		<error id = "1" code = "ErrA001">
+			<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 0 AND bibs.c_type != "fea" AND (bibs.c_type != "eas" AND bibs.author IS NULL)</query>
+			<description>Missing cutter in call number</description>
+		</error>
+		<error id = "2" code = "ErrA002">
+			<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE (bibs.b_call LIKE "%0" OR bibs.b_call LIKE "%1" OR bibs.b_call LIKE "%2" OR bibs.b_call LIKE "%3" OR bibs.b_call LIKE "%4" OR bibs.b_call LIKE "%5" OR bibs.b_call LIKE "%6" OR bibs.b_call LIKE "%7" OR bibs.b_call LIKE "%8" OR bibs.b_call LIKE "%9")</query>
+			<description>Call number cutter is a digit</description>
+		</error>
+		<error id = "3" code = "ErrA003">
+			<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 1 AND bibs.c_type = "eas" AND bibs.author IS NULL</query>
+			<description>J-E title entry book with a cutter in the call number</description>
+		</error>
+		<error id = "4" code = "ErrA004">
+			<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey NOT NULL AND bibs.c_dewey LIKE "%0" AND bibs.c_dewey LIKE "%.%"</query>
+			<description>Trailing zero in Dewey number in the call number</description>
+		</error>
+		<error id = "5" code = "ErrA006">
+			<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.b_lang IS NOT bibs.c_lang AND (bibs.subjects NOT LIKE "%Dictionaries%" AND bibs.subjects NOT LIKE "%Textbooks%" AND bibs.subjects NOT LIKE "%Study and teaching%" AND bibs.subjects NOT LIKE "%Poetry%" AND bibs.subjects NOT LIKE "%Bible%")</query>
+			<description>Conflict between lang code in 008 and language prefix in the call number</description>
+		</error>
+	</level>
+</conflicts>
+
