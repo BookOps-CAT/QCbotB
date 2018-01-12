@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
+<!--BPL data conflict list-->
+<!--Use to build datastore queries; use datastore name schema-->
+<!--To add new conflict for discovery, place it in the proper 'level', add new 'error code', and provide 'description' element, and build SQL statement in 'query' element-->
+<!--URL TO SCHEMA HERE-->
+<conflicts>
+	<level name = "bib">
+		<error id = "1" code = "ErrA001">
+			<query>SELECT * FROM bibs WHERE bibs.c_cutter = 0 AND bibs.c_type != "fea" AND (bibs.c_type != "eas" AND bibs.author IS NULL)</query>
+			<description>Missing cutter in call number</description>
+		</error>
+	</level>
+</conflicts>
+
