@@ -164,10 +164,11 @@ class TestParser(unittest.TestCase):
     def test_find_main_language(self):
         # bilingual book should be under world language
         # find out how bilingual poetry published in us can be in English
+        # find_main_language returns results in alphabetical order
         self.assertEqual(
             sierra_parser.find_main_language(
                 '170305s2017    nyu           000 p eng dcamIi ',
-                'spa~eng', 1), 'spa')
+                'spa~eng', 1), 'eng~spa')
 
     def test_parse_subject_person(self):
         self.assertIsNone(
@@ -557,6 +558,9 @@ class TestParser(unittest.TestCase):
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 'MIFI DEVICE'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'eBOOK'), False)
 
     def test_parse_dewey(self):
         self.assertEqual(
