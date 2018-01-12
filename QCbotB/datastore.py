@@ -71,13 +71,14 @@ class Orders(Base):
 
 class Conflicts(Base):
     __tablename__ = 'conflicts'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=False)
+    level = Column(String, nullable=False)
     code = Column(String, nullable=False)
     desc = Column(String, nullable=False)
 
     def __repr__(self):
-        return "<Conflicts(id='%s', code='%s', desc='%s')>" % (
-            self.id, self.code, self.desc)
+        return "<Conflicts(id='%s', level='%s', code='%s', desc='%s')>" % (
+            self.id, self.level, self.code, self.desc)
 
 
 class Tickets(Base):
