@@ -5,26 +5,39 @@ import logging
 module_logger = logging.getLogger('QCBtests')
 
 
-def conflict2dict(fh=None):
-
+def conflict2dict(conflicts_file=None):
     """
-    params: fh - xml file containing error rules; if None, default xml used
-    reads encoded in xml conflicts data
+    reads encoded in xml conflicts information and
     returns list of dictionaries with error types and 
     associated SQL queries
+
+    parameters
+    __________
+    conflicts_file : xml file or None
+        xml file containing error rules
+
+    returns
+    -------
+    list
+        list of dictionaries, example:
+            {id=conflict id,
+            code=conflict code,
+            desc=conflict description,
+            query=SQL query used for discovery in datastore,
+            level=conflict level}
     """
 
     try:
-        if fh is None:
+        if conflicts_file is None:
             tree = ET.parse('./files/conflicts.xml')
         else:
-            tree = ET.parse(fh)
+            tree = ET.parse(conflicts_file)
     except IOError:
         tree = None
         module_logger.critical(
             'IOError while attempting to load xml file with conflicts;'
             'supplied location: {}. Aborting!'.format(
-                fh))
+                conflicts_file))
 
     if tree is not None:
         conflicts = []
