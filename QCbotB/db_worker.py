@@ -11,6 +11,17 @@ module_logger = logging.getLogger('QCBtests')
 
 
 def update_table(model, **kwargs):
+    """
+    updates data in specified table
+
+    parameters
+    ----------
+    model : class
+        name of table
+    kwargs : dict
+        values to be added or updated
+
+    """
     if 'id' in kwargs:
         instance = dal.session.query(model).filter_by(id=kwargs['id']).first()
     else:
@@ -33,6 +44,17 @@ def update_table(model, **kwargs):
 
 
 def insert_or_ignore(model, **kwargs):
+    """
+    adds data to specified table
+    if data is found to exist in the table nothing is added
+
+    parameters
+    ----------
+    model : class
+        name of table
+    kwargs: dict
+        values to be entered to the table
+    """
     if 'id' in kwargs:
         instance = dal.session.query(model).filter_by(id=kwargs['id']).first()
     else:
@@ -51,13 +73,30 @@ def insert_or_ignore(model, **kwargs):
 
 
 def delete_table_data(model):
-    # dal.connect()
-    # dal.session = dal.Session()
+    """
+    deletes data from specified datastore table
+
+    returns
+    -------
+    int
+        number of deleted rows
+    """
     num_rows_deleted = dal.session.query(model).delete()
     dal.session.commit()
     dal.session.close()
     return num_rows_deleted
 
 
-def run_query(sql_stmn):
-    return dal.session.execute("{}".format(sql_stmn))
+def run_query(sql_stmn=None):
+    """
+    runs conflict SQL statement on datastore
+
+    returns
+    -------
+    list
+        list of datastore query results
+    """
+    if sql_stmn is None:
+        return []
+    else:
+        return dal.session.execute("{}".format(sql_stmn))

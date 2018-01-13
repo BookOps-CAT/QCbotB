@@ -12,7 +12,7 @@ def conflict2dict(conflicts_file=None):
     associated SQL queries
 
     parameters
-    __________
+    ----------
     conflicts_file : xml file or None
         xml file containing error rules
 
