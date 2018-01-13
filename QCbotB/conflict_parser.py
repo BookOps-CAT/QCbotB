@@ -1,6 +1,3 @@
-# reads rules for error file and returns list of dictonaries with
-# conflicts
-
 import xml.etree.ElementTree as ET
 import logging
 
@@ -11,6 +8,7 @@ module_logger = logging.getLogger('QCBtests')
 def conflict2dict(fh=None):
 
     """
+    params: fh - xml file containing error rules; if None, default xml used
     reads encoded in xml conflicts data
     returns list of dictionaries with error types and 
     associated SQL queries
