@@ -42,28 +42,37 @@ def conflict2dict(conflicts_file=None):
     if tree is not None:
         conflicts = []
         root = tree.getroot()
-        for level in root:
-            level_name = level.attrib['name']
-            for error in level:
+        for error in root:
+            try:
+                level = error.attrib['level']
+                id = error.attrib['id']
                 code = error.attrib['code']
-                try:
-                    id = int(error.attrib['id'])
-                except TypeError:
-                    module_logger.critical(
-                        'TypeError on id in "conflicts.xml", '
-                        'found data: code={}, id={}. Conflict will not '
-                        'be added to datastore'.format(
-                            code,
-                            error.attrib['id']))
-                    continue
                 desc = error.find('description').text
                 query = error.find('query').text
-                conflicts.append(dict(
-                    id=id,
-                    code=code,
-                    desc=desc,
-                    query=query,
-                    level=level_name))
+            except AttributeError:
+                module_logger.critical(
+                    'AtrributeError while parsing conflict xml file')
+                continue
+
+            try:
+                id = int(error.attrib['id'])
+            except TypeError:
+                module_logger.critical(
+                    'TypeError on id in "conflicts.xml", '
+                    'found data: code={}, id={}. Conflict will not '
+                    'be added to datastore'.format(
+                        code,
+                        error.attrib['id']))
+                continue
+            conflicts.append(dict(
+                id=id,
+                code=code,
+                desc=desc,
+                query=query,
+                level=level))
         return conflicts
     else:
         return []
+
+if __name__ == '__main__':
+    print conflict2dict('./files/conflicts.xml')
