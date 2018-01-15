@@ -28,8 +28,8 @@ try:
         for record in data_generator:
             bib = record[0]
             order = record[1]
-            brec = insert_or_ignore(session, Bibs, **bib)
-            orec = insert_or_ignore(session, Orders, **order)
+            insert_or_ignore(session, Bibs, **bib)
+            insert_or_ignore(session, Orders, **order)
 except Exception as e:
     main_logger.critical(
         'Unable to add data {} to datastore. Error: {}'.format(file, e))
