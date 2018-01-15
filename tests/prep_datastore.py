@@ -15,7 +15,7 @@ def enter_test_data(session):
         id=1,
         c_type='fic',
         author=None,
-        title='TEST1: fiction without cutter; ',
+        title='TEST1: fiction without cutter',
         subject_person=None,
         c_cutter=False,
         subjects=u'African American families -- Mississippi -- Fiction.',
@@ -35,39 +35,39 @@ def enter_test_data(session):
         id=2,
         c_type='dew',
         author='LEE',
-        title='TEST2: non-fic without cutter; ',
+        title='TEST2: non-fic with digit for cutter',
         subject_person=None,
-        c_cutter=False,
+        c_cutter=True,
         subjects=u'Indoor gardening.~Indoor gardens.',
         b_format='print',
         c_division='ss',
         b_lang='eng',
         crit_work=False,
-        b_call=u'635.965')
+        b_call=u'635.965 1')
 
     b3 = db.Bibs(
         c_format='pr',
-        c_dewey=u'746.434',
+        c_dewey=None,
         b_type=u'a',
         c_lang='eng',
         b_date=datetime.datetime(2017, 12, 7, 0, 0),
-        c_audn='a',
+        c_audn='j',
         id=3,
-        c_type='dew',
-        author='DELANEY',
-        title=u'Design your own crochet projects : magic formulas for creating custom scarves, cowls, hats, socks, mittens, and gloves / Sara Delaney.',
+        c_type='eas',
+        author=None,
+        title=u'J-E title entry book with a cutter in the call number',
         subject_person=None,
         c_cutter=True,
         subjects=u'Crocheting -- Patterns.',
         b_format='print',
-        c_division='ar',
+        c_division=None,
         b_lang='eng',
         crit_work=False,
-        b_call=u'746.434 D')
+        b_call=u'J-E D')
 
     b4 = db.Bibs(
         c_format='pr',
-        c_dewey=u'895.11',
+        c_dewey=u'895.110',
         b_type=u'a',
         c_lang=u'chi',
         b_date=datetime.datetime(2017, 12, 7, 0, 0),
@@ -75,7 +75,7 @@ def enter_test_data(session):
         id=4,
         c_type='dew',
         author='KIM',
-        title=u'Ai qing wu li xue / Jin Yinyu zhu ; Liu Yun yi = Sarang \u016di mullihak / Kim In-yuk.',
+        title=u'Trailing zero in Dewey number in the call number',
         subject_person=None,
         c_cutter=True,
         subjects=u'Poetry. lcgft',
@@ -83,7 +83,7 @@ def enter_test_data(session):
         c_division='ll',
         b_lang=u'chi',
         crit_work=False,
-        b_call=u'CHI 895.11 K')
+        b_call=u'CHI 895.110 K')
 
     b5 = db.Bibs(
         c_format='pr',
@@ -190,4 +190,20 @@ def enter_test_data(session):
     session.bulk_save_objects([c1, c2, c3, c4, c5, c6])
     session.commit()
 
-    
+    e1 = db.Conflicts(
+        id=1,
+        level='bib',
+        code='ErrA001',
+        desc='Test1')
+    e2 = db.Conflicts(
+        id=2,
+        level='bib',
+        code='ErrA002',
+        desc='Test2')
+    e3 = db.Conflicts(
+        id=3,
+        level='bib',
+        code='ErrA003',
+        desc='Test3')
+    session.bulk_save_objects([e1, e2, e3])
+    session.commit()

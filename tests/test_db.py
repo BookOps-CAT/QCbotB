@@ -48,7 +48,7 @@ class TestDatastore(unittest.TestCase):
             db.Conflicts, id=1, desc='test 1 desc')
         res = self.session.execute('SELECT * FROM conflicts WHERE id = 1').first()
         self.session.commit()
-        self.assertEqual(res.desc, 'Error Test 1')
+        self.assertEqual(res.desc, 'Test1')
 
     def test_insert_or_ignore_insert_scenario(self):
         worker.insert_or_ignore(
@@ -77,10 +77,10 @@ class TestDatastore(unittest.TestCase):
     def test_insert_or_update_update_scenario(self):
         worker.insert_or_update(
             self.session,
-            db.Conflicts, id = 5, level='bib')
+            db.Conflicts, id = 1, level='bib-ord')
         self.session.commit()
         res = self.session.execute('SELECT * FROM conflicts WHERE id = 5').first()
-        self.assertEqual(res.level, 'bib')
+        self.assertEqual(res.level, 'bib-ord')
 
 
 if __name__ == '__main__':
