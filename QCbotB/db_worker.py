@@ -35,7 +35,6 @@ def insert_or_update(session, model, **kwargs):
         for key, value in kwargs.iteritems():
             setattr(instance, key, value)
         session.add(instance)
-    return instance.id
 
 
 def insert_or_ignore(session, model, **kwargs):
@@ -65,7 +64,6 @@ def insert_or_ignore(session, model, **kwargs):
     if not instance:
         instance = model(**kwargs)
         session.add(instance)
-    return instance
 
 
 def delete_table_data(session, model):
