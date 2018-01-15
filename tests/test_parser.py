@@ -668,6 +668,7 @@ class TestParser(unittest.TestCase):
                 'mfi'), 'a')
 
     def test_parsing_of_row_of_sierra_report(self):
+        """fuctional tests of sierra report parser"""
         record = sierra_parser.report_data('report_test.txt').next()
         bib_keys = [x for x in record[0]]
         ord_keys = [x for x in record[1]]
