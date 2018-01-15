@@ -3,8 +3,11 @@ from sqlalchemy import (Column, ForeignKey, Integer, String, Boolean,
                         create_engine)
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.exc import IntegrityError
-import logging
 from datetime import datetime
+from contextlib import contextmanager
+import logging
+
+from bot_exceptions import DatastoreError
 
 
 module_logger = logging.getLogger('QCBtests')
@@ -73,7 +76,7 @@ class Conflicts(Base):
     __tablename__ = 'conflicts'
     id = Column(Integer, primary_key=True, autoincrement=False)
     level = Column(String, nullable=False)
-    code = Column(String, nullable=False)
+    code = Column(String, nullable=False, unique=True)
     desc = Column(String, nullable=False)
 
     def __repr__(self):
@@ -113,3 +116,18 @@ class DataAccessLayer:
 
 
 dal = DataAccessLayer()
+
+
+@contextmanager
+def session_scope():
+    """Provide a transactional scope around a series of operations."""
+    dal.connect()
+    session = dal.Session()
+    try:
+        yield session
+        session.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
