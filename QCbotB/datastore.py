@@ -86,18 +86,29 @@ class Tickets(Base):
     __tablename__ = 'tickets'
     id = Column(Integer, primary_key=True)
     timestamp = Column(String, nullable=False, default=datetime.now())
-    conflict_id = Column(Integer, ForeignKey('conflicts.id'), nullable=False)
     servicenow_id = Column(Integer)
     b_id = Column(Integer, nullable=False)
     title = Column(String, nullable=False)
     o_id = Column(Integer)
-    copies = Column(Integer)
+    copies = Column(Integer, nullable=False)  # use last order as default
 
     def __repr__(self):
-        return "<Tickets(id='%s', timestamp='%s', conflict_id='%s', " \
+        return "<Tickets(id='%s', timestamp='%s', " \
             "servicenow_id='%s', b_id='%s', title='%s', o_id='%s')>" % (
-                self.id, self.timestamp, self.conflict_id,
+                self.id, self.timestamp,
                 self.servicenow_id, self.b_id, self.title, self.o_id)
+
+
+class Tick_Conf_Joiner(Base):
+    __tablename__ = 'tick_conf_joiner'
+    t_id = Column(
+        Integer, ForeignKey('tickets.id'), primary_key=True)
+    c_id = Column(
+        Integer, ForeignKey('conflicts.id'), primary_key=True)
+
+    def __repr__(self):
+        return "<Ticket-Conflict-Joiner(t_id='%s', c_id='%s')>" % (
+            self.t_id, self.c_id)
 
 
 class DataAccessLayer:
