@@ -7,8 +7,6 @@ from datetime import datetime
 from contextlib import contextmanager
 import logging
 
-from bot_exceptions import DatastoreError
-
 
 module_logger = logging.getLogger('QCBtests')
 
