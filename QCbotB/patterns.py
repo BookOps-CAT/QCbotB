@@ -43,7 +43,9 @@ CTYPE = [
     [r'B\s[A-Z].*\s[A-Z]', 'bio'],
     [r'\d{3}.*\s[A-Z]{1}.*\s[A-Z]$|\d{3}.*[A-Z]{1}.*\s[A-Z]\d$', 'des'],
     [r'\d{3}', 'dew'],
-    [r'^MIFI DEVICE', 'mif']
+    [r'^MIFI DEVICE', 'mif'],
+    [r'^e[A-Z]', 'ere']
+
 ]
 
 CDEW = r'(\d{3})\s|(\d{3}\.\d{1,})\s'

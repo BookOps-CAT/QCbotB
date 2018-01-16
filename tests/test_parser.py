@@ -508,6 +508,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'MIFI DEVICE'), 'mif')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'eBOOK'), 'ere')
 
     def test_parse_call_cutter(self):
         self.assertIs(
