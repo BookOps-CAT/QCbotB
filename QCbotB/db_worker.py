@@ -16,11 +16,6 @@ def insert_or_update(session, model, **kwargs):
         name of table
     kwargs : dict
         values to be added or updated
-
-    returns
-    -------
-    Boolean
-        True if operation successful, False on failed
     """
 
     if 'id' in kwargs:
@@ -50,11 +45,6 @@ def insert_or_ignore(session, model, **kwargs):
         name of table
     kwargs: dict
         values to be entered to the table
-
-    returns
-    -------
-    int
-        returns id of added or already found record
     """
 
     if 'id' in kwargs:
