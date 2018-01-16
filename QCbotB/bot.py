@@ -21,8 +21,8 @@ fh = './files/sierra_test_list.txt'
 data_generator = report_data(fh)
 
 # since bibs and orders are somewhat vetted by the sierra_parser
-# it's ok to add them in bulk to datastore
-# if any exceptioned encountered the whole batch will be rolled back!
+# it's OK to add them in bulk to datastore
+# if any exception encountered the whole batch will be rolled back!
 try:
     with session_scope() as session:
         for record in data_generator:
@@ -36,7 +36,7 @@ except Exception as e:
 
 
 # update conflicts table and prepare queries
-# as above, if a problem encounted the whole session transactions
+# as above, if a problem encountered the whole session transactions
 # will be rolled back
 queries = dict()
 try:
