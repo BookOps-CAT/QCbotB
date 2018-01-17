@@ -36,40 +36,40 @@ except Exception as e:
 
 
 # update conflicts table and prepare queries
-# as above, if a problem encountered the whole session transactions
-# will be rolled back
+# this time enter each conflict in it's own session
+# so well formed queries can be used
 queries = dict()
-try:
-    with session_scope() as session:
-        conflicts = conflict2dict()
+conflicts = conflict2dict()
 
-        # update Conflict table in datastore
-        for conflict in conflicts:
-            queries[conflict['id']] = conflict['query']
-            conflict.pop('query', None)
-            insert_or_update(session, Conflicts, **conflict)
-except Exception as e:
-    main_logger.critical(
-        'unable to add data to datastore: {}, error: {}'.format(
-            conflict, e))
+# update Conflict table in datastore
+for conflict in conflicts:
+    queries[conflict['id']] = conflict['query']
+    conflict.pop('query', None)
+    try:
+        with session_scope() as session:
+            insert_or_update(session, Conflicts, **conflict)    
+    except Exception as e:
+        main_logger.critical(
+            'unable to add data to datastore: {}, error: {}'.format(
+                conflict, e))
 
 # run conflict queries and save errors in the datastore
 # will not run if conflicts.xml have problems
-try:
-    with session_scope() as session:
-        for id, query in queries.iteritems():
-            results = run_query(session, query)
-            for row in results:
-                ticket = dict(
-                    conflict_id=id,
-                    b_id=row.id,
-                    title=row.title,
-                    copies=row.copies)
-                insert_or_ignore(session, Tickets, **ticket)
-except Exception as e:
-    main_logger.critical(
-        'Unable to add data to datastore: {}, error: {}'.format(
-            ticket, e))
+# try:
+#     with session_scope() as session:
+#         for id, query in queries.iteritems():
+#             results = run_query(session, query)
+#             for row in results:
+#                 ticket = dict(
+#                     conflict_id=id,
+#                     b_id=row.id,
+#                     title=row.title,
+#                     copies=row.copies)
+#                 insert_or_ignore(session, Tickets, **ticket)
+# except Exception as e:
+#     main_logger.critical(
+#         'Unable to add data to datastore: {}, error: {}'.format(
+#             ticket, e))
 
 # # ToDo: report findings
 # # call servicenow_worker
