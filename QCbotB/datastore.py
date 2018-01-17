@@ -89,14 +89,15 @@ class Tickets(Base):
     servicenow_id = Column(Integer)
     b_id = Column(Integer, nullable=False)
     title = Column(String, nullable=False)
-    o_id = Column(Integer)
-    copies = Column(Integer, nullable=False)  # use last order as default
+
+    copies = relationship('Copies', cascade='all, delete-orphan')
+    conflicts = relationship('Tick_Conf_Joiner', cascade='all, delete-orphan')
 
     def __repr__(self):
         return "<Tickets(id='%s', timestamp='%s', " \
-            "servicenow_id='%s', b_id='%s', title='%s', o_id='%s')>" % (
+            "servicenow_id='%s', b_id='%s', title='%s')>" % (
                 self.id, self.timestamp,
-                self.servicenow_id, self.b_id, self.title, self.o_id)
+                self.servicenow_id, self.b_id, self.title)
 
 
 class Tick_Conf_Joiner(Base):
@@ -109,6 +110,19 @@ class Tick_Conf_Joiner(Base):
     def __repr__(self):
         return "<Ticket-Conflict-Joiner(t_id='%s', c_id='%s')>" % (
             self.t_id, self.c_id)
+
+
+class Copies(Base):
+    __tablename__ = 'copies'
+    t_id = Column(
+        Integer, ForeignKey('tickets.id'), primary_key=True)
+    o_id = Column(
+        Integer, primary_key=True, autoincrement=False)
+    copies = Column(Integer, default=0)
+
+    def __repr__(self):
+        return "<Copies(t_id='%s', o_id='%s', copies='%s')>" % (
+            self.t_id, self.o_id, self.copies)
 
 
 class DataAccessLayer:
