@@ -5,87 +5,131 @@
 <!--URL TO SCHEMA HERE-->
 <conflicts>
 	<error id = "1" code = "ErrA001" level = "bib">
-		<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 0 AND bibs.c_type != "fea" AND (bibs.c_type != "eas" AND bibs.author IS NULL)</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 0 AND bibs.c_type != "fea" AND (bibs.c_type != "eas" AND bibs.author IS NULL)</query>
 		<description>Missing cutter in the call number</description>
 	</error>
 	<error id = "2" code = "ErrA002" level = "bib">
-		<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE (bibs.b_call LIKE "%0" OR bibs.b_call LIKE "%1" OR bibs.b_call LIKE "%2" OR bibs.b_call LIKE "%3" OR bibs.b_call LIKE "%4" OR bibs.b_call LIKE "%5" OR bibs.b_call LIKE "%6" OR bibs.b_call LIKE "%7" OR bibs.b_call LIKE "%8" OR bibs.b_call LIKE "%9")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.b_call IS NOT NULL AND (bibs.b_call LIKE "%0" OR bibs.b_call LIKE "%1" OR bibs.b_call LIKE "%2" OR bibs.b_call LIKE "%3" OR bibs.b_call LIKE "%4" OR bibs.b_call LIKE "%5" OR bibs.b_call LIKE "%6" OR bibs.b_call LIKE "%7" OR bibs.b_call LIKE "%8" OR bibs.b_call LIKE "%9")</query>
 		<description>Call number cutter is a digit</description>
 	</error>
 	<error id = "3" code = "ErrA003" level = "bib">
-		<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 1 AND bibs.c_type = "eas" AND bibs.author IS NULL</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_cutter = 1 AND bibs.c_type = "eas" AND bibs.author IS NULL</query>
 		<description>J-E title entry book with a cutter in the call number</description>
 	</error>
 	<error id = "4" code = "ErrA004" level = "bib">
-		<query>SELECT bibs.id, title, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey NOT NULL AND bibs.c_dewey LIKE "%0" AND bibs.c_dewey LIKE "%.%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey NOT NULL AND bibs.c_dewey LIKE "%0" AND bibs.c_dewey LIKE "%.%"</query>
 		<description>Trailing zero in Dewey number in the call number</description>
 	</error>
 	<error id = "5" code = "ErrA005" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "81%" AND bibs.c_dewey NOT LIKE "81_.0%" AND (bibs.c_dewey LIKE "811.%" OR bibs.c_dewey LIKE "812.%" OR bibs.c_dewey LIKE "813.%" OR bibs.c_dewey LIKE "814.%" OR bibs.c_dewey LIKE "815.%" OR bibs.c_dewey LIKE "816.%" OR bibs.c_dewey LIKE "817.%" OR bibs.c_dewey LIKE "818.%" OR bibs.c_dewey LIKE "810.800_%" OR bibs.c_dewey LIKE "810.900_%")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "81%" AND bibs.c_dewey NOT LIKE "81_.0%" AND (bibs.c_dewey LIKE "811.%" OR bibs.c_dewey LIKE "812.%" OR bibs.c_dewey LIKE "813.%" OR bibs.c_dewey LIKE "814.%" OR bibs.c_dewey LIKE "815.%" OR bibs.c_dewey LIKE "816.%" OR bibs.c_dewey LIKE "817.%" OR bibs.c_dewey LIKE "818.%" OR bibs.c_dewey LIKE "810.800_%" OR bibs.c_dewey LIKE "810.900_%")</query>
 		<description>Time period in American Literature</description>
 	</error>
 	<error id = "6" code ="ErrA006" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "82%" AND bibs.c_dewey NOT LIKE "82_.0%" AND bibs.c_dewey NOT LIKE "822.33%" AND (bibs.c_dewey LIKE "821.%" OR bibs.c_dewey LIKE "822.%" OR bibs.c_dewey LIKE "823.%" OR bibs.c_dewey LIKE "824.%" OR bibs.c_dewey LIKE "825.%" OR bibs.c_dewey LIKE "826.%" OR bibs.c_dewey LIKE "827.%" OR bibs.c_dewey LIKE "828.%" OR bibs.c_dewey LIKE "820.800_%" OR bibs.c_dewey LIKE "820.900_%")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "82%" AND bibs.c_dewey NOT LIKE "82_.0%" AND bibs.c_dewey NOT LIKE "822.33%" AND (bibs.c_dewey LIKE "821.%" OR bibs.c_dewey LIKE "822.%" OR bibs.c_dewey LIKE "823.%" OR bibs.c_dewey LIKE "824.%" OR bibs.c_dewey LIKE "825.%" OR bibs.c_dewey LIKE "826.%" OR bibs.c_dewey LIKE "827.%" OR bibs.c_dewey LIKE "828.%" OR bibs.c_dewey LIKE "820.800_%" OR bibs.c_dewey LIKE "820.900_%")</query>
 		<description>Time period in English Literature</description>
 	</error>
 	<error id = "7" code = "ErrA007" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "86%" AND bibs.c_dewey NOT LIKE "86_.0%" AND (bibs.c_dewey LIKE "861.%" OR bibs.c_dewey LIKE "862.%" OR bibs.c_dewey LIKE "863.%" OR bibs.c_dewey LIKE "864.%" OR bibs.c_dewey LIKE "865.%" OR bibs.c_dewey LIKE "866.%" OR bibs.c_dewey LIKE "867.%" OR bibs.c_dewey LIKE "868.%" OR bibs.c_dewey LIKE "860.800_%" OR bibs.c_dewey LIKE "860.900_%")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "86%" AND bibs.c_dewey NOT LIKE "86_.0%" AND (bibs.c_dewey LIKE "861.%" OR bibs.c_dewey LIKE "862.%" OR bibs.c_dewey LIKE "863.%" OR bibs.c_dewey LIKE "864.%" OR bibs.c_dewey LIKE "865.%" OR bibs.c_dewey LIKE "866.%" OR bibs.c_dewey LIKE "867.%" OR bibs.c_dewey LIKE "868.%" OR bibs.c_dewey LIKE "860.800_%" OR bibs.c_dewey LIKE "860.900_%")</query>
 		<description>Time period in Spanish Literature</description>
 	</error>
 	<error id = "8" code = "ErrA008" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "895.1%" AND bibs.c_dewey NOT LIKE "895.10%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "895.1%" AND bibs.c_dewey NOT LIKE "895.10%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%")</query>
 		<description>Time period in Chinese Literature</description>
 	</error>
 	<error id = "9" code = "ErrA009" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%")</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%")</query>
 		<description>Time period in Russian Literature</description>
 	</error>
 	<error id = "10" code = "ErrA010" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "81_.09%" OR bibs.c_dewey LIKE "81_.08%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "81_.09%" OR bibs.c_dewey LIKE "81_.08%"</query>
 		<description>Incorrect Dewey for criticism/collection of American literary genre; use 81x.009x or 81x.008x instead</description>
 	</error>
 	<error id = "11" code = "ErrA011" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "82_.09%" OR bibs.c_dewey LIKE "82_.08%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "82_.09%" OR bibs.c_dewey LIKE "82_.08%"</query>
 		<description>Incorrect Dewey for ciriticsm/collection of English literary genre; use 82x.009x or 82x.008x instead</description>
 	</error>
 	<error id = "12" code = "ErrA012" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_dewey LIKE "86_.09%" OR bibs.c_dewey LIKE "86_.08%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "86_.09%" OR bibs.c_dewey LIKE "86_.08%"</query>
 		<description>Incorrect Dewey for ciriticsm/collection of English literary genre; use 86x.009x or 86x.008x instead</description>
 	</error>
 	<error id = "13" code = "ErrA013" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.b_lang NOT LIKE "%" || bibs.c_lang || "%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.b_lang NOT LIKE "%" || bibs.c_lang || "%"</query>
 		<description>Incorrect language prefix in the call number or incorrect languge codes in bib</description>
 	</error>
 	<error id = "14" code = "ErrA014" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_type != "des" AND (bibs.c_dewey = "005.133" OR bibs.c_dewey = "005.262" OR bibs.c_dewey = "005.252") AND bibs.subjects LIKE "%(Computer program language)%"</query>
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "des" AND (bibs.c_dewey = "005.133" OR bibs.c_dewey = "005.262" OR bibs.c_dewey = "005.252") AND bibs.subjects LIKE "%(Computer program language)%"</query>
 		<description>Missing computer language name in the call number, example: 005.133 PYTHON D</description>
 	</error>
-	<error id = "15" code = "ErrA014" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_type != "des" and bibs.c_dewey = "004.1675" AND (bibs.subjects LIKE "%(Electronic book reader)%" OR bibs.subjects LIKE "%(Computer)%" OR bibs.subjects LIKE "%(Smartphone)%")</query>
+	<error id = "15" code = "ErrA015" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "des" and bibs.c_dewey = "004.1675" AND (bibs.subjects LIKE "%(Electronic book reader)%" OR bibs.subjects LIKE "%(Computer)%" OR bibs.subjects LIKE "%(Smartphone)%")</query>
 		<description>Missing device name in the call number, example: 004.1675 IPHONE D</description>
 	</error>
-	<error id = "16" code = "ErrA014" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_type != "des" AND (bibs.c_dewey = "005.268" OR bibs.c_dewey = "005.258") AND bibs.subjects LIKE "%(Electronic resource)%"</query>
+	<error id = "16" code = "ErrA016" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "des" AND (bibs.c_dewey = "005.268" OR bibs.c_dewey = "005.258") AND bibs.subjects LIKE "%(Electronic resource)%"</query>
 		<description>Missing name of operating system in the call number; example: 005.258 IOS F</description>
 	</error>
-	<error id = "17" code = "ErrA014" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_type != "des" AND bibs.c_dewey LIKE "19%" AND (bibs.subject_person IS NOT NULL OR bibs.crit_work = 1)</query>
+	<error id = "17" code = "ErrA017" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "des" AND bibs.c_dewey LIKE "19%" AND (bibs.subject_person IS NOT NULL OR bibs.crit_work = 1)</query>
 		<description>Missing philosopher name in the call number; example 193 KANT D</description>
 	</error>
-	<error id = "18" code = "ErrA014" level = "bib">
-		<query>SELECT * FROM bibs WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.b_format = "print" OR bibs.b_format = "audio") AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%")</query>
+	<error id = "18" code = "ErrA018" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.b_format = "print" OR bibs.b_format = "audio") AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%")</query>
 		<description>Likely FIC call number not coded as such</description>
 	</error>
-	<error id = "19" code = "ErrA014" level = "bib">
-		<query></query>
-		<description></description>
+	<error id = "19" code = "ErrA019" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type != "des" AND bibs.c_dewey LIKE "8%" AND bibs.crit_work = 1 AND bibs.subject_person IS NOT NULL</query>
+		<description>Criticism of works of author missing authors name in call number, example: 813 ASIMOV A</description>
 	</error>
-	<error id = "20" code = "ErrA014" level = "bib">
-		<query></query>
-		<description></description>
+	<error id = "20" code = "ErrA020" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type = "fic" AND bibs.author IS NOT NULL AND bibs.subject_person IS NOT NULL AND (bibs.title like "%annotated%" OR bibs.crit_work = 1)</query>
+		<description>Likely annotated fiction edition - consider Dewey instead</description>
 	</error>
-	<error id = "21" code = "ErrA014" level = "bib">
-		<query></query>
-		<description></description>
+	<error id = "21" code = "ErrA021" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.subjects NOT LIKE "%Quotations.%"</query>
+		<description>Incorrect call number for Shakespeare individual work</description>
+	</error>
+	<error id = "22" code = "ErrA022" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 H" AND bibs.subjects LIKE "%Quotations.%"</query>
+		<description>Shakespeare quotiation/maxims with incorrect call number, example 822.33 S52 H</description>
+	</error>
+	<error id = "23" code = "ErrA023" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.crit_work = 1 AND bibs.subject_person = "SHAKESPEARE" AND (bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 D _" AND bibs.b_call NOT LIKE "822.33 S52 E _")</query>
+		<description>Shakespeare criticism with incorrect call number</description>
+	</error>
+	<error id = "24" code = "ErrA024" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.b_format = "score" AND (bibs.c_format != "mu" OR bibs.b_call NOT LIKE "Mu %")</query>
+		<description>Score not classed with Mu prefix</description>
+	</error>
+	<error id = "25" code = "ErrA025" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.subjects NOT LIKE "%Guidebooks.%"</query>
+		<description>Likely not guidebook classed in 911-919 range reserved for guidebooks; class in history instead</description>
+	</error>
+	<error id = "26" code = "ErrA026" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_dewey LIKE "220.5%" AND bibs.b_call NOT LIKE "%B52 _%"</query>
+		<description>Bible missing B52 element in the call number, example: 220.5203 B582 HG</description>
+	</error>
+	<error id = "27" code = "ErrA027" level = "bib">
+		<query>SELECT bibs.id AS b_id, title, orders.id, copies AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.author = "DAVIS" and bibs.subjects LIKE "%Garfield%" AND bibs.b_call NOT LIKE "741.5973 D"</query>
+		<description>Garfield comic strips not in 741.5973</description>
+	</error>
+	<error id = "28" code = "ErrB001" level = "bib">
+		<query>SELECT bibs.id AS b_id, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_audn = "e" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%er%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%cp%"</query>
+		<description>J-E call number does not corresponds to correct order shelf location(s)</description>
+	</error>
+	<error id = "29" code = "ErrB002" level = "bib">
+		<query>SELECT bibs.id AS b_id, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE orders.o_branch LIKE "%02%" AND bibs.c_audn IS NOT "e" AND bibs.c_audn IS NOT "j"</query>
+		<description>Central Library Children's Division in order location without juvenile call number (J-E or J)</description>
+	</error>
+	<error id = "30" code = "ErrB003" level = "bib">
+		<query>SELECT bibs.id AS b_id, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_audn = "j" AND orders.o_shelf IS NOT NULL AND (orders.o_audn != "j" OR orders.o_shelf = "je" OR orders.o_shelf = "er") AND (orders.o_shelf != "li" OR orders.o_shelf != 'cp' OR orders.o_shelf != 'cd')</query>
+		<description>General juvenile call number does not corresponds to order shelf location(s)</description>
+	</error>
+	<error id = "31" code = "ErrB004" level = "bib">
+		<query>SELECT bibs.id AS b_id, orders.id AS o_id, copies FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf != "cp"</query>
+		<description>Adult/Young Adult call number with incorrect order shelf location(s)</description>
+	</error>
+	<error id = "32" code = "ErrB005" level = "bib">
+		<query>SELECT bibs.id AS b_id, orders.id AS o_id, copies, * FROM bibs JOIN orders ON orders.b_id = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf != "bi" AND orders.o_shelf != "wl" AND orders.o_shelf != "nb"</query>
+		<description>Biography call number with incorrect order shelf location(s)</description>
 	</error>
 </conflicts>
