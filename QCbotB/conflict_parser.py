@@ -44,10 +44,10 @@ def conflict2dict(conflicts_file=None):
         root = tree.getroot()
         for error in root:
             try:
-                level = error.attrib['level']
-                id = error.attrib['id']
+                tier = error.attrib['tier']
+                cid = error.attrib['id']
                 code = error.attrib['code']
-                desc = error.find('description').text
+                description = error.find('description').text
                 query = error.find('query').text
             except AttributeError:
                 module_logger.critical(
@@ -55,7 +55,7 @@ def conflict2dict(conflicts_file=None):
                 continue
 
             try:
-                id = int(error.attrib['id'])
+                cid = int(error.attrib['id'])
             except TypeError:
                 module_logger.critical(
                     'TypeError on id in "conflicts.xml", '
@@ -65,11 +65,11 @@ def conflict2dict(conflicts_file=None):
                         error.attrib['id']))
                 continue
             conflicts.append(dict(
-                id=id,
+                id=cid,
                 code=code,
-                desc=desc,
+                description=description,
                 query=query,
-                level=level))
+                tier=tier))
         return conflicts
     else:
         return []

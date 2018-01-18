@@ -54,7 +54,7 @@ class Bibs(Base):
 class Orders(Base):
     __tablename__ = 'orders'
     id = Column(Integer, primary_key=True, autoincrement=False)
-    b_id = Column(Integer, ForeignKey('bibs.id'), nullable=False)
+    bid = Column(Integer, ForeignKey('bibs.id'), nullable=False)
     o_date = Column(String, nullable=False)
     o_branch = Column(String, nullable=False)
     o_shelf = Column(String)
@@ -63,23 +63,23 @@ class Orders(Base):
     ven_note = Column(String)
 
     def __repr__(self):
-        return "<Order(id='o%sa', b_id='b%sa', o_date='%s', " \
+        return "<Order(id='o%sa', bid='b%sa', o_date='%s', " \
             "o_branch='%s', o_shelf='%s', o_audn='%s', copies='%s', " \
             "ven_note='%s')>" % (
-                self.id, self.b_id, self.o_date, self.o_branch,
+                self.id, self.bid, self.o_date, self.o_branch,
                 self.o_shelf, self.o_audn, self.copies, self.ven_note)
 
 
 class Conflicts(Base):
     __tablename__ = 'conflicts'
     id = Column(Integer, primary_key=True, autoincrement=False)
-    level = Column(String, nullable=False)
+    tier = Column(String, nullable=False)
     code = Column(String, nullable=False, unique=True)
-    desc = Column(String, nullable=False)
+    description = Column(String, nullable=False)
 
     def __repr__(self):
         return "<Conflicts(id='%s', level='%s', code='%s', desc='%s')>" % (
-            self.id, self.level, self.code, self.desc)
+            self.id, self.tier, self.code, self.description)
 
 
 class Tickets(Base):
@@ -87,7 +87,7 @@ class Tickets(Base):
     id = Column(Integer, primary_key=True)
     timestamp = Column(String, nullable=False, default=datetime.now())
     servicenow_id = Column(Integer)
-    b_id = Column(Integer, nullable=False)
+    bid = Column(Integer, nullable=False)
     title = Column(String, nullable=False)
     fixed = Column(Boolean, default=False)
 
@@ -96,33 +96,33 @@ class Tickets(Base):
 
     def __repr__(self):
         return "<Tickets(id='%s', timestamp='%s', " \
-            "servicenow_id='%s', b_id='%s', title='%s')>" % (
+            "servicenow_id='%s', bid='%s', title='%s')>" % (
                 self.id, self.timestamp,
-                self.servicenow_id, self.b_id, self.title)
+                self.servicenow_id, self.bid, self.title)
 
 
 class TickConfJoiner(Base):
     __tablename__ = 'tick_conf_joiner'
-    t_id = Column(
+    tid = Column(
         Integer, ForeignKey('tickets.id'), primary_key=True)
-    c_id = Column(
+    cid = Column(
         Integer, ForeignKey('conflicts.id'), primary_key=True)
 
     def __repr__(self):
-        return "<Ticket-Conflict-Joiner(t_id='%s', c_id='%s')>" % (
-            self.t_id, self.c_id)
+        return "<Ticket-Conflict-Joiner(tid='%s', cid='%s')>" % (
+            self.tid, self.cid)
 
 
 class Copies(Base):
     __tablename__ = 'copies'
-    t_id = Column(
+    tid = Column(
         Integer, ForeignKey('tickets.id'), primary_key=True)
-    o_id = Column(
+    oid = Column(
         Integer, primary_key=True, autoincrement=False)
     copies = Column(Integer, default=0)
 
     def __repr__(self):
-        return "<Copies(t_id='%s', o_id='%s', copies='%s')>" % (
+        return "<Copies(tid='%s', oid='%s', copies='%s')>" % (
             self.t_id, self.o_id, self.copies)
 
 

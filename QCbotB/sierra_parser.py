@@ -396,13 +396,13 @@ def report_data(fh):
             counter += 1
 
             try:
-                b_id = verify_bib_id(row[0], counter)
+                bid = verify_bib_id(row[0], counter)
                 b_date = parse_dates(row[1], counter)
                 o_date = parse_dates(row[12], counter)
-                o_id = verify_ord_id(row[11], counter)
+                oid = verify_ord_id(row[11], counter)
 
                 # skip rows with incomplete data
-                if b_id is None or b_date is None or o_id is None or \
+                if bid is None or b_date is None or oid is None or \
                         o_date is None:
                     continue
 
@@ -418,7 +418,7 @@ def report_data(fh):
 
                 yield (
                     dict(
-                        id=b_id,
+                        id=bid,
                         b_date=b_date,
                         b_type=b_type,
                         title=parse_title(row[3]),
@@ -439,8 +439,8 @@ def report_data(fh):
                         b_format=find_bib_format(
                             b_type, row[6], subjects, counter)),
                     dict(
-                        id=o_id,
-                        b_id=b_id,
+                        id=oid,
+                        bid=bid,
                         o_date=o_date,
                         o_branch=parse_branches(row[13], counter),
                         o_shelf=parse_o_shelf(parse_shelves(row[13], counter)),

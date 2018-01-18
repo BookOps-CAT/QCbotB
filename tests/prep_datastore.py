@@ -661,7 +661,7 @@ def enter_test_data(session):
     session.commit()
 
     c1 = db.Orders(
-        b_id=1,
+        bid=1,
         o_branch=u'14,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,48,49,50,51,52,53,55,56,57,60,61,62,65,66,67,69,70,71,72,74,76,77,78,79,80,81,82,83,85,87',
         copies=59,
         o_date=datetime.datetime(2017, 7, 20, 0, 0),
@@ -670,7 +670,7 @@ def enter_test_data(session):
         ven_note=None,
         id=1)
     c2 = db.Orders(
-        b_id=2,
+        bid=2,
         o_branch=u'16,43,55,78,79,87',
         copies=6,
         o_date=datetime.datetime(2017, 7, 24, 0, 0),
@@ -679,7 +679,7 @@ def enter_test_data(session):
         ven_note=None,
         id=2)
     c3 = db.Orders(
-        b_id=3,
+        bid=3,
         o_branch=u'24,42,51',
         copies=3,
         o_date=datetime.datetime(2017, 8, 3, 0, 0),
@@ -688,7 +688,7 @@ def enter_test_data(session):
         ven_note=u'n',
         id=3)
     c4 = db.Orders(
-        b_id=4,
+        bid=4,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -697,7 +697,7 @@ def enter_test_data(session):
         ven_note=None,
         id=4)
     c5 = db.Orders(
-        b_id=5,
+        bid=5,
         o_branch=u'51,55,67',
         copies=3,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -706,7 +706,7 @@ def enter_test_data(session):
         ven_note=None,
         id=5)
     c6 = db.Orders(
-        b_id=6,
+        bid=6,
         o_branch=u'44,51,55,67,71,74,82',
         copies=7,
         o_date=datetime.datetime(2017, 8, 14, 0, 0),
@@ -715,7 +715,7 @@ def enter_test_data(session):
         ven_note=None,
         id=6)
     c7 = db.Orders(
-        b_id=33,
+        bid=33,
         o_branch=u'44,51,55,67,71,74,82',
         copies=7,
         o_date=datetime.datetime(2017, 8, 14, 0, 0),
@@ -724,7 +724,7 @@ def enter_test_data(session):
         ven_note=None,
         id=7)
     c8 = db.Orders(
-        b_id=7,
+        bid=7,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -733,7 +733,7 @@ def enter_test_data(session):
         ven_note=None,
         id=8)
     c9 = db.Orders(
-        b_id=8,
+        bid=8,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -743,7 +743,7 @@ def enter_test_data(session):
         id=9)
     c10 = db.Orders(
         id=10,
-        b_id=9,
+        bid=9,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -752,7 +752,7 @@ def enter_test_data(session):
         ven_note=None)
     c11 = db.Orders(
         id=11,
-        b_id=10,
+        bid=10,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -761,7 +761,7 @@ def enter_test_data(session):
         ven_note=None)
     c12 = db.Orders(
         id=12,
-        b_id=11,
+        bid=11,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -770,7 +770,7 @@ def enter_test_data(session):
         ven_note=None)
     c13 = db.Orders(
         id=13,
-        b_id=12,
+        bid=12,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -779,7 +779,7 @@ def enter_test_data(session):
         ven_note=None)
     c14 = db.Orders(
         id=14,
-        b_id=13,
+        bid=13,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -788,7 +788,7 @@ def enter_test_data(session):
         ven_note=None)
     c15 = db.Orders(
         id=15,
-        b_id=14,
+        bid=14,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -797,7 +797,7 @@ def enter_test_data(session):
         ven_note=None)
     c16 = db.Orders(
         id=16,
-        b_id=15,
+        bid=15,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -806,7 +806,7 @@ def enter_test_data(session):
         ven_note=None)
     c17 = db.Orders(
         id=17,
-        b_id=16,
+        bid=16,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -815,7 +815,7 @@ def enter_test_data(session):
         ven_note=None)
     c18 = db.Orders(
         id=18,
-        b_id=17,
+        bid=17,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -824,7 +824,7 @@ def enter_test_data(session):
         ven_note=None)
     c19 = db.Orders(
         id=19,
-        b_id=18,
+        bid=18,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -833,7 +833,7 @@ def enter_test_data(session):
         ven_note=None)
     c20 = db.Orders(
         id=20,
-        b_id=19,
+        bid=19,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -842,7 +842,7 @@ def enter_test_data(session):
         ven_note=None)
     c21 = db.Orders(
         id=21,
-        b_id=20,
+        bid=20,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -851,7 +851,7 @@ def enter_test_data(session):
         ven_note=None)
     c22 = db.Orders(
         id=22,
-        b_id=21,
+        bid=21,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -860,7 +860,7 @@ def enter_test_data(session):
         ven_note=None)
     c23 = db.Orders(
         id=23,
-        b_id=22,
+        bid=22,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -869,7 +869,7 @@ def enter_test_data(session):
         ven_note=None)
     c24 = db.Orders(
         id=24,
-        b_id=23,
+        bid=23,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -878,7 +878,7 @@ def enter_test_data(session):
         ven_note=None)
     c25 = db.Orders(
         id=25,
-        b_id=24,
+        bid=24,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -887,7 +887,7 @@ def enter_test_data(session):
         ven_note=None)
     c26 = db.Orders(
         id=26,
-        b_id=25,
+        bid=25,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -896,7 +896,7 @@ def enter_test_data(session):
         ven_note=None)
     c27 = db.Orders(
         id=27,
-        b_id=26,
+        bid=26,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -905,7 +905,7 @@ def enter_test_data(session):
         ven_note=None)
     c28 = db.Orders(
         id=28,
-        b_id=27,
+        bid=27,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -914,7 +914,7 @@ def enter_test_data(session):
         ven_note=None)
     c29 = db.Orders(
         id=29,
-        b_id=28,
+        bid=28,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -923,7 +923,7 @@ def enter_test_data(session):
         ven_note=None)
     c30 = db.Orders(
         id=30,
-        b_id=29,
+        bid=29,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -932,7 +932,7 @@ def enter_test_data(session):
         ven_note=None)
     c31 = db.Orders(
         id=31,
-        b_id=30,
+        bid=30,
         o_branch=u'14',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -941,7 +941,7 @@ def enter_test_data(session):
         ven_note=None)
     c32 = db.Orders(
         id=32,
-        b_id=31,
+        bid=31,
         o_branch=u'13',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -950,7 +950,7 @@ def enter_test_data(session):
         ven_note=None)
     c33 = db.Orders(
         id=33,
-        b_id=32,
+        bid=32,
         o_branch=u'02',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -959,7 +959,7 @@ def enter_test_data(session):
         ven_note=None)
     c34 = db.Orders(
         id=34,
-        b_id=33,
+        bid=33,
         o_branch=u'02',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -968,7 +968,7 @@ def enter_test_data(session):
         ven_note=None)
     c35 = db.Orders(
         id=35,
-        b_id=33,
+        bid=33,
         o_branch=u'02',
         copies=1,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -977,7 +977,7 @@ def enter_test_data(session):
         ven_note=None)
     c36 = db.Orders(
         id=36,
-        b_id=24,
+        bid=24,
         o_branch=u'02, 21',
         copies=2,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -986,7 +986,7 @@ def enter_test_data(session):
         ven_note=None)
     c37 = db.Orders(
         id=37,
-        b_id=24,
+        bid=24,
         o_branch=u'02, 21',
         copies=2,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -995,7 +995,7 @@ def enter_test_data(session):
         ven_note=None)
     c38 = db.Orders(
         id=38,
-        b_id=17,
+        bid=17,
         o_branch=u'02, 21',
         copies=2,
         o_date=datetime.datetime(2017, 8, 11, 0, 0),
@@ -1013,18 +1013,18 @@ def enter_test_data(session):
 
     e1 = db.Conflicts(
         id=1,
-        level='bib',
+        tier='bib',
         code='ErrA001',
-        desc='Test1')
+        description='Test1')
     e2 = db.Conflicts(
         id=2,
-        level='bib',
+        tier='bib',
         code='ErrA002',
-        desc='Test2')
+        description='Test2')
     e3 = db.Conflicts(
         id=3,
-        level='bib',
+        tier='bib',
         code='ErrA003',
-        desc='Test3')
+        description='Test3')
     session.bulk_save_objects([e1, e2, e3])
     session.commit()

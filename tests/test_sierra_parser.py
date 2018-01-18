@@ -684,7 +684,7 @@ class TestParser(unittest.TestCase):
             'subject_person', 'c_cutter', 'subjects', 'b_format',
             'c_division', 'b_lang', 'crit_work', 'b_call'])
         self.assertEqual(ord_keys, [
-            'b_id', 'o_branch', 'copies', 'o_date', 'o_audn',
+            'bid', 'o_branch', 'copies', 'o_date', 'o_audn',
             'o_shelf', 'ven_note', 'id'])
 
 
