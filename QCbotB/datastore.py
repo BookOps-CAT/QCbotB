@@ -89,9 +89,10 @@ class Tickets(Base):
     servicenow_id = Column(Integer)
     b_id = Column(Integer, nullable=False)
     title = Column(String, nullable=False)
+    fixed = Column(Boolean, default=False)
 
     copies = relationship('Copies', cascade='all, delete-orphan')
-    conflicts = relationship('Tick_Conf_Joiner', cascade='all, delete-orphan')
+    conflicts = relationship('TickConfJoiner', cascade='all, delete-orphan')
 
     def __repr__(self):
         return "<Tickets(id='%s', timestamp='%s', " \
@@ -100,7 +101,7 @@ class Tickets(Base):
                 self.servicenow_id, self.b_id, self.title)
 
 
-class Tick_Conf_Joiner(Base):
+class TickConfJoiner(Base):
     __tablename__ = 'tick_conf_joiner'
     t_id = Column(
         Integer, ForeignKey('tickets.id'), primary_key=True)
