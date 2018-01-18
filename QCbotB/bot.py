@@ -47,29 +47,34 @@ for conflict in conflicts:
     conflict.pop('query', None)
     try:
         with session_scope() as session:
-            insert_or_update(session, Conflicts, **conflict)    
+            insert_or_update(session, Conflicts, **conflict)
     except Exception as e:
         main_logger.critical(
             'unable to add data to datastore: {}, error: {}'.format(
                 conflict, e))
 
 # run conflict queries and save errors in the datastore
-# will not run if conflicts.xml have problems
-# try:
-#     with session_scope() as session:
-#         for id, query in queries.iteritems():
-#             results = run_query(session, query)
-#             for row in results:
-#                 ticket = dict(
-#                     conflict_id=id,
-#                     b_id=row.id,
-#                     title=row.title,
-#                     copies=row.copies)
-#                 insert_or_ignore(session, Tickets, **ticket)
-# except Exception as e:
-#     main_logger.critical(
-#         'Unable to add data to datastore: {}, error: {}'.format(
-#             ticket, e))
+for cid, query in queries.iteritems():
+    try:
+        with session_scope() as session:
+            # print cid, query
+            results = run_query(session, query)
+            for row in results:
+                print row
+                ticket = dict(
+                    b_id=row.b_id,
+                    title=row.title)
+                tid = insert_or_ignore(session, Tickets, **ticket)
+                print 'id: {}'.format(tid)
+                joiner = dict(
+                    t_id=tid,
+                    c_id=cid)
+                insert_or_ignore(session, TickConfJoiner, **joiner)
+
+    except Exception as e:
+        main_logger.critical(
+            'Unable to add data to datastore, error: {}'.format(
+                e))
 
 # # ToDo: report findings
 # # call servicenow_worker
