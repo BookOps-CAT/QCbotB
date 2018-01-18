@@ -6,7 +6,7 @@ from logging_setup import LOGGING
 from sierra_parser import report_data
 from db_worker import (insert_or_ignore, delete_table_data, insert_or_update,
                        run_query)
-from datastore import Bibs, Orders, Conflicts, Tickets, session_scope
+from datastore import Bibs, Orders, Conflicts, Tickets, TickConfJoiner, session_scope
 from conflict_parser import conflict2dict
 
 logging.config.dictConfig(LOGGING)
@@ -60,15 +60,16 @@ for cid, query in queries.iteritems():
             # print cid, query
             results = run_query(session, query)
             for row in results:
-                print row
-                ticket = dict(
-                    b_id=row.b_id,
+                # print row
+                tic = dict(
+                    bid=row.bid,
                     title=row.title)
-                tid = insert_or_ignore(session, Tickets, **ticket)
-                print 'id: {}'.format(tid)
+                ticket = insert_or_ignore(session, Tickets, **tic)
+                session.flush()
+                # print 'id: {}'.format(ticket.id)
                 joiner = dict(
-                    t_id=tid,
-                    c_id=cid)
+                    tid=ticket.id,
+                    cid=cid)
                 insert_or_ignore(session, TickConfJoiner, **joiner)
 
     except Exception as e:
