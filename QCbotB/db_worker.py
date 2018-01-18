@@ -54,6 +54,7 @@ def insert_or_ignore(session, model, **kwargs):
     if not instance:
         instance = model(**kwargs)
         session.add(instance)
+    return instance
 
 
 def delete_table_data(session, model):
