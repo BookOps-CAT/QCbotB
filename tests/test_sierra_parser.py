@@ -669,6 +669,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_ord_audn(
                 'mfi'), 'a')
+        self.assertIsNone(
+            sierra_parser.parse_ord_audn(
+                ''))
 
     def test_parsing_of_row_of_sierra_report(self):
         """fuctional tests of sierra report parser"""
