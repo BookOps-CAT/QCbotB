@@ -113,23 +113,23 @@
 		<description>Garfield comic strips not in 741.5973</description>
 	</error>
 	<error id = "28" code = "ErrB001" tier = "bib">
-		<query>SELECT bibs.id AS bid, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "e" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%er%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%cp%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "e" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%er%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%cp%"</query>
 		<description>J-E call number does not corresponds to correct order shelf location(s)</description>
 	</error>
 	<error id = "29" code = "ErrB002" tier = "bib">
-		<query>SELECT bibs.id AS bid, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%02%" AND bibs.c_audn IS NOT "e" AND bibs.c_audn IS NOT "j"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%02%" AND bibs.c_audn IS NOT "e" AND bibs.c_audn IS NOT "j"</query>
 		<description>Central Library Children's Division in order location without juvenile call number (J-E or J)</description>
 	</error>
 	<error id = "30" code = "ErrB003" tier = "bib">
-		<query>SELECT bibs.id AS bid, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "j" AND orders.o_shelf IS NOT NULL AND (orders.o_audn != "j" OR orders.o_shelf = "je" OR orders.o_shelf = "er") AND (orders.o_shelf != "li" OR orders.o_shelf != 'cp' OR orders.o_shelf != 'cd')</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "j" AND orders.o_shelf IS NOT NULL AND (orders.o_audn != "j" OR orders.o_shelf = "je" OR orders.o_shelf = "er") AND (orders.o_shelf != "li" OR orders.o_shelf != 'cp' OR orders.o_shelf != 'cd')</query>
 		<description>General juvenile call number does not corresponds to order shelf location(s)</description>
 	</error>
 	<error id = "31" code = "ErrB004" tier = "bib">
-		<query>SELECT bibs.id AS bid, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf != "cp"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf != "cp"</query>
 		<description>Adult/Young Adult call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "32" code = "ErrB005" tier = "bib">
-		<query>SELECT bibs.id AS bid, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf != "bi" AND orders.o_shelf != "wl" AND orders.o_shelf != "nb"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf != "bi" AND orders.o_shelf != "wl" AND orders.o_shelf != "nb"</query>
 		<description>Biography call number with incorrect order shelf location(s)</description>
 	</error>
 </conflicts>
