@@ -53,7 +53,7 @@
 		<description>Incorrect Dewey for ciriticsm/collection of English literary genre; use 86x.009x or 86x.008x instead</description>
 	</error>
 	<error id = "13" code = "ErrA013" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_lang NOT LIKE "%" || bibs.c_lang || "%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_lang NOT LIKE "%" || bibs.c_lang || "%" AND bibs.c_type != "cdm"</query>
 		<description>Incorrect language prefix in the call number or incorrect languge codes in bib</description>
 	</error>
 	<error id = "14" code = "ErrA014" tier = "bib">
