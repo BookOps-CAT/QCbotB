@@ -511,6 +511,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'eBOOK'), 'ere')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'CD WORLD JEWISH SHWEKEY'), 'cdm')
 
     def test_parse_call_cutter(self):
         self.assertIs(
@@ -548,6 +551,9 @@ class TestParser(unittest.TestCase):
                 'J FIC'), False)
         self.assertIs(
             sierra_parser.parse_call_cutter(
+                'FIC'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
                 'J B'), False)
         self.assertIs(
             sierra_parser.parse_call_cutter(
@@ -564,6 +570,27 @@ class TestParser(unittest.TestCase):
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 'eBOOK'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '658.058 D598'), True)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'DVD J 919 D'), True)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'DVD J 919.34'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '823.33 S52'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '823.33 S52 A B'), True)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '226.607 B582'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '226.607 B582 C'), True)
 
     def test_parse_dewey(self):
         self.assertEqual(

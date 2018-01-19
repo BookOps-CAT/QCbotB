@@ -44,13 +44,13 @@ CTYPE = [
     [r'\d{3}.*\s[A-Z]{1}.*\s[A-Z]$|\d{3}.*[A-Z]{1}.*\s[A-Z]\d$', 'des'],
     [r'\d{3}', 'dew'],
     [r'^MIFI DEVICE', 'mif'],
+    [r'^CD\s[A-Z].*', 'cdm'],
     [r'^e[A-Z]', 'ere']
-
 ]
 
 CDEW = r'(\d{3})\s|(\d{3}\.\d{1,})\s'
 
-CCUTTER = r'(?!DVD).{3,}\s[A-Z]$|(?!DVD).{3,}\s[A-Z]\d$|FIC\s[A-Z]{1,}.*$|J-E\s[A-Z]{1,}.*$|CD\s[A-Z]{1,}.*\s[A-Z].*'
+CCUTTER = r'(?!DVD).{3,}\s[A-Z]$|(?!DVD).{3,}\s[A-Z]\d$|FIC\s[A-Z]{1,}.*$|J-E\s[A-Z]{1,}.*$|CD\s[A-Z]{1,}.*\s[A-Z].*|\d{3}\.\d{1,}\s(?!S52$|B582$)'
 
 OAUDN = {
     'a': 'a',  # adult
