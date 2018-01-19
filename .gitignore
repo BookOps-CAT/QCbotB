@@ -101,6 +101,7 @@ ENV/
 # SQLite database
 datastore.db
 *.db-journal
+*.sql
 
 # work notes
 temp.py
