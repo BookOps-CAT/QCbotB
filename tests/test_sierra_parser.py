@@ -427,6 +427,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_lang(
                 'KIT 872.8 H'), 'eng')
+        self.assertEqual(
+            sierra_parser.parse_call_lang(
+                'FIC JOHNSTONE'), 'eng')
 
     def test_parse_call_type(self):
         self.assertEqual(
