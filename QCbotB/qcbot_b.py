@@ -74,8 +74,8 @@ def analize(fh=None):
         except Exception as e:
             # think about better logging here
             main_logger.critical(
-                'Unable to add data to datastore, error: {}'.format(
-                    e))
+                'Unable to add data to datastore, error: {}, {}: {}'.format(
+                    e, row, cid))
 
     # # ToDo: report findings
     # # call servicenow_worker
@@ -187,7 +187,6 @@ if __name__ == "__main__":
     elif args.release is not None:
         release_and_issue_tickets(args.release[0])
     else:
-        analize()
-
-    # fh = './files/sierra_test_list.txt'
-    # analize(fh)
+        # while testing provide report test file
+        fh = './files/sierra_test_list2.txt'
+        analize(fh)
