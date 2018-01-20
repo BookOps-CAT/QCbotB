@@ -106,3 +106,5 @@ datastore.db
 # work notes
 temp.py
 work_notes.txt
+# local settings
+settings
