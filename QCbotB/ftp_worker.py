@@ -1,5 +1,9 @@
 # responsible for fetching and managing ftp files
 
+# TODO:
+# - move downloaded file to archive
+# - delete reports older than 30 days from archive
+
 from ftplib import FTP, error_reply
 from datetime import datetime
 
@@ -24,13 +28,14 @@ def ftp_download(host, user, passw, folder):
         if res[:3] == '230':  # '230 Login successful.'
             ftp.cwd(folder)  # change to desired directory
             files = []
-            ftp.retrlines('NLST', files.append)
+            # ftp.retrlines('NLST', files.append)
+            files = ftp.nlst()
             report = todays_file(files)
-            # print report
             ftp.retrbinary(
                 'RETR {}'.format(report),
                 open('./files/report.txt', 'wb').write)
         else:
+            # log?
             print 'ftp included respons other than 230: {}'.format(res)
     except error_reply:
         # log error
