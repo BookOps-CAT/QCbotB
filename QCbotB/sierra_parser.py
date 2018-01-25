@@ -423,7 +423,7 @@ def report_data(fh, order_age_in_days):
                         b_call=b_call,
                         c_format=parse_call_format(b_call),
                         c_audn=parse_call_audn(b_call),
-                        c_lang=world_lang_prefix(b_call),
+                        c_wl=world_lang_prefix(b_call),
                         c_type=parse_call_type(b_call),
                         c_cutter=parse_call_cutter(b_call),
                         c_dewey=c_dewey,
