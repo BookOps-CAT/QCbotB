@@ -3,7 +3,7 @@
 import unittest
 from context import datastore as db
 from context import db_worker as worker
-from prep_datastore import enter_test_data
+from prep_datastore import enter_test_data, BIBS, ORDERS
 
 
 class TestDatastore(unittest.TestCase):
@@ -37,23 +37,30 @@ class TestDatastore(unittest.TestCase):
     def test_delete_table_data(self):
         res = worker.delete_table_data(
             self.session, db.Bibs)
-        self.assertEqual(res, 6)
+        self.assertEqual(res, len(BIBS))
         res = self.session.execute('SELECT * FROM bibs').fetchall()
+        self.session.commit()
+        self.assertEqual(len(res), 0)
+
+        res = worker.delete_table_data(
+            self.session, db.Orders)
+        self.assertEqual(res, len(ORDERS))
+        res = self.session.execute('SELECT * FROM orders').fetchall()
         self.session.commit()
         self.assertEqual(len(res), 0)
 
     def test_insert_or_ignore_ignore_scenario(self):
         worker.insert_or_ignore(
             self.session,
-            db.Conflicts, id=1, desc='test 1 desc')
+            db.Conflicts, id=1, description='test 1 desc')
         res = self.session.execute('SELECT * FROM conflicts WHERE id = 1').first()
         self.session.commit()
-        self.assertEqual(res.desc, 'Test1')
+        self.assertEqual(res.description, 'Test1')
 
     def test_insert_or_ignore_insert_scenario(self):
         worker.insert_or_ignore(
             self.session,
-            db.Conflicts, id = 4, level='bib-ord', code='ErrB002', desc = 'TEST insert')
+            db.Conflicts, id = 4, tier='bib-ord', code='ErrB002', description = 'TEST insert')
         self.session.commit()
         self.session.rollback()
 
@@ -69,7 +76,7 @@ class TestDatastore(unittest.TestCase):
         worker.insert_or_update(
             self.session,
             db.Conflicts,
-            id = 5, level='bib-ord', code='ErrB003', desc = 'TEST insert on insert_or_update')
+            id = 5, tier='bib-ord', code='ErrB003', description = 'TEST insert on insert_or_update')
         self.session.commit()
         res = self.session.execute('SELECT * FROM conflicts WHERE id = 5').first()
         self.assertEqual(res.id, 5)
@@ -80,7 +87,7 @@ class TestDatastore(unittest.TestCase):
             db.Conflicts, id = 1, level='bib-ord')
         self.session.commit()
         res = self.session.execute('SELECT * FROM conflicts WHERE id = 5').first()
-        self.assertEqual(res.level, 'bib-ord')
+        self.assertEqual(res.tier, 'bib-ord')
 
 
 if __name__ == '__main__':
