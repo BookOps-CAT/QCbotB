@@ -20,6 +20,8 @@ class TestParser(unittest.TestCase):
             sierra_parser.verify_bib_id(None))
         self.assertIsNone(
             sierra_parser.verify_bib_id(11995520))
+        self.assertIsNone(
+            sierra_parser.verify_bib_id())
 
     def test_verifying_ord_id(self):
         self.assertEqual(
@@ -32,191 +34,151 @@ class TestParser(unittest.TestCase):
             sierra_parser.verify_ord_id(None))
         self.assertIsNone(
             sierra_parser.verify_ord_id(1199552))
+        self.assertIsNone(
+            sierra_parser.verify_ord_id())
 
     def test_parsing_dates(self):
         date1 = datetime.now().strftime('%m-%d-%Y')
         date2 = datetime.now().strftime('%m-%d-%y')
         self.assertEqual(
-            sierra_parser.parse_dates(date1, 1),
+            sierra_parser.parse_dates(date1),
             datetime.strptime(date1, '%m-%d-%Y'))
         self.assertEqual(
-            sierra_parser.parse_dates(date2, 1),
+            sierra_parser.parse_dates(date2),
             datetime.strptime(date2, '%m-%d-%y'))
         self.assertIsNone(
-            sierra_parser.parse_dates('some string', 1))
+            sierra_parser.parse_dates('some string'))
         self.assertIsNone(
-            sierra_parser.parse_dates('  -  -  ', 1))
+            sierra_parser.parse_dates('  -  -  '))
+        self.assertIsNone(
+            sierra_parser.parse_dates())
 
-    def test_parse_bib_format(self):
-        # print
+    def test_verify_b_type(self):
         self.assertEqual(
-            sierra_parser.find_bib_format(
-                'a',
-                '170619s2017    mau      b    000 0 eng ccam i ',
-                [], 1), 'print')
-        # eBook
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'a',
-                '101207s2010    ilua    ob    001 0 eng d      ',
-                [], 1), 'eres')
-        # Score
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'c',
-                '170619s2017    mau      b    000 0 eng ccam i ',
-                [], 1), 'score')
-        # Libretto
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'a',
-                '170619s2017    mau      b    000 0 eng ccam i ',
-                ['librettos'], 1), 'lib')
-        # DVD
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'g',
-                '171207s2015    cau120            vlrusodngmIi ',
-                [], 1), 'dvd')
-        # eVideo
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'g',
-                '070507p20062004nyu092 e      s   vleng d      ',
-                [], 1), 'eres')
-        # Audio
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'i',
-                '171207s2015    cau120            vlrusodngmIi ',
-                [], 1), 'audio')
-        # eAudio
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'i',
-                '060404s2005    nyunnn  s      f    eng d      ',
-                [], 1), 'eres')
-        # Music CD
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'j',
-                '080717s2008    dcublnn  fhi      n eng d      ',
-                [], 1), 'cd')
-        # microforms
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'a',
-                '781211d17301734enk x   a     0   a0eng d      ',
-                [], 1), 'micro')
-        # kit
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'o',
-                '070814r20071999nyua     b    001 0 eng        ',
-                [], 1), 'kit')
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'p',
-                '070814r20071999nyua     b    001 0 eng        ',
-                [], 1), 'kit')
-        # photo
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'k',
-                '020102s1968    nyu               ineng d      ',
-                [], 1), 'photo')
-        # CD-ROM
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'm',
-                '130313s2010    nyu     q  d        eng d      ',
-                [], 1), 'eres')
-        # mifi & other 3-D objects
-        self.assertEqual(
-            sierra_parser.find_bib_format(
-                'r',
-                '160930s9999    xx             00 zzzxx d      ',
-                [], 1), '3dobj')
+            sierra_parser.verify_b_type(
+                'a'), 'a')
+        self.assertIsNone(
+            sierra_parser.verify_b_type(
+                ''))
+        self.assertIsNone(
+            sierra_parser.verify_b_type(
+                ' '))
+        self.assertIsNone(
+            sierra_parser.verify_b_type(
+                1))
 
     def test_parse_title(self):
         self.assertEqual(
             sierra_parser.parse_title(
                 '880-02 [Perush ha-Ramban : ʻal ha-Torah] = Rambanh'),
             '[Perush ha-Ramban : ʻal ha-Torah] = Rambanh')
+        self.assertEqual(
+            sierra_parser.parse_title(
+                'TEST TITLE'), 'TEST TITLE')
+        self.assertIsNone(
+            sierra_parser.parse_title(
+                ''))
+        self.assertIsNone(
+            sierra_parser.parse_title())
 
     def test_parse_name(self):
         self.assertEqual(
             sierra_parser.parse_name(
-                u'880-01 Shukshĭn, Vasiliĭ, 1929-1974', 1),
+                u'880-01 Shukshĭn, Vasiliĭ, 1929-1974'),
             u'SHUKSHIN')
         self.assertEqual(
             sierra_parser.parse_name(
-                u'Ṿalder, Ḥayim.', 1),
+                u'Ṿalder, Ḥayim.'),
             u'VALDER')
         self.assertEqual(
             sierra_parser.parse_name(
-                u'Uderzo.', 1),
+                u'Uderzo.'),
             u'UDERZO')
         self.assertIsNone(
             sierra_parser.parse_name(
-                u'', 1))
+                u''))
 
-    def test_find_main_language(self):
-        # bilingual book should be under world language
-        # find out how bilingual poetry published in us can be in English
-        # find_main_language returns results in alphabetical order
+    def test_parse_subjects(self):
         self.assertEqual(
-            sierra_parser.find_main_language(
-                '170305s2017    nyu           000 p eng dcamIi ',
-                'spa~eng', 1), 'eng~spa')
+            sierra_parser.parse_subjects(
+                'Automobile racing drivers -- Drama.~NASCAR (Association) -- Drama.~Fourth dimension. fast (OCoLC)fst00933422'),
+            'Automobile racing drivers -- Drama.~NASCAR (Association) -- Drama.')
+        self.assertEqual(
+            sierra_parser.parse_subjects(
+                ''), '')
 
     def test_parse_subject_person(self):
         self.assertIsNone(
             sierra_parser.parse_subject_person(
                 'Jackson, Percy (Fictitious character) -- '
-                'Juvenile fiction', 1))
+                'Juvenile fiction'))
         self.assertEqual(
             sierra_parser.parse_subject_person(
-                u'880-11 Heller, Yom Tov Lipmann ben Nathan '
-                'ha-Levi ben Wallerstein, 1579-1654.'
-                '~Ferdinand II, Holy Roman Emperor, 1578-1637.', 1),
-            u'HELLER')
-
-    def test_identify_critical_work(self):
-        self.assertIs(
-            sierra_parser.idenfity_critical_work(
-                'Heidegger, Martin, 1889-1976',
-                'Heidegger, Martin, 1889-1976. Sein und Zeit', 1), True)
-        self.assertIs(
-            sierra_parser.idenfity_critical_work(
-                'Heidegger, Martin, 1889-1976. Criticism, '
-                'interpretation, etc.',
-                '', 1), True)
-        self.assertIs(
-            sierra_parser.idenfity_critical_work(
-                'Heidegger, Martin, 1889-1976',
-                '', 1), False)
+                'Lincoln, Abraham, 1809-1865 -- Military leadership.~Other subject'),
+            'Lincoln, Abraham, 1809-1865 -- Military leadership.')
+        self.assertEqual(
+            sierra_parser.parse_subject_person(
+                'Doe, Joe. Title of his work.'),
+            'Doe, Joe. Title of his work.')
+        self.assertEqual(
+            sierra_parser.parse_subject_person(
+                'Randolph, Martha Jefferson, 1772-1836.~Women -- United States -- History -- 18th century'),
+            'Randolph, Martha Jefferson, 1772-1836.')
+        self.assertEqual(
+            sierra_parser.parse_subject_person(
+                '880-05 Wang, Yangming.~Philosophers -- China -- Biography.'),
+            'Wang, Yangming.')
+        # -- biography will most likely pick up false positives
+        self.assertEqual(
+            sierra_parser.parse_subject_person(
+                'Wang, Yangming.~Philosophers -- China -- Biography.'),
+            'Wang, Yangming.')
+        self.assertEqual(
+            sierra_parser.parse_subject_person(
+                'Wang.~Philosophers -- China -- Biography.'),
+            'Wang.')
+        self.assertIsNone(
+            sierra_parser.parse_subject_person(
+                'Some Topic.~Philosophers -- China.'))
+        self.assertIsNone(
+            sierra_parser.parse_subject_person(
+                'History, Millitary.'))
+        self.assertIsNone(
+            sierra_parser.parse_subject_person(
+                'Jews -- Poland -- Warsaw.~Righteous Gentiles in the Holocaust -- Poland -- Warsaw.~Holocaust, Jewish (1939-1945) -- Poland -- Warsaw.~World War, 1939-1945 -- Jews -- Rescue -- Poland -- Warsaw.'))
 
     def test_parse_branches(self):
         self.assertEqual(
             sierra_parser.parse_branches(
-                '03yfc,80yfc,71yfc,65yfc,56yfc', 1),
+                '03yfc,80yfc,71yfc,65yfc,56yfc'),
             '03,56,65,71,80')
-        self.assertIsNone(
-            sierra_parser.parse_branches(
-                '', 1))
         self.assertEqual(
             sierra_parser.parse_branches(
-                'elres', 1),
-            '')
+                '03yfc(10),80   ,none '),
+            '03,80')
+        self.assertIsNone(
+            sierra_parser.parse_branches(
+                ''))
+        self.assertEqual(
+            sierra_parser.parse_branches(
+                'elres'), '')
 
     def test_parse_shelves(self):
         # shelves in a string that is used to compare output
         # must be in alphabetical order
         self.assertEqual(
             sierra_parser.parse_shelves(
-                '14anb(2),21anf,23abi,56   ', 1),
+                '14anb(2),21anf,23abi,56   '),
             'abi,anb,anf')
+        self.assertIsNone(
+            sierra_parser.parse_shelves(
+                '14   '))
+        self.assertIsNone(
+            sierra_parser.parse_shelves(
+                'none '))
+        self.assertEqual(
+            sierra_parser.parse_shelves(
+                '02jje(10),none ,21jje',), 'jje')
 
     def test_parse_call_format(self):
         self.assertEqual(
@@ -349,87 +311,172 @@ class TestParser(unittest.TestCase):
                 'DVD JPN'), 'a')
         self.assertEqual(
             sierra_parser.parse_call_audn(
+                'BOOK & CD RUS J 486.76 C'), 'j')
+        self.assertEqual(
+            sierra_parser.parse_call_audn(
                 'BOOK & CD RUS 486.76 C'), 'a')
         self.assertEqual(
             sierra_parser.parse_call_audn(
                 'FIC J'), 'a')
 
-    def test_parse_call_lang(self):
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'SPA J-E ADAMS'), 'spa')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'SPA FIC ADAMS'), 'spa')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'CHI J FIC ADAMS'), 'chi')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'POL B ADA J'), 'pol')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'RUS 811 B'), 'rus')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'BOOK & CD RUS 811 B'), 'rus')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'BOOK & DVD RUS B ADA B'), 'rus')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'KIT RUS 811 B'), 'rus')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'AUDIO RUS FIC ADAMS'), 'rus')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'VIDEO CHI'), 'chi')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD CHI'), 'chi')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD CHI J B ADAMS B'), 'chi')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'FIC ADAMS'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'B ADAMS J'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'J-E ADAMS'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'J-E'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD 909 B'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD B ADAMS A'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'DVD J B ADAMS A'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'FIC F'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'FIC BARTHELME'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'LIB 711.3 B'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'KIT 872.8 H'), 'eng')
-        self.assertEqual(
-            sierra_parser.parse_call_lang(
-                'FIC JOHNSTONE'), 'eng')
+    def test_world_language_prefix(self):
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD 909 B'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD B ADAMS A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD J B ADAMS A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD CHI'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD CHI J B ADAMS B'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD J'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                ''), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD ARA J'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'DVD ARA J 909 A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO RUS FIC ADAMS'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO RUS J FIC ADAMS'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO J FIC ADAMS'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO FIC ADAMS'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO CHI 909 A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO FIC ADA'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'AUDIO RUS B ADAMS A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'KIT RUS 909 A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'KIT 909 A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'KIT J 909 A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'KIT RUS J 909 A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'KIT 872.8 H'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD RUS 811 B'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD RUS J-E'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD RUS J FIC A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD FIC ADA'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD RUS B ADAMS A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD B ADAMS A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD 901 A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & CD J-E ADAMS'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD RUS 811 B'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD RUS J-E'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD RUS J FIC A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD FIC ADA'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD RUS B ADAMS A'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD B ADAMS A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD 901 A'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'BOOK & DVD RUS B ADA B'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'SPA J-E ADAMS'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'SPA FIC ADAMS'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'CHI J FIC ADAMS'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'POL B ADA J'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'RUS 811 B'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'VIDEO CHI'), True)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'FIC ADAMS'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'B ADAMS J'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'J-E ADAMS'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'J-E'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'FIC F'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'FIC BARTHELME'), False)
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'LIB 711.3 B'), False)
+
+        self.assertIs(
+            sierra_parser.world_lang_prefix(
+                'FIC JOHNSTONE'), False)
 
     def test_parse_call_type(self):
         self.assertEqual(
@@ -517,11 +564,41 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'CD WORLD JEWISH SHWEKEY'), 'cdm')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'BOOK & CD 468.3421 B'), 'dew')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'BOOK & CD 811 WHITMAN K'), 'des')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'BOOK & CD ARA 428.34927 L'), 'dew')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'BOOK & CD J B ADAMS A'), 'bio')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'AUDIO 225.5208 B582 W'), 'des')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'AUDIO 782.1 WAGNER S'), 'des')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'AUDIO SPA FIC COELHO'), 'fic')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'AUDIO SPA B CRUZ M'), 'bio')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'AUDIO SPA J FIC SAINT-EXUPERY'), 'fic')
 
     def test_parse_call_cutter(self):
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 'SPA J-E ADAMS'), True)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'J-E'), False)
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 'J B ADAMS J'), True)
@@ -594,6 +671,12 @@ class TestParser(unittest.TestCase):
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 '226.607 B582 C'), True)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'AUDIO 226.607'), False)
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'AUDIO 226.607 C'), True)
 
     def test_parse_dewey(self):
         self.assertEqual(
@@ -705,14 +788,13 @@ class TestParser(unittest.TestCase):
 
     def test_parsing_of_row_of_sierra_report(self):
         """fuctional tests of sierra report parser"""
-        record = sierra_parser.report_data('report_test.txt').next()
+        record = sierra_parser.report_data('report_test.txt', 180).next()
         bib_keys = [x for x in record[0]]
         ord_keys = [x for x in record[1]]
         self.assertEqual(bib_keys, [
-            'c_format', 'c_dewey', 'b_type', 'c_lang', 'b_date',
-            'c_audn', 'id', 'c_type', 'author', 'title',
-            'subject_person', 'c_cutter', 'subjects', 'b_format',
-            'c_division', 'b_lang', 'crit_work', 'b_call'])
+            'c_format', 'c_dewey', 'c_lang', 'b_date', 'c_audn', 'id',
+            'c_type', 'author', 'title', 'subject_person', 'c_cutter',
+            'subjects', 'c_division', 'b_type', 'crit_work', 'b_call'])
         self.assertEqual(ord_keys, [
             'bid', 'o_branch', 'copies', 'o_date', 'o_audn',
             'o_shelf', 'ven_note', 'id'])
