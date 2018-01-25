@@ -4,6 +4,19 @@ IDS = dict(
     p1=r'b\d{8}[0-9|x]',
     p2=r'o\d{7}[0-9|x]')
 
+SUBJECT_PERSON_FALSE = r'-- Fiction\.|-- Juvenile fiction\.' \
+                       r'|-- Drama\.|-- Juvenile drama\.' \
+                       r'|-- Poetry\.|-- Juvenile poetry\.'
+
+
+SUBJECT_PERSON = [
+    r'^880-\d{2} (\w+.*?\.)[~]',  # should be search first
+    r'^(\w+, [A-Z].*?, \d{4}-.*?\.).*',
+    r'^(\w+, \w+.*?\. \w+.*?\.).*',
+    r'^(\w+.*?\.)[~].*-- Biography\.',
+
+]
+
 CFORMAT = [
     [r'^AUDIO', 'au'],
     [r'^BOOK & CD|^BOOK & DVD|^KIT', 'ki'],
@@ -22,18 +35,31 @@ CAUDN = [
     [r'J\s[0-9]|J\sFIC|J\sB\s|DVD\sJ$|^DVD\s[A-Z]{3}\sJ', 'j']
 ]
 
-CLANG = [
-    r'^(?!DVD|KIT)^([A-Z]{3})\sJ-E',
-    r'^(?!DVD)^([A-Z]{3})\sFIC',
-    r'^(?!DVD|KIT)^([A-Z]{3})\sJ',
-    r'^(?!DVD|FIC)^([A-Z]{3})\sB',
-    r'^(?!DVD|KIT|LIB)^([A-Z]{3})\s\d',
-    r'^BOOK\s&\sCD\s([A-Z]{3})\s',
-    r'^BOOK\s&\sDVD\s([A-Z]{3})\s',
-    r'^KIT\s([A-Z]{3})',
-    r'^AUDIO\s([A-Z]{3})',
-    r'^VIDEO\s([A-Z]{3})',
-    r'^DVD\s([A-Z]{3})'
+CLANG1 = [
+    r'DVD\s[A-Z]{3}$',
+    r'^DVD\s[A-Z]{3}\s\d{3}.*',
+    r'^DVD\s[A-Z]{3}\s[JB].*',
+    r'^KIT\s[A-Z]{3}\s\d{3}.*',
+    r'^KIT\s[A-Z]{3}\sJ.*',
+    r'^LIB\s[A-S]{3}\s\d{3}.*',
+    r'^BOOK\s&\sDVD\s[A-Z]{3}\s\d.*',
+    r'^BOOK\s&\sDVD\s[A-Z]{3}\sFIC.*',
+    r'^BOOK\s&\sDVD\s[A-Z]{3}\s[JB]\s*',
+    r'^BOOK\s&\sCD\s[A-Z]{3}\s\d.*',
+    r'^BOOK\s&\sCD\s[A-Z]{3}\sFIC.*',
+    r'^BOOK\s&\sCD\s[A-Z]{3}\s[JB]\s*',
+]
+
+CLANG2 = [
+    r'^AUDIO\s[A-Z]{3}\sFIC\s.*',
+    r'^AUDIO\s[A-Z]{3}\s\d{3}.*',
+    r'^AUDIO\s[A-Z]{3}\s[JB]\s.*',
+    r'^VIDEO\s[A-Z]{3}.*',
+    r'^[A-Z]{3}\sFIC\s.*',
+    r'^[A-Z]{3}\sJ\s[FB\d].*',  # juv fic, bio, dewey
+    r'[A-Z]{3}\sJ-E.*',
+    r'[A-Z]{3}\s\d{3}.*',
+    r'[A-Z]{3}\sB\s[A-Z]{1,}.*'
 ]
 
 CTYPE = [
@@ -50,13 +76,19 @@ CTYPE = [
 
 CDEW = r'(\d{3})\s|(\d{3}\.\d{1,})\s'
 
-CCUTTER = r'(?!DVD).{3,}\s[A-Z]$|(?!DVD).{3,}\s[A-Z]\d$|FIC\s[A-Z]{1,}.*$|J-E\s[A-Z]{1,}.*$|CD\s[A-Z]{1,}.*\s[A-Z].*|\d{3}\.\d{1,}\s(?!S52$|B582$)'
+CCUTTER = r'(?!DVD).{3,}\s[A-Z]$' \
+          r'|(?!DVD).{3,}\s[A-Z]\d$' \
+          r'|FIC\s[A-Z]{1,}.*$' \
+          r'|J-E\s[A-Z]{1,}.*$' \
+          r'|CD\s[A-Z]{1,}.*\s[A-Z].*' \
+          r'|\d{3}\.\d{1,}\s(?!S52$|B582$)'
 
-OAUDN = {
-    'a': 'a',  # adult
-    'j': 'j',  # juv
-    'y': 'y',  # young adult
-    'z': 'z'}  # error
+OAUDN = [
+    'a',  # adult
+    'j',  # juv
+    'y',  # young adult
+    'z'   # error
+]
 
 OIAUDN = {  # irregular item/shelf codes
     'lfi': 'a',  # literacy mifi
