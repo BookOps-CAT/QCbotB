@@ -18,11 +18,9 @@ class Bibs(Base):
     __tablename__ = 'bibs'
     id = Column(Integer, primary_key=True, autoincrement=False)
     b_date = Column(String)
-    b_type = Column(String)
+    b_type = Column(String, nullable=False)
     title = Column(String, nullable=False)
     author = Column(String)
-    b_lang = Column(String, nullable=False)
-    b_format = Column(String, nullable=False)
     b_call = Column(String)
     c_format = Column(String, nullable=False)
     c_audn = Column(String, nullable=False)
@@ -33,19 +31,18 @@ class Bibs(Base):
     c_division = Column(String)
     subjects = Column(String)
     subject_person = Column(String)
-    crit_work = Column(Boolean, nullable=False)
+    crit_work = Column(Boolean)
 
     orders = relationship('Orders', cascade='all, delete-orphan')
 
     def __repr__(self):
         return "<Bib(id='b%sa', b_date='%s', b_type='%s', title='%s', " \
-            "author='%s, b_lang='%s', b_format='%s', b_call='%s', " \
+            "author='%s, b_call='%s', " \
             "c_format='%s', c_audn='%s', c_lang='%s', c_type='%s', " \
             "c_cutter'%s', c_dewey='%s', c_division='%s', subjects='%s', " \
             "subject_person='%s', crit_work='%s')>" % (
                 self.id, self.b_date, self.b_type, self.title,
-                self.author, self.b_lang, self.b_format,
-                self.b_call, self.c_format, self.c_audn,
+                self.author, self.b_call, self.c_format, self.c_audn,
                 self.c_lang, self.c_type, self.c_cutter,
                 self.c_dewey, self.c_division, self.subjects,
                 self.subject_person, self.crit_work)
