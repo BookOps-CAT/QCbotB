@@ -1,3 +1,4 @@
+import shelve
 import logging
 import logging.config
 import loggly.handlers
@@ -125,6 +126,15 @@ def validate_dates(dates):
     return dobj
 
 
+def settings(**kwargs):
+    s = shelve.open('settings')
+    if kwargs['ftp']:
+        s['ftp_host'] = kwargs['ftp'][0]
+        s['ftp_user'] = kwargs['ftp'][1]
+        s['ftp_pass'] = kwargs['ftp'][2]
+
+    s.close()
+
 if __name__ == "__main__":
     import argparse
     from datetime import datetime
@@ -135,6 +145,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='QCBot-B Help')
     group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        '--ftp',
+        help='FTP authentication settings, format: --ftp [IP USER PASSWORD]',
+        nargs=3,
+        type=str)
     group.add_argument(
         '--ingest',
         help='process given in path sierra report',
@@ -165,7 +180,10 @@ if __name__ == "__main__":
         nargs='*',
         metavar='DD-MM-YY DD-MM-YY')
     args = parser.parse_args()
-    if args.ingest is not None:
+    if args.ftp is not None:
+        settings(ftp=args.ftp)
+        print 'FTP settings saved...'
+    elif args.ingest is not None:
         print args.ingest[0]
         # analize(args.ingest[0])
     elif args.test is not None:
