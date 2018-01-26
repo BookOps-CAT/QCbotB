@@ -385,6 +385,7 @@ def report_data(fh, order_age_in_days):
         reader = csv.reader(
             file, encoding='utf-8',
             delimiter='^', quoting=csv.QUOTE_NONE)
+        reader.next()  # skip header
         # print list(enumerate(reader.next()))  # skip header
 
         for row in reader:
@@ -408,7 +409,7 @@ def report_data(fh, order_age_in_days):
                 if row[12] == 'z':
                     continue
 
-                b_type = row[2]
+                b_type = None
                 b_call = row[5].strip()
                 c_dewey = parse_call_dewey(b_call)
                 subjects = parse_subjects(row[6])
