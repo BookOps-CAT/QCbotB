@@ -678,6 +678,14 @@ class TestParser(unittest.TestCase):
             sierra_parser.parse_call_cutter(
                 'AUDIO 226.607 C'), True)
 
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'FIC 1'), False)
+        # very unlikely sanborn cutters will be pick up
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                '973 A211'), False)
+
     def test_parse_dewey(self):
         self.assertEqual(
             sierra_parser.parse_call_dewey(
@@ -792,7 +800,7 @@ class TestParser(unittest.TestCase):
         bib_keys = [x for x in record[0]]
         ord_keys = [x for x in record[1]]
         self.assertEqual(bib_keys, [
-            'c_format', 'c_dewey', 'c_lang', 'b_date', 'c_audn', 'id',
+            'c_format', 'c_dewey', 'b_date', 'c_wl', 'c_audn', 'id',
             'c_type', 'author', 'title', 'subject_person', 'c_cutter',
             'subjects', 'c_division', 'b_type', 'crit_work', 'b_call'])
         self.assertEqual(ord_keys, [
