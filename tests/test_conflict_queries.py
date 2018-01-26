@@ -35,11 +35,11 @@ class TestConflictQueries(unittest.TestCase):
 
     def test_error1_no_cutter(self):
         res = worker.run_query(self.session, self.queries[1])
-        ids = sorted([1])
+        ids = sorted([1, 2])
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error2_non_fic_without_cutter(self):
+    def test_error2_digit_for_cutter(self):
         res = worker.run_query(self.session, self.queries[2])
         ids = sorted([2])
         hits = sorted([r.bid for r in res])
@@ -88,25 +88,25 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error10_crit_or_coll_in_american_genre(self):
-        res = worker.run_query(self.session, self.queries[10])
-        ids = sorted([13])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error10_crit_or_coll_in_american_genre(self):
+    #     res = worker.run_query(self.session, self.queries[10])
+    #     ids = sorted([13])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error11_crit_or_coll_in_english_genre(self):
-        res = worker.run_query(self.session, self.queries[11])
-        ids = sorted([14])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error11_crit_or_coll_in_english_genre(self):
+    #     res = worker.run_query(self.session, self.queries[11])
+    #     ids = sorted([14])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error12_crit_or_coll_in_spanish_genre(self):
-        res = worker.run_query(self.session, self.queries[12])
-        ids = sorted([15])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error12_crit_or_coll_in_spanish_genre(self):
+    #     res = worker.run_query(self.session, self.queries[12])
+    #     ids = sorted([15])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error13_missing_lang_prefix(self):
+    def test_error13_lang_prefix_for_textbooks_for_english_speakers(self):
         res = worker.run_query(self.session, self.queries[13])
         ids = sorted([17, 17])
         hits = sorted([r.bid for r in res])
@@ -130,11 +130,11 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error17_missing_philospher_name_in_call_number(self):
-        res = worker.run_query(self.session, self.queries[17])
-        ids = sorted([21])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error17_missing_philospher_name_in_call_number(self):
+    #     res = worker.run_query(self.session, self.queries[17])
+    #     ids = sorted([21])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
     def test_error18_likely_fiction(self):
         res = worker.run_query(self.session, self.queries[18])
@@ -142,17 +142,17 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error19_criticism_missing_authors_name_in_call_number(self):
-        res = worker.run_query(self.session, self.queries[19])
-        ids = sorted([23])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error19_criticism_missing_authors_name_in_call_number(self):
+    #     res = worker.run_query(self.session, self.queries[19])
+    #     ids = sorted([23])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error20_annotated_edition_not_ficiton(self):
-        res = worker.run_query(self.session, self.queries[20])
-        ids = sorted([24, 24, 24])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error20_annotated_edition_not_ficiton(self):
+    #     res = worker.run_query(self.session, self.queries[20])
+    #     ids = sorted([24, 24, 24])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
     def test_error21_shakespares_individual_works(self):
         res = worker.run_query(self.session, self.queries[21])
@@ -172,29 +172,29 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error24_score_without_Mu_prefix(self):
-        res = worker.run_query(self.session, self.queries[24])
-        ids = sorted([29])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error24_score_without_Mu_prefix(self):
+    #     res = worker.run_query(self.session, self.queries[24])
+    #     ids = sorted([29])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error25_not_guidebook_in_911_919_dewey_range(self):
-        res = worker.run_query(self.session, self.queries[25])
-        ids = sorted([30])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error25_not_guidebook_in_911_919_dewey_range(self):
+    #     res = worker.run_query(self.session, self.queries[25])
+    #     ids = sorted([30])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error26_bible_missing_b52(self):
-        res = worker.run_query(self.session, self.queries[26])
-        ids = sorted([31])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error26_bible_missing_b52(self):
+    #     res = worker.run_query(self.session, self.queries[26])
+    #     ids = sorted([31])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
-    def test_error27_garfield_comic_strip_not_in_7xx(self):
-        res = worker.run_query(self.session, self.queries[27])
-        ids = sorted([32])
-        hits = sorted([r.bid for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error27_garfield_comic_strip_not_in_7xx(self):
+    #     res = worker.run_query(self.session, self.queries[27])
+    #     ids = sorted([32])
+    #     hits = sorted([r.bid for r in res])
+    #     self.assertEqual(hits, ids)
 
     def test_error28_JE_call_num_vs_order_shelves(self):
         res = worker.run_query(self.session, self.queries[28])
@@ -203,12 +203,12 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error29_02_central_location_without_juvenile_call_number(self):
-        res = worker.run_query(self.session, self.queries[29])
-        # matching ids is a list of tuples with bib id and order id
-        ids = sorted([(24, 36), (24, 37)])
-        hits = sorted([(r.bid, r.oid) for r in res])
-        self.assertEqual(hits, ids)
+    # def test_error29_02_central_location_without_juvenile_call_number(self):
+    #     res = worker.run_query(self.session, self.queries[29])
+    #     # matching ids is a list of tuples with bib id and order id
+    #     ids = sorted([(24, 36), (24, 37)])
+    #     hits = sorted([(r.bid, r.oid) for r in res])
+    #     self.assertEqual(hits, ids)
 
     def test_error30_general_juvenile_call_number_with_wrong_shelf_location(self):
         res = worker.run_query(self.session, self.queries[30])
@@ -222,8 +222,8 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error32_biograpy_call_number_with_wrong_order_shelf_location(self):
-        pass
+    # def test_error32_biograpy_call_number_with_wrong_order_shelf_location(self):
+    #     pass
 
 if __name__ == '__main__':
     unittest.main()
