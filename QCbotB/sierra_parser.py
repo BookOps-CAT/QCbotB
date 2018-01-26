@@ -34,7 +34,8 @@ from unidecode import unidecode
 from patterns import IDS, CFORMAT, CAUDN, \
     CLANG1, CLANG2, CTYPE, \
     CCUTTER, CDEW, OAUDN, OIAUDN, CRANGES, \
-    SUBJECT_PERSON_FALSE, SUBJECT_PERSON
+    SUBJECT_PERSON_FALSE, SUBJECT_PERSON, \
+    CRITICAL_WORKS
 
 module_logger = logging.getLogger('QCBtests')
 
@@ -150,7 +151,11 @@ def parse_subject_person(value=None):
 
 def idenfity_critical_work(value=None):
     # find out if possible to extract from subject strings
-    pass
+    for p in CRITICAL_WORKS:
+        p = re.compile(p)
+        m = p.search(value)
+        if m:
+            return m.group(1)
 
 
 def parse_branches(value=None):
@@ -431,7 +436,7 @@ def report_data(fh, order_age_in_days):
                         c_division=identify_dewey_range(c_dewey),
                         subjects=subjects,
                         subject_person=parse_subject_person(subjects),
-                        crit_work=None),
+                        crit_work=idenfity_critical_work(subjects)),
                     dict(
                         id=oid,
                         bid=bid,
@@ -458,12 +463,13 @@ if __name__ == '__main__':
 
     logging.config.dictConfig(LOGGING)
 
-    test_fh = './files/report.txt'
+    test_fh = './files/report_test1.txt'
     data = report_data(test_fh, 900)
     for x in data:
         try:
-            print(x[0])
-            print(x[1])
+            if x[0]['crit_work'] is not None:
+                print(x[0]['crit_work'], x[0]['subjects'])
+            # print(x[1])
         except:
             pass
 

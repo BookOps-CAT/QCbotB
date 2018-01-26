@@ -17,6 +17,12 @@ SUBJECT_PERSON = [
 
 ]
 
+CRITICAL_WORKS = [
+    r'^(\w+, [A-Z].*?, \d{4}-.*?\.) [A-Z].*',
+    r'^(\w+, [A-Z].*?, \d{4}-.*?) Criticism and interpretation\.',
+    r'^(\w+, [A-Z].*?, \d{4}-.*?) Authorship\.'
+]
+
 CFORMAT = [
     [r'^AUDIO', 'au'],
     [r'^BOOK & CD|^BOOK & DVD|^KIT', 'ki'],
