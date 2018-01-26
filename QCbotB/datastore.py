@@ -18,7 +18,7 @@ class Bibs(Base):
     __tablename__ = 'bibs'
     id = Column(Integer, primary_key=True, autoincrement=False)
     b_date = Column(String)
-    b_type = Column(String, nullable=False)
+    b_type = Column(String)
     title = Column(String, nullable=False)
     author = Column(String)
     b_call = Column(String)
