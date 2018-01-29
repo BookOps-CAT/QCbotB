@@ -151,11 +151,14 @@ def parse_subject_person(value=None):
 
 def idenfity_critical_work(value=None):
     # find out if possible to extract from subject strings
+    found = False
     for p in CRITICAL_WORKS:
         p = re.compile(p)
         m = p.search(value)
         if m:
-            return m.group(1)
+            found = True
+            break
+    return found
 
 
 def parse_branches(value=None):
