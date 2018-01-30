@@ -157,7 +157,7 @@
 		<description>LL (14) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "39" code = "ErrB012" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_shelf LIKE "%bt%" AND (bibs.b_call NOT LIKE "%KIT %" OR bibs.b_call NOT LIKE "%BOOK %")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_shelf LIKE "%bt%" AND bibs.b_call NOT LIKE "%KIT %" AND bibs.b_call NOT LIKE "%BOOK %"</query>
 		<description>Book and CD order code without proper format prefix</description>
 	</error>
 	<error id = "40" code = "ErrC001" tier = "ord">
@@ -166,7 +166,7 @@
 	</error>
 	<error id = "41" code = "ErrC002" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%easy%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%er%"</query>
-		<description>SST Core Collection PO per line without 16 as a location</description>
+		<description>Easy Reader PO per line with incorrect shelf code(s))</description>
 	</error>
 	<error id = "42" code = "ErrC003" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%"</query>
