@@ -25,7 +25,7 @@ class Bibs(Base):
     c_format = Column(String, nullable=False)
     c_audn = Column(String, nullable=False)
     c_wl = Column(Boolean, nullable=False)
-    c_type = Column(String, nullable=False)
+    c_type = Column(String)
     c_cutter = Column(Boolean, nullable=False)
     c_dewey = Column(String)
     c_division = Column(String)
