@@ -160,4 +160,52 @@
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_shelf LIKE "%bt%" AND (bibs.b_call NOT LIKE "%KIT %" OR bibs.b_call NOT LIKE "%BOOK %")</query>
 		<description>Book and CD order code without proper format prefix</description>
 	</error>
+	<error id = "40" code = "ErrC001" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%cc%" AND orders.o_shelf IS NOT NULL AND orders.o_branch NOT LIKE "%16%"</query>
+		<description>SST Core Collection PO per line without 16 as a location</description>
+	</error>
+	<error id = "41" code = "ErrC002" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%easy%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%er%"</query>
+		<description>SST Core Collection PO per line without 16 as a location</description>
+	</error>
+	<error id = "42" code = "ErrC003" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%"</query>
+		<description>REF PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "43" code = "ErrC004" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%bio%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>BIO PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "44" code = "ErrC005" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "a" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%as%"</query>
+		<description>A (assigment) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "45" code = "ErrC006" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "r" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>R (romance) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "46" code = "ErrC007" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>M (myster) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "47" code = "ErrC008" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>S (science fiction) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "48" code = "ErrC009" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "y" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "49" code = "ErrC010" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<description>G (graphic novels) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "50" code = "ErrC011" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "pic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%"</query>
+		<description>PIC (JE regular) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "51" code = "ErrA028" tier = "bib">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type IS NULL</query>
+		<description>Unidentified type of call number</description>
+	</error>
 </conflicts>
