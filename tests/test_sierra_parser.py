@@ -591,6 +591,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'AUDIO SPA J FIC SAINT-EXUPERY'), 'fic')
+        self.assertIsNone(
+            sierra_parser.parse_call_type(
+                'RUS TROTSKY Z'))
 
     def test_parse_call_cutter(self):
         self.assertIs(

@@ -279,9 +279,7 @@ def parse_call_type(value=None):
                 break
         if not found:
             c_type = None
-            module_logger.error(
-                'Unidentified call number type: {}'.format(
-                    value))
+
         return c_type
     except TypeError:
         module_logger.error(
