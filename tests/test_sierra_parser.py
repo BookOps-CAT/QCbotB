@@ -767,6 +767,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.identify_dewey_range(
                 '711 D'), 'ar')
+        self.assertEqual(
+            sierra_parser.identify_dewey_range(
+                '294.3927 H'), 'hb')
 
     def test_parse_ord_audn(self):
         self.assertEqual(
