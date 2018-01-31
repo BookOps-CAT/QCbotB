@@ -632,6 +632,23 @@ b37 = db.Bibs(
     c_division=None,
     crit_work=None,
     b_call='J-E SMITH')
+b38 = db.Bibs(
+    c_format='pr',
+    c_dewey=u'891.7109',
+    b_type=None,
+    c_wl=True,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='a',
+    id=38,
+    c_type='dew',
+    author=None,
+    title=u'Criticism of Russian poetry - not error?',
+    subject_person=None,
+    c_cutter=True,
+    subjects=None,
+    c_division='ll',
+    crit_work=None,
+    b_call=u'RUS 891.7109 T')
 
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
@@ -639,7 +656,7 @@ BIBS = [
     b14, b15, b16, b17, b18, b19, b20,
     b21, b22, b23, b24, b25, b26, b27,
     b28, b29, b30, b31, b32, b33, b34,
-    b35, b36, b37]
+    b35, b36, b37, b38]
 
 c1 = db.Orders(
     bid=1,
@@ -1028,13 +1045,22 @@ c43 = db.Orders(
     o_audn='j',
     o_shelf='bt',
     ven_note=None)
+c44 = db.Orders(
+    id=44,
+    bid=38,
+    o_branch=u'14',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf=None,
+    ven_note=None)
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
     c11, c12, c13, c14, c15, c16, c17, c18, c19,
     c20, c21, c22, c23, c24, c25, c26, c27, c28,
     c29, c30, c31, c32, c33, c34, c35, c36, c37,
-    c38, c39, c40, c41, c42, c43
+    c38, c39, c40, c41, c42, c43, c44
 ]
 
 

@@ -35,7 +35,7 @@ class TestConflictQueries(unittest.TestCase):
 
     def test_error1_no_cutter(self):
         res = worker.run_query(self.session, self.queries[1])
-        ids = sorted([1, 2])
+        ids = sorted([1])
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
