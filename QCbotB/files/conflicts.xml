@@ -121,19 +121,19 @@
 		<description>General juvenile call number does not corresponds to order shelf location(s)</description>
 	</error>
 	<error id = "30" code = "ErrB003" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf NOT LIKE "%cp%"</query>
 		<description>Adult/Young Adult call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "31" code = "ErrB004" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%rf%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%rf%"</query>
 		<description>Biography call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "32" code = "ErrB005" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_type = "dew" OR bibs.c_type = "des") AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%nf%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%bb%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_type = "dew" OR bibs.c_type = "des") AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%nf%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%bb%"</query>
 		<description>Non-fiction call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "33" code = "ErrB006" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "fic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%fd%" AND orders.o_shelf NOT LIKE "%pb%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "fic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%fd%" AND orders.o_shelf NOT LIKE "%pb%"</query>
 		<description>Fiction call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "34" code = "ErrB007" tier = "bib-ord">
@@ -169,11 +169,11 @@
 		<description>Easy Reader PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "42" code = "ErrC003" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%rd%"</query>
 		<description>REF PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "43" code = "ErrC004" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%bio%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%bio%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf != "nb"</query>
 		<description>BIO PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "44" code = "ErrC005" tier = "ord">
@@ -181,19 +181,19 @@
 		<description>A (assigment) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "45" code = "ErrC006" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "r" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "r" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_shelf != "nb"</query>
 		<description>R (romance) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "46" code = "ErrC007" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_audn NOT LIKE "%j%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>M (myster) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "47" code = "ErrC008" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_audn NOT LIKE "%j%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>S (science fiction) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "48" code = "ErrC009" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "y" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_audn NOT LIKE "%j%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "y" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "49" code = "ErrB013" tier = "bib-ord">
@@ -202,7 +202,7 @@
 	</error>
 	<error id = "50" code = "ErrC011" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "pic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%"</query>
-		<description>PIC (JE regular) PO per line with incorrect shelf code(s)</description>
+		<description>PIC (JE regular) PO per line with incorrect shelf code(s); all location should be coded as "jje"</description>
 	</error>
 	<error id = "51" code = "ErrA028" tier = "bib">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type IS NULL</query>

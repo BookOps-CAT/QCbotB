@@ -269,5 +269,77 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
+    def test_error_40_SST_core_coll_has_16_as_location(self):
+        res = worker.run_query(self.session, self.queries[40])
+        ids = sorted([(39, 45)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_41_easy_reader_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[41])
+        ids = sorted([(40, 46)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_42_reference_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[42])
+        ids = sorted([(39, 47)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_43_bio_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[43])
+        ids = sorted([(41, 48)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_44_assigment_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[44])
+        ids = sorted([(42, 49)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_45_romance_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[45])
+        ids = sorted([(43, 50)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_46_mystery_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[46])
+        ids = sorted([(44, 51)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_47_sciencefiction_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[47])
+        ids = sorted([(45, 52)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_48_shortstories_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[48])
+        ids = sorted([(46, 53)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_49_graphicnovel_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[49])
+        ids = sorted([(47, 54)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_50_picture_book_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[50])
+        ids = sorted([(48, 55)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_51_missing_or_unused_call_number_type(self):
+        res = worker.run_query(self.session, self.queries[51])
+        ids = sorted([(49, 56)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
 if __name__ == '__main__':
     unittest.main()
