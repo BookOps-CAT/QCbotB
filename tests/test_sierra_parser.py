@@ -687,7 +687,7 @@ class TestParser(unittest.TestCase):
         # very unlikely sanborn cutters will be pick up
         self.assertIs(
             sierra_parser.parse_call_cutter(
-                '973 A211'), False)
+                '973 A211'), True)
 
     def test_parse_dewey(self):
         self.assertEqual(
