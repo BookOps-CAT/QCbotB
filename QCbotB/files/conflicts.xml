@@ -37,7 +37,7 @@
 		<description>Time period in Chinese Literature</description>
 	</error>
 	<error id = "9" code = "ErrA009" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%") AND bibs.c_dewey NOT LIKE "891.7_08" AND bibs.c_dewey NOT LIKE "891.7_09"</query>
 		<description>Time period in Russian Literature</description>
 	</error>
 	<error id = "10" code = "ErrA010" tier = "bib">
@@ -101,7 +101,7 @@
 		<description>Score not classed with Mu prefix</description>
 	</error>
 	<error id = "25" code = "ErrA025" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.subjects NOT LIKE "%Guidebooks.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%"</query>
 		<description>Likely not guidebook classed in 911-919 range reserved for guidebooks; class in history instead</description>
 	</error>
 	<error id = "26" code = "ErrA026" tier = "bib">
@@ -166,7 +166,7 @@
 	</error>
 	<error id = "41" code = "ErrC002" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%easy%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%er%"</query>
-		<description>Easy Reader PO per line with incorrect shelf code(s))</description>
+		<description>Easy Reader PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "42" code = "ErrC003" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%"</query>
@@ -196,9 +196,9 @@
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "y" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
 	</error>
-	<error id = "49" code = "ErrC010" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%nb%"</query>
-		<description>G (graphic novels) PO per line with incorrect shelf code(s)</description>
+	<error id = "49" code = "ErrB013" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%")</query>
+		<description>Likely incorrect graphic novel label</description>
 	</error>
 	<error id = "50" code = "ErrC011" tier = "ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "pic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%"</query>
