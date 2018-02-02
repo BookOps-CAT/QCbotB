@@ -40,7 +40,8 @@ def ftp_download(host, user, passw, folder):
                     'ftp_worker: not able to find sierra report')
             else:
                 module_logger.info(
-                    'ftp_worker: Identified todays sierra report')
+                    'ftp_worker: Identified todays sierra report as: {}'.format(
+                        todays_file))
                 ftp.retrbinary(
                     'RETR {}'.format(todays_file),
                     open('./files/report.txt', 'wb').write)
@@ -71,4 +72,3 @@ if __name__ == '__main__':
     s = shelve.open('settings')
     ftp_download(s['ftp_host'], s['ftp_user'], s['ftp_pass'], 'bpl')
     s.close()
-    # print todays_file(['BookOpsQC.20180122104500', 'BookOpsQC.20180122100000'])
