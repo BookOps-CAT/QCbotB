@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
 <!--BPL data conflict list-->
 <!--Use to build datastore queries; use datastore name schema-->
-<!--To add new conflict for discovery, place it in the proper 'tier', add new 'error code', and provide 'description' element, and build SQL statement in 'query' element-->
+<!--To add new conflict for discovery, place it in the proper 'tier', add new error 'code', provide 'description' element, and build SQL statement in 'query' element-->
 <!--URL TO SCHEMA HERE-->
 <conflicts>
 	<error id = "1" code = "ErrA001" tier = "bib">
@@ -101,7 +101,7 @@
 		<description>Score not classed with Mu prefix</description>
 	</error>
 	<error id = "25" code = "ErrA025" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%" AND bibs.subjects NOT LIKE "%Tours.%"</query>
 		<description>Likely not guidebook classed in 911-919 range reserved for guidebooks; class in history instead</description>
 	</error>
 	<error id = "26" code = "ErrA026" tier = "bib">
@@ -145,8 +145,8 @@
 		<description>SST (16) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "36" code = "ErrB009" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, b_call, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%13%" AND bibs.c_division != "hb" AND bibs.c_type != "bio"</query>
-		<description>HBR (13) order location with incorrect Dewey range</description>
+		<query>SELECT bibs.id AS bid, b_call, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%13%" AND bibs.c_division != "hb" AND bibs.c_type != "bio" AND orders.o_shelf NOT LIKE "%bc%"</query>
+		<description>HBR (13) order location with incorrect Dewey range; optionally change to 13abc - includes all Dewey ranges</description>
 	</error>
 	<error id = "37" code = "ErrB010" tier = "bib-ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%11%" AND (bibs.c_division != "ar" OR bibs.c_dewey IS NULL)</query>
