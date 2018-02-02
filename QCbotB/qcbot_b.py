@@ -16,6 +16,12 @@ from ftp_worker import ftp_download
 
 def analize(report_fh=None):
 
+    # # clean-up Bibs and Orders tables to prep
+    # datastore for new set
+    with session_scope() as session:
+        delete_table_data(session, Orders)
+        delete_table_data(session, Bibs)
+
     fetched = False
     if report_fh is None:
         s = shelve.open('settings', flag='r')
@@ -71,35 +77,30 @@ def analize(report_fh=None):
                         conflict, e))
 
         # run conflict queries and save errors in the datastore
-        # for cid, query in queries.iteritems():
-        #     try:
-        #         with session_scope() as session:
-        #             results = run_query(session, query)
-        #             for row in results:
-        #                 tic = dict(
-        #                     bid=row.bid,
-        #                     title=row.title)
-        #                 ticket = insert_or_ignore(session, Tickets, **tic)
-        #                 # flush session so ticket obj gets id needed for joiner
-        #                 session.flush()
-        #                 joiner = dict(
-        #                     tid=ticket.id,
-        #                     cid=cid)
-        #                 insert_or_ignore(session, TickConfJoiner, **joiner)
+        for cid, query in queries.iteritems():
+            try:
+                with session_scope() as session:
+                    results = run_query(session, query)
+                    for row in results:
+                        tic = dict(
+                            bid=row.bid,
+                            title=row.title)
+                        ticket = insert_or_ignore(session, Tickets, **tic)
+                        # flush session so ticket obj gets id needed for joiner
+                        session.flush()
+                        joiner = dict(
+                            tid=ticket.id,
+                            cid=cid)
+                        insert_or_ignore(session, TickConfJoiner, **joiner)
 
-        #     except Exception as e:
-        #         # think about better logging here
-        #         main_logger.critical(
-        #             'Unable to add data to datastore, error: {}, {}: {}'.format(
-        #                 e, row, cid))
+            except Exception as e:
+                # think about better logging here
+                main_logger.critical(
+                    'Unable to add data to datastore, error: {}, {}: {}'.format(
+                        e, row, cid))
 
         # # ToDo: report findings
     # # call servicenow_worker
-
-    # # clean-up Bibs and Orders tables
-    # with session_scope() as session:
-    #     delete_table_data(session, Orders)
-    #     delete_table_data(session, Bibs)
 
 # ToDo: provide options to interact with bot
 
@@ -254,5 +255,5 @@ if __name__ == "__main__":
 
     else:
         # while testing provide report test file
-        # fh = './files/sierra_test_list2.txt'
+        # fh = './files/report.txt'
         analize()
