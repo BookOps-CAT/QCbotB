@@ -38,7 +38,7 @@ CFORMAT = [
 
 CAUDN = [
     [r'J-E$|J-E\s\D', 'e'],
-    [r'J\s[0-9]|J\sFIC|J\sB\s|DVD\sJ$|^DVD\s[A-Z]{3}\sJ', 'j']
+    [r'J\s[0-9]|J\sFIC|J\sB\s|DVD\sJ$|^DVD\s[A-Z]{3}\sJ|^CD\sJ\s[A-Z]*', 'j']
 ]
 
 CLANG1 = [
