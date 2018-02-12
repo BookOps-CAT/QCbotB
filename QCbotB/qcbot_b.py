@@ -11,7 +11,7 @@ from db_worker import (insert_or_ignore, delete_table_data,
 from datastore import (Bibs, Orders, Conflicts, Tickets,
                        TickConfJoiner, session_scope)
 from conflict_parser import conflict2dict
-from ftp_worker import ftp_download
+from ftp_worker import ftp_download, ftp_maintenance
 
 
 def analize(report_fh=None):
@@ -29,6 +29,7 @@ def analize(report_fh=None):
         user = s['ftp_user']
         passw = s['ftp_pass']
         ret = s['orders_retention']
+        # fetch the latests Sierra report
         fetched = ftp_download(host, user, passw, 'bpl')
         s.close()
         if fetched:
@@ -36,6 +37,8 @@ def analize(report_fh=None):
         else:
             main_logger.warning(
                 'No new sierra report - skippig analysis')
+        # perform ftp maintenance
+        ftp_maintenance(host, user, passw, 'bpl')
     else:
         s = shelve.open('settings', flag='r')
         ret = s['orders_retention']
@@ -102,8 +105,6 @@ def analize(report_fh=None):
         # # ToDo: report findings
     # # call servicenow_worker
 
-# ToDo: provide options to interact with bot
-
 
 def analize_in_test_mode(file):
     """
@@ -114,9 +115,7 @@ def analize_in_test_mode(file):
 
 
 def view_conflicts(start_date, end_date):
-    """
-    creates a report on conflicts found between given dates
-    """
+    """Creates a report on conflicts found between given dates"""
     pass
 
 
@@ -142,7 +141,8 @@ def validate_dates(dates):
     return dobj
 
 
-def settings(**kwargs):
+def set_settings(**kwargs):
+    """Sets FTP and orders retention parameters"""
     try:
         s = shelve.open('settings')
         if 'ftp' in kwargs:
@@ -156,6 +156,7 @@ def settings(**kwargs):
 
 
 def get_settings():
+    """Returns current FTP and orders retention settings"""
     try:
         s = shelve.open('settings', flag='r')
         v = dict(s)
@@ -171,6 +172,18 @@ if __name__ == "__main__":
     logging.config.dictConfig(LOGGING)
     main_logger = logging.getLogger('QCBtests')
     today = datetime.strftime(datetime.now(), '%d-%m-%y')
+
+    # verify settings are present and if not add generic ones
+    s = shelve.open('settings')
+    if 'ftp_host' not in s:
+        s['ftp_host'] = None
+    if 'ftp_user' not in s:
+        s['fpt_user'] = None
+    if 'ftp_pass' in s:
+        s['ftp_pass'] = None
+    if 'orders_retention' not in s:
+        s['orders_retention'] = 180
+    s.close()
 
     parser = argparse.ArgumentParser(description='QCBot-B Help')
     group = parser.add_mutually_exclusive_group()
@@ -197,7 +210,6 @@ if __name__ == "__main__":
         nargs=1,
         help='sets age of orders in days (integer) '
              'to be considered for QC analysis',
-        # default=180,
         type=int)
     group.add_argument(
         '--view_settings',
@@ -221,13 +233,15 @@ if __name__ == "__main__":
         metavar='DD-MM-YY DD-MM-YY')
     args = parser.parse_args()
     if args.ftp is not None:
-        settings(ftp=args.ftp)
+        set_settings(ftp=args.ftp)
         print 'FTP settings saved...'
     elif args.ingest is not None:
-        print args.ingest[0]
+        print 'ingesting & analyzing file: {}'.format(args.ingest[0])
         analize(args.ingest[0])
     elif args.test is not None:
-        analize_in_test_mode(args.ingest[0])
+        print 'testing ingesting & analyzing file: {}'.format(
+            args.test[0])
+        analize_in_test_mode(args.test[0])
     elif args.view is not None:
         if len(args.view) == 0:
             view_conflicts(today, today)
@@ -249,7 +263,7 @@ if __name__ == "__main__":
         for key, value in sorted(s.iteritems()):
             print '{}={}'.format(key, value)
     elif args.retention is not None:
-        settings(orders_retention=args.retention)
+        set_settings(orders_retention=args.retention)
         print 'Done. Analysis will consider only order no ' \
             'older than {} days'.format(args.retention)
 
