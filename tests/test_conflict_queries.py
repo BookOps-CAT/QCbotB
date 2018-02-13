@@ -341,5 +341,11 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
+    def test_error_52_UND_as_lang_prefix(self):
+        res = worker.run_query(self.session, self.queries[52])
+        ids = sorted([(50, 57)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
 if __name__ == '__main__':
     unittest.main()
