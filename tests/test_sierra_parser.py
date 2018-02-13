@@ -323,163 +323,162 @@ class TestParser(unittest.TestCase):
                 'CD J WORLD JEWISH COLLECTION'), 'j')
 
     def test_world_language_prefix(self):
-        self.assertIs(
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD'), False)
-        self.assertIs(
+                'DVD'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD 909 B'), False)
-        self.assertIs(
+                'DVD 909 B'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD B ADAMS A'), False)
-        self.assertIs(
+                'DVD B ADAMS A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD J B ADAMS A'), False)
-        self.assertIs(
+                'DVD J B ADAMS A'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD CHI'), True)
-        self.assertIs(
+                'DVD CHI'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD CHI J B ADAMS B'), True)
-        self.assertIs(
+                'DVD CHI J B ADAMS B'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD J'), False)
-        self.assertIs(
+                'DVD J'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                ''), False)
-        self.assertIs(
+                ''))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD ARA J'), True)
-        self.assertIs(
+                'DVD ARA J'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD ARA J 909 A'), True)
-        self.assertIs(
+                'DVD ARA J 909 A'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'AUDIO RUS FIC ADAMS'), True)
-        self.assertIs(
+                'AUDIO RUS FIC ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'AUDIO RUS J FIC ADAMS'), True)
-        self.assertIs(
+                'AUDIO RUS J FIC ADAMS'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'AUDIO J FIC ADAMS'), False)
-        self.assertIs(
+                'AUDIO J FIC ADAMS'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'AUDIO FIC ADAMS'), False)
-        self.assertIs(
+                'AUDIO FIC ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'AUDIO CHI 909 A'), True)
-        self.assertIs(
+                'AUDIO CHI 909 A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'AUDIO FIC ADA'), False)
-        self.assertIs(
+                'AUDIO FIC ADA'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'AUDIO RUS B ADAMS A'), True)
-        self.assertIs(
+                'AUDIO RUS B ADAMS A'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'KIT RUS 909 A'), True)
-        self.assertIs(
+                'KIT RUS 909 A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'KIT 909 A'), False)
-        self.assertIs(
+                'KIT 909 A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'KIT J 909 A'), False)
-        self.assertIs(
+                'KIT J 909 A'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'KIT RUS J 909 A'), True)
-        self.assertIs(
+                'KIT RUS J 909 A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'KIT 872.8 H'), False)
-        self.assertIs(
+                'KIT 872.8 H'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD RUS 811 B'), True)
-        self.assertIs(
+                'BOOK & CD RUS 811 B'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD RUS J-E'), True)
-        self.assertIs(
+                'BOOK & CD RUS J-E'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD RUS J FIC A'), True)
-        self.assertIs(
+                'BOOK & CD RUS J FIC A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD FIC ADA'), False)
-        self.assertIs(
+                'BOOK & CD FIC ADA'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD RUS B ADAMS A'), True)
-        self.assertIs(
+                'BOOK & CD RUS B ADAMS A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD B ADAMS A'), False)
-        self.assertIs(
+                'BOOK & CD B ADAMS A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD 901 A'), False)
-        self.assertIs(
+                'BOOK & CD 901 A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & CD J-E ADAMS'), False)
-        self.assertIs(
+                'BOOK & CD J-E ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD RUS 811 B'), True)
-        self.assertIs(
+                'BOOK & DVD RUS 811 B'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD RUS J-E'), True)
-        self.assertIs(
+                'BOOK & DVD RUS J-E'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD RUS J FIC A'), True)
-        self.assertIs(
+                'BOOK & DVD RUS J FIC A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD FIC ADA'), False)
-        self.assertIs(
+                'BOOK & DVD FIC ADA'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD RUS B ADAMS A'), True)
-        self.assertIs(
+                'BOOK & DVD RUS B ADAMS A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD B ADAMS A'), False)
-        self.assertIs(
+                'BOOK & DVD B ADAMS A'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD 901 A'), False)
-        self.assertIs(
+                'BOOK & DVD 901 A'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'BOOK & DVD RUS B ADA B'), True)
-        self.assertIs(
+                'BOOK & DVD RUS B ADA B'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'SPA J-E ADAMS'), True)
-        self.assertIs(
+                'SPA J-E ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'SPA FIC ADAMS'), True)
-        self.assertIs(
+                'SPA FIC ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'CHI J FIC ADAMS'), True)
-        self.assertIs(
+                'CHI J FIC ADAMS'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'POL B ADA J'), True)
-        self.assertIs(
+                'POL B ADA J'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'RUS 811 B'), True)
-        self.assertIs(
+                'RUS 811 B'))
+        self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'VIDEO CHI'), True)
-        self.assertIs(
+                'VIDEO CHI'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'FIC ADAMS'), False)
-        self.assertIs(
+                'FIC ADAMS'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'B ADAMS J'), False)
-        self.assertIs(
+                'B ADAMS J'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'J-E ADAMS'), False)
-        self.assertIs(
+                'J-E ADAMS'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'J-E'), False)
-        self.assertIs(
+                'J-E'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'FIC F'), False)
-        self.assertIs(
+                'FIC F'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'FIC BARTHELME'), False)
-        self.assertIs(
+                'FIC BARTHELME'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'LIB 711.3 B'), False)
-
-        self.assertIs(
+                'LIB 711.3 B'))
+        self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'FIC JOHNSTONE'), False)
+                'FIC JOHNSTONE'))
 
     def test_parse_call_type(self):
         self.assertEqual(
