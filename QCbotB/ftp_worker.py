@@ -20,15 +20,9 @@ def find_todays_file(dir_list=None):
     return None
 
 
-def aged_out_report(fh=None):
-    if fh is not None:
-        try:
-            fh_date = fh[10:]
-        except IndexError:
-            module_logger.warning(
-                'ftp_worker: Found unsupported report '
-                'filename type in archive: {}'.format(
-                    fh))
+def aged_out_report(fh):
+    try:
+        fh_date = fh[10:]
         todays_date = datetime.now()
         fh_date = datetime.strptime(fh_date, '%Y%m%d%H%M%S')
         age = todays_date - fh_date
@@ -37,9 +31,21 @@ def aged_out_report(fh=None):
             return True
         else:
             return False
+    except IndexError:
+        module_logger.warning(
+            'ftp_worker: Found unsupported report '
+            'filename type in archive: {}'.format(
+                fh))
+        return False
+    except ValueError:
+        module_logger.warning(
+            'ftp_worker: Found unsupported report '
+            'filename type in archive: {}'.format(
+                fh))
+        return False
 
 
-def ftp_maintenace(host, user, passw, folder):
+def ftp_maintenance(host, user, passw, folder):
     """Performs maintenace of FTP storage"""
     module_logger.info('ftp:worker: Connecting to FTP...')
     try:
@@ -62,7 +68,7 @@ def ftp_maintenace(host, user, passw, folder):
                     ftp.rename(file, dst_file)
                 module_logger.info(
                     'ftp_worker: Succcessfully moved {} '
-                    'files to archive'.format(
+                    'file(s) to archive'.format(
                         len(files)))
             except error_reply:
                 module_logger.error(
