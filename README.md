@@ -4,7 +4,6 @@ A quality control application for BookOps BPL cataloging output
 ----WORK IN PROGRESS----
 
 ## TODO
-* ftp worker
 * ftp worker tests
 * servicenow worker
 * servicenow worker tests
