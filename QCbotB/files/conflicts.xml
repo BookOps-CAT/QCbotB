@@ -208,4 +208,8 @@
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type IS NULL</query>
 		<description>Missing or not used by library type of call number</description>
 	</error>
+	<error id = "52" code = "ErrA029" tier = "bib">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_wl = 1 AND bibs.b_call LIKE "%UND %"</query>
+		<description>UND as a language prefix</description>
+	</error>
 </conflicts>
