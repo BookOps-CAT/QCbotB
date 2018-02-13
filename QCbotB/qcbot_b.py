@@ -37,8 +37,10 @@ def analize(report_fh=None):
         else:
             main_logger.warning(
                 'No new sierra report - skippig analysis')
+
         # perform ftp maintenance
         ftp_maintenance(host, user, passw, 'bpl')
+
     else:
         s = shelve.open('settings', flag='r')
         ret = s['orders_retention']
@@ -99,10 +101,11 @@ def analize(report_fh=None):
             except Exception as e:
                 # think about better logging here
                 main_logger.critical(
-                    'Unable to add data to datastore, error: {}, {}: {}'.format(
+                    'Unable to add data to datastore, error: '
+                    '{}, {}: {}'.format(
                         e, row, cid))
 
-        # # ToDo: report findings
+    # # ToDo: report findings
     # # call servicenow_worker
 
 
@@ -179,7 +182,7 @@ if __name__ == "__main__":
         s['ftp_host'] = None
     if 'ftp_user' not in s:
         s['fpt_user'] = None
-    if 'ftp_pass' in s:
+    if 'ftp_pass' not in s:
         s['ftp_pass'] = None
     if 'orders_retention' not in s:
         s['orders_retention'] = 180
