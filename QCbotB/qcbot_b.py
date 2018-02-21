@@ -9,7 +9,7 @@ from db_worker import (insert_or_ignore, delete_table_data,
                        insert_or_update,
                        run_query)
 from datastore import (Bibs, Orders, Conflicts, Tickets,
-                       TickConfJoiner, session_scope)
+                       TickConfJoiner, Copies, session_scope)
 from conflict_parser import conflict2dict
 from ftp_worker import ftp_download, ftp_maintenance
 
@@ -97,7 +97,11 @@ def analize(report_fh=None):
                             tid=ticket.id,
                             cid=cid)
                         insert_or_ignore(session, TickConfJoiner, **joiner)
-
+                        cop = dict(
+                            tid=ticket.id,
+                            oid=row.oid,
+                            copies=row.copies)
+                        insert_or_ignore(session, Copies, **cop)
             except Exception as e:
                 # think about better logging here
                 main_logger.critical(
