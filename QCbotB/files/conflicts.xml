@@ -85,7 +85,7 @@
 		<description>Likely annotated fiction edition - consider Dewey instead</description>
 	</error>
 	<error id = "21" code = "ErrA021" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.subjects NOT LIKE "%Quotations.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 L _" AND bibs.b_call NOT LIKE "822.33 S52 M _" AND bibs.b_call NOT LIKE "822.33 S52 N _" AND bibs.subjects NOT LIKE "%Quotations.%"</query>
 		<description>Incorrect call number for Shakespeare individual work</description>
 	</error>
 	<error id = "22" code = "ErrA022" tier = "bib">
