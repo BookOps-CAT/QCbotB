@@ -153,7 +153,7 @@
 		<description>AMS (11) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "38" code = "ErrB011" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%14%" AND bibs.c_dewey IS NOT NULL AND bibs.c_division != "ll" AND orders.o_shelf NOT LIKE "%wl%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%14%" AND bibs.c_dewey IS NOT NULL AND bibs.c_division != "ll" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%dv%"</query>
 		<description>LL (14) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "39" code = "ErrB012" tier = "bib-ord">
