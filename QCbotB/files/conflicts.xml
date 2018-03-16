@@ -33,7 +33,7 @@
 		<description>Time period in Spanish Literature</description>
 	</error>
 	<error id = "8" code = "ErrA008" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "895.1%" AND bibs.c_dewey NOT LIKE "895.10%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "895.1%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%") AND (bibs.c_dewey NOT LIKE "895.110%" AND bibs.c_dewey NOT LIKE "895.120%" AND bibs.c_dewey NOT LIKE "895.130%" AND bibs.c_dewey NOT LIKE "895.140%" AND bibs.c_dewey NOT LIKE "895.160%" AND bibs.c_dewey NOT LIKE "895.170%" AND bibs.c_dewey NOT LIKE "895.180%")</query>
 		<description>Time period in Chinese Literature</description>
 	</error>
 	<error id = "9" code = "ErrA009" tier = "bib">
