@@ -78,7 +78,7 @@ class TestConflictQueries(unittest.TestCase):
 
     def test_error8_time_table_in_chinese_literature(self):
         res = worker.run_query(self.session, self.queries[8])
-        ids = sorted([4, 10]) # false positive for 4, but that ok
+        ids = sorted([10])
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
