@@ -867,7 +867,22 @@ b51 = db.Bibs(
     c_division=None,
     crit_work=None,
     b_call='822.33 S52 M B')
-
+b52 = db.Bibs(
+    c_format='pr',
+    c_dewey='895.1808',
+    b_type=None,
+    c_wl=True,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='a',
+    id=52,
+    c_type='dew',
+    author='NAME',
+    title='Chinese lit time period test',
+    c_cutter=True,
+    subjects=None,
+    c_division=None,
+    crit_work=None,
+    b_call='CHI 895.1808 C')
 
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
@@ -877,7 +892,7 @@ BIBS = [
     b28, b29, b30, b31, b32, b33, b34,
     b35, b36, b37, b38, b39, b40, b41,
     b42, b43, b44, b45, b46, b47, b48,
-    b49, b50, b51]
+    b49, b50, b51, b52]
 
 c1 = db.Orders(
     bid=1,
@@ -1401,6 +1416,15 @@ c58 = db.Orders(
     o_audn='a',
     o_shelf='nf',
     ven_note=None)
+c59 = db.Orders(
+    id=59,
+    bid=52,
+    o_branch='55',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf='wl',
+    ven_note=None)
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
@@ -1409,7 +1433,7 @@ ORDERS = [
     c29, c30, c31, c32, c33, c34, c35, c36, c37,
     c38, c39, c40, c41, c42, c43, c44, c45, c46,
     c47, c48, c49, c50, c51, c52, c53, c54, c55,
-    c56, c57, c58
+    c56, c57, c58, c59
 ]
 
 
