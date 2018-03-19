@@ -110,7 +110,7 @@
 	</error>
 	<error id = "27" code = "ErrA027" tier = "bib">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "DAVIS" AND bibs.subjects LIKE "%Garfield%" AND bibs.subjects LIKE "%Comic books, strips, etc.%" AND bibs.b_call NOT LIKE "741.5973 D"</query>
-		<description>Garfield comic strips not in 741.5973</description>
+		<description>Garfield comic strips not in 741.5973; prefer 741.5973 over 741.56973; never classify in fiction</description>
 	</error>
 	<error id = "28" code = "ErrB001" tier = "bib-ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "e" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%er%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%cp%"</query>
