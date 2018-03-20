@@ -141,7 +141,7 @@
 		<description>Bilingual shelf code with world language prefix in the call number; should be classed for English collection</description>
 	</error>
 	<error id = "35" code = "ErrB008" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%16%" AND (bibs.c_division != "ss" OR bibs.c_dewey IS NULL)</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%16%" AND bibs.b_call IS NOT NULL AND (bibs.c_division != "ss" OR bibs.c_dewey IS NULL)</query>
 		<description>SST (16) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "36" code = "ErrB009" tier = "bib-ord">
