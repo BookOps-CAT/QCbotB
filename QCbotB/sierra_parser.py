@@ -204,7 +204,9 @@ def parse_shelves(value=None):
 
 
 def parse_call_format(value=None):
-    try:
+    if value is None:
+        c_format = 'pr'  # assume format to be print
+    else:
         found = False
         for pattern in CFORMAT:
             p = re.compile(pattern[0])
@@ -215,15 +217,13 @@ def parse_call_format(value=None):
                 break
         if not found:
             c_format = 'pr'
-        return c_format
-    except TypeError:
-        module_logger.error(
-            'TypeError on parse_call_format found type: {}'.format(
-                type(value)))
+    return c_format
 
 
 def parse_call_audn(value=None):
-    try:
+    if value is None:
+        c_audn = 'a'
+    else:
         found = False
         for pattern in CAUDN:
             p = re.compile(pattern[0])
@@ -234,41 +234,34 @@ def parse_call_audn(value=None):
                 break
         if not found:
             c_audn = 'a'
-        return c_audn
-    except TypeError:
-        module_logger.error(
-            'TypeError on parse_call_audn, found type: {}'.format(
-                type(value)))
+    return c_audn
 
 
 def world_lang_prefix(value=None):
     found = False
-    try:
-        if value[:3] in 'DVD,KIT,LIB,BOO':
-            patterns = CLANG1
-        else:
-            patterns = CLANG2
-        for pattern in patterns:
-            p = re.compile(pattern)
-            m = p.search(value)
-            if m:
-                found = True
-                break
-        return found
-    except IndexError:
-        module_logger.error(
-            'IndexError on world_lang_perfix, found value: {}'.format(
-                value))
-        return found
-    except TypeError:
-        module_logger.error(
-            'TypeError on world_lang_perfix, found type: {}'.format(
-                type(value)))
-        return found
+    if value is not None:
+        try:
+            if value[:3] in 'DVD,KIT,LIB,BOO':
+                patterns = CLANG1
+            else:
+                patterns = CLANG2
+            for pattern in patterns:
+                p = re.compile(pattern)
+                m = p.search(value)
+                if m:
+                    found = True
+                    break
+        except IndexError:
+            module_logger.error(
+                'IndexError on world_lang_perfix, found value: {}'.format(
+                    value))
+    return found
 
 
 def parse_call_type(value=None):
-    try:
+    if value is None:
+        c_type = None
+    else:
         found = False
         for pattern in CTYPE:
             p = re.compile(pattern[0])
@@ -279,41 +272,31 @@ def parse_call_type(value=None):
                 break
         if not found:
             c_type = None
-
-        return c_type
-    except TypeError:
-        module_logger.error(
-            'TypeError on parse_call_cutter, found type: {}'.format(
-                type(value)))
+    return c_type
 
 
 def parse_call_cutter(value=None):
-    try:
+    found = False
+    if value is not None:
         found = False
         p = re.compile(CCUTTER)
         m = p.search(value)
         if m:
             found = True
-        return found
-    except TypeError:
-        module_logger.error(
-            'TypeError on parse_call_cutter, found type: {}'.format(
-                type(value)))
+    return found
 
 
 def parse_call_dewey(value=None):
-    try:
+    if value is None:
+        c_dew = None
+    else:
         p = re.compile(CDEW)
         m = p.search(value)
         if m:
             c_dew = m.group().strip()
         else:
             c_dew = None
-        return c_dew
-    except TypeError:
-        module_logger.error(
-            'TypeError on parse_call_dewey, found type: {}'.format(
-                type(value)))
+    return c_dew
 
 
 def identify_dewey_range(value=None):
@@ -417,6 +400,8 @@ def report_data(fh, order_age_in_days):
 
                 b_type = None
                 b_call = row[5].strip()
+                if b_call == '':
+                    b_call = None
                 c_dewey = parse_call_dewey(b_call)
                 subjects = parse_subjects(row[6])
 
@@ -473,4 +458,3 @@ if __name__ == '__main__':
             # print(x[1])
         except:
             pass
-
