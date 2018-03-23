@@ -93,7 +93,7 @@
 		<description>Shakespeare quotiation/maxims with incorrect call number, example 822.33 S52 H</description>
 	</error>
 	<error id = "23" code = "ErrA023" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.crit_work = 1 AND bibs.subjects LIKE "%Shakespeare, William%" AND (bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 D _" AND bibs.b_call NOT LIKE "822.33 S52 E _")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.crit_work = 1 AND bibs.subjects LIKE "%Shakespeare, William%" AND (bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 D _" AND bibs.b_call NOT LIKE "822.33 S52 E _" AND bibs.subjects NOT LIKE "%Adaptations.%")</query>
 		<description>Shakespeare criticism with incorrect call number</description>
 	</error>
 	<error id = "24" code = "ErrA024" tier = "bib">
