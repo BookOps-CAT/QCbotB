@@ -73,7 +73,7 @@
 		<description>Missing philosopher name in the call number; example 193 KANT D</description>
 	</error>
 	<error id = "18" code = "ErrA018" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.c_format = "pr" OR bibs.c_format = "au" OR bibs.c_format = 'ki') AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%" OR bibs.c_dewey LIKE "%8" OR bibs.subjects LIKE "%Stories in rhyme.%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.c_format = "pr" OR bibs.c_format = "au" OR bibs.c_format = 'ki') AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%" OR bibs.c_dewey LIKE "%8" OR bibs.subjects LIKE "%Stories in rhyme.%" OR bibs.c_dewey LIKE "398.2%")</query>
 		<description>Likely FIC call number not coded as such</description>
 	</error>
 	<error id = "19" code = "ErrA019" tier = "bib">
