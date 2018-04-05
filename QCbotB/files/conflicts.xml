@@ -145,7 +145,7 @@
 		<description>SST (16) order location with incorrect Dewey range</description>
 	</error>
 	<error id = "36" code = "ErrB009" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, b_call, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%13%" AND bibs.c_division != "hb" AND bibs.c_type != "bio" AND orders.o_shelf NOT LIKE "%bc%"</query>
+		<query>SELECT bibs.id AS bid, b_call, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%13%" AND bibs.c_division != "hb" AND bibs.c_type != "bio" AND orders.o_shelf NOT LIKE "%bc%" AND orders.o_shelf NOT LIKE "%rf%" </query>
 		<description>HBR (13) order location with incorrect Dewey range; optionally change to 13abc - includes all Dewey ranges</description>
 	</error>
 	<error id = "37" code = "ErrB010" tier = "bib-ord">
