@@ -185,7 +185,7 @@
 		<description>R (romance) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "46" code = "ErrC007" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>M (myster) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "47" code = "ErrC008" tier = "ord">
