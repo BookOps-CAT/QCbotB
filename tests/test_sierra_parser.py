@@ -690,6 +690,10 @@ class TestParser(unittest.TestCase):
         self.assertIs(
             sierra_parser.parse_call_cutter(
                 '973 A211'), True)
+        # extra white space in the call number
+        self.assertIs(
+            sierra_parser.parse_call_cutter(
+                'J-E  BUSSE'), True)
 
     def test_parse_dewey(self):
         self.assertEqual(
