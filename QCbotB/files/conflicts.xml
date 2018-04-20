@@ -101,7 +101,7 @@
 		<description>Score not classed with Mu prefix</description>
 	</error>
 	<error id = "25" code = "ErrA025" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%" AND bibs.subjects NOT LIKE "%Tours.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%" AND bibs.subjects NOT LIKE "%Tours.%" AND bibs.c_format NOT LIKE "%dv%"</query>
 		<description>Likely not guidebook classed in 911-919 range reserved for guidebooks; class in history instead</description>
 	</error>
 	<error id = "26" code = "ErrA026" tier = "bib">
