@@ -26,7 +26,7 @@ def aged_out_report(fh):
         todays_date = datetime.now()
         fh_date = datetime.strptime(fh_date, '%Y%m%d%H%M%S')
         age = todays_date - fh_date
-        num_days = timedelta(days=14)
+        num_days = timedelta(days=30)
         if age > num_days:
             return True
         else:
