@@ -74,5 +74,6 @@ def conflict2dict(conflicts_file=None):
     else:
         return []
 
+
 if __name__ == '__main__':
     print conflict2dict('./files/conflicts.xml')

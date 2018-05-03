@@ -1,15 +1,15 @@
 <?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
 <!--BPL data conflict list-->
 <!--Use to build datastore queries; use datastore name schema-->
-<!--To add new conflict for discovery, place it in the proper 'tier', add new 'error code', and provide 'description' element, and build SQL statement in 'query' element-->
+<!--To add new conflict for discovery, place it in the proper 'tier', add new error 'code', provide 'description' element, and build SQL statement in 'query' element-->
 <!--URL TO SCHEMA HERE-->
 <conflicts>
 	<error id = "1" code = "ErrA001" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_cutter = 0 AND bibs.c_type != "fea" AND (bibs.c_type != "eas" AND bibs.author IS NULL)</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_cutter = 0 AND bibs.c_type != "fea" AND bibs.c_type != "eas") OR (bibs.c_cutter = 0 AND bibs.c_type = "eas" AND bibs.author IS NOT NULL)</query>
 		<description>Missing cutter in the call number</description>
 	</error>
 	<error id = "2" code = "ErrA002" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_call IS NOT NULL AND (bibs.b_call LIKE "%0" OR bibs.b_call LIKE "%1" OR bibs.b_call LIKE "%2" OR bibs.b_call LIKE "%3" OR bibs.b_call LIKE "%4" OR bibs.b_call LIKE "%5" OR bibs.b_call LIKE "%6" OR bibs.b_call LIKE "%7" OR bibs.b_call LIKE "%8" OR bibs.b_call LIKE "%9")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_call IS NOT NULL AND (bibs.b_call LIKE "% 0" OR bibs.b_call LIKE "% 1" OR bibs.b_call LIKE "% 2" OR bibs.b_call LIKE "% 3" OR bibs.b_call LIKE "% 4" OR bibs.b_call LIKE "% 5" OR bibs.b_call LIKE "% 6" OR bibs.b_call LIKE "% 7" OR bibs.b_call LIKE "% 8" OR bibs.b_call LIKE "% 9")</query>
 		<description>Call number cutter is a digit</description>
 	</error>
 	<error id = "3" code = "ErrA003" tier = "bib">
@@ -33,11 +33,11 @@
 		<description>Time period in Spanish Literature</description>
 	</error>
 	<error id = "8" code = "ErrA008" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "895.1%" AND bibs.c_dewey NOT LIKE "895.10%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "895.1%" AND (bibs.c_dewey LIKE "895.11_%" OR bibs.c_dewey LIKE "895.12_%" OR bibs.c_dewey LIKE "895.13_%" OR bibs.c_dewey LIKE "895.14_%" OR bibs.c_dewey LIKE "895.15_%" OR bibs.c_dewey LIKE "895.16_%" OR bibs.c_dewey LIKE "895.17_%" OR bibs.c_dewey LIKE "895.18_%" OR bibs.c_dewey LIKE "895.10800_%" OR bibs.c_dewey LIKE "895.10900_%") AND (bibs.c_dewey NOT LIKE "895.110%" AND bibs.c_dewey NOT LIKE "895.120%" AND bibs.c_dewey NOT LIKE "895.130%" AND bibs.c_dewey NOT LIKE "895.140%" AND bibs.c_dewey NOT LIKE "895.160%" AND bibs.c_dewey NOT LIKE "895.170%" AND bibs.c_dewey NOT LIKE "895.180%")</query>
 		<description>Time period in Chinese Literature</description>
 	</error>
 	<error id = "9" code = "ErrA009" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "891.7%" AND bibs.c_dewey NOT LIKE "891.70%" AND (bibs.c_dewey LIKE "891.71_%" OR bibs.c_dewey LIKE "891.72_%" OR bibs.c_dewey LIKE "891.73_%" OR bibs.c_dewey LIKE "891.74_%" OR bibs.c_dewey LIKE "891.75_%" OR bibs.c_dewey LIKE "891.76_%" OR bibs.c_dewey LIKE "891.77_%" OR bibs.c_dewey LIKE "891.78_%" OR bibs.c_dewey LIKE "891.70800_%" OR bibs.c_dewey LIKE "891.70900_%") AND bibs.c_dewey NOT LIKE "891.7_08" AND bibs.c_dewey NOT LIKE "891.7_09"</query>
 		<description>Time period in Russian Literature</description>
 	</error>
 	<error id = "10" code = "ErrA010" tier = "bib">
@@ -53,8 +53,8 @@
 		<description>Incorrect Dewey for ciriticsm/collection of English literary genre; use 86x.009x or 86x.008x instead</description>
 	</error>
 	<error id = "13" code = "ErrA013" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_lang NOT LIKE "%" || bibs.c_lang || "%" AND bibs.c_type != "cdm"</query>
-		<description>Incorrect language prefix in the call number or incorrect languge codes in bib</description>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_wl = 1 AND bibs.c_dewey IS NOT NULL AND (bibs.subjects LIKE "%language Textbooks for foreign speakers English.%" OR bibs.subjects LIKE "%language Conversation and phrase books English%" OR bibs.subjects LIKE "%language Sound recordings for foreign speakers English.%" OR bibs.subjects LIKE "%Study and teaching English speakers.%" OR bibs.subjects LIKE "%language Dictionaries, Juvenile English.%" OR bibs.subjects LIKE "%language Dictionaries English.%")</query>
+		<description>Incorrect language prefix for foreign language textbooks, dictionaries, etc. intended for English speakers; should be classed in English collection</description>
 	</error>
 	<error id = "14" code = "ErrA014" tier = "bib">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type != "des" AND (bibs.c_dewey = "005.133" OR bibs.c_dewey = "005.262" OR bibs.c_dewey = "005.252") AND bibs.subjects LIKE "%(Computer program language)%"</query>
@@ -73,7 +73,7 @@
 		<description>Missing philosopher name in the call number; example 193 KANT D</description>
 	</error>
 	<error id = "18" code = "ErrA018" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.b_format = "print" OR bibs.b_format = "audio") AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type != "fic" AND bibs.c_type != "eas" AND (bibs.c_format = "pr" OR bibs.c_format = "au" OR bibs.c_format = 'ki') AND (bibs.subjects LIKE "% Fiction.%" OR bibs.subjects LIKE "% Juvenile fiction%") AND NOT (bibs.subjects LIKE "%criticism%" OR bibs.c_dewey LIKE "%8" OR bibs.subjects LIKE "%Stories in rhyme.%" OR bibs.c_dewey LIKE "398.2%")</query>
 		<description>Likely FIC call number not coded as such</description>
 	</error>
 	<error id = "19" code = "ErrA019" tier = "bib">
@@ -85,7 +85,7 @@
 		<description>Likely annotated fiction edition - consider Dewey instead</description>
 	</error>
 	<error id = "21" code = "ErrA021" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.subjects NOT LIKE "%Quotations.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "SHAKESPEARE" AND bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 L _" AND bibs.b_call NOT LIKE "822.33 S52 M _" AND bibs.b_call NOT LIKE "822.33 S52 N _" AND bibs.subjects NOT LIKE "%Quotations.%"</query>
 		<description>Incorrect call number for Shakespeare individual work</description>
 	</error>
 	<error id = "22" code = "ErrA022" tier = "bib">
@@ -93,43 +93,123 @@
 		<description>Shakespeare quotiation/maxims with incorrect call number, example 822.33 S52 H</description>
 	</error>
 	<error id = "23" code = "ErrA023" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.crit_work = 1 AND bibs.subject_person = "SHAKESPEARE" AND (bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 D _" AND bibs.b_call NOT LIKE "822.33 S52 E _")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.crit_work = 1 AND bibs.subjects LIKE "%Shakespeare, William%" AND (bibs.b_call NOT LIKE "822.33 S52 __ _%" AND bibs.b_call NOT LIKE "822.33 S52 D _" AND bibs.b_call NOT LIKE "822.33 S52 E _" AND bibs.subjects NOT LIKE "%Adaptations.%")</query>
 		<description>Shakespeare criticism with incorrect call number</description>
 	</error>
 	<error id = "24" code = "ErrA024" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_format = "score" AND (bibs.c_format != "mu" OR bibs.b_call NOT LIKE "Mu %")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_format != "mu" AND (bibs.subjects LIKE "% Scores.%" OR bibs.subjects LIKE "%Scores. lcgft%")</query>
 		<description>Score not classed with Mu prefix</description>
 	</error>
 	<error id = "25" code = "ErrA025" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.subjects NOT LIKE "%Guidebooks.%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "91%" AND bibs.c_dewey NOT LIKE "910%" AND bibs.c_dewey NOT LIKE "911%" AND bibs.c_dewey NOT LIKE "912%" AND bibs.subjects NOT LIKE "%Guidebooks.%" AND bibs.subjects NOT LIKE "%Tours.%" AND bibs.c_format NOT LIKE "%dv%"</query>
 		<description>Likely not guidebook classed in 911-919 range reserved for guidebooks; class in history instead</description>
 	</error>
 	<error id = "26" code = "ErrA026" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "220.5%" AND bibs.b_call NOT LIKE "%B52 _%"</query>
-		<description>Bible missing B52 element in the call number, example: 220.5203 B582 HG</description>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_dewey LIKE "220.5%" AND bibs.b_call NOT LIKE "%B582 _%"</query>
+		<description>Bible missing B582 element in the call number, example: 220.5203 B582 HG</description>
 	</error>
 	<error id = "27" code = "ErrA027" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "DAVIS" and bibs.subjects LIKE "%Garfield%" AND bibs.b_call NOT LIKE "741.5973 D"</query>
-		<description>Garfield comic strips not in 741.5973</description>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.author = "DAVIS" AND bibs.subjects LIKE "%Garfield%" AND bibs.subjects LIKE "%Comic books, strips, etc.%" AND bibs.b_call NOT LIKE "741.5973 D"</query>
+		<description>Garfield comic strips not in 741.5973; prefer 741.5973 over 741.56973; never classify in fiction</description>
 	</error>
-	<error id = "28" code = "ErrB001" tier = "bib">
+	<error id = "28" code = "ErrB001" tier = "bib-ord">
 		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "e" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%er%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%cp%"</query>
 		<description>J-E call number does not corresponds to correct order shelf location(s)</description>
 	</error>
-	<error id = "29" code = "ErrB002" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%02%" AND bibs.c_audn IS NOT "e" AND bibs.c_audn IS NOT "j"</query>
-		<description>Central Library Children's Division in order location without juvenile call number (J-E or J)</description>
-	</error>
-	<error id = "30" code = "ErrB003" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "j" AND orders.o_shelf IS NOT NULL AND (orders.o_audn != "j" OR orders.o_shelf LIKE "%je%" OR orders.o_shelf LIKE "%er%") AND (orders.o_shelf NOT LIKE "%li%" OR orders.o_shelf NOT LIKE "%cp%" OR orders.o_shelf NOT LIKE "%cd%")</query>
+	<error id = "29" code = "ErrB002" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "j" AND orders.o_shelf IS NOT NULL AND ((orders.o_audn = "j" AND (orders.o_shelf LIKE "%je%" OR orders.o_shelf LIKE "%er%")) OR (orders.o_audn != "j" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%cd%"))</query>
 		<description>General juvenile call number does not corresponds to order shelf location(s)</description>
 	</error>
-	<error id = "31" code = "ErrB004" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+	<error id = "30" code = "ErrB003" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_audn = "a" AND orders.o_audn != "a" AND orders.o_audn != "y" AND orders.o_shelf NOT LIKE "%cp%"</query>
 		<description>Adult/Young Adult call number with incorrect order shelf location(s)</description>
 	</error>
-	<error id = "32" code = "ErrB005" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%nb%"</query>
+	<error id = "31" code = "ErrB004" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "bio" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%br%" AND (orders.o_shelf NOT LIKE "%dk%" AND orders.o_branch != "19")</query>
 		<description>Biography call number with incorrect order shelf location(s)</description>
+	</error>
+	<error id = "32" code = "ErrB005" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_type = "dew" OR bibs.c_type = "des") AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%nf%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%bb%" AND orders.o_shelf NOT LIKE "%fd%" AND (orders.o_shelf NOT LIKE "%dk%" AND orders.o_branch != "19")</query>
+		<description>Non-fiction call number with incorrect order shelf location(s)</description>
+	</error>
+	<error id = "33" code = "ErrB006" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "fic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%je%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf NOT LIKE "%fd%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_shelf NOT LIKE "%cd%" AND (orders.o_shelf NOT LIKE "%dk%" AND orders.o_branch != "19")</query>
+		<description>Fiction call number with incorrect order shelf location(s)</description>
+	</error>
+	<error id = "34" code = "ErrB007" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_wl = 1 AND orders.o_shelf LIKE "%bb%"</query>
+		<description>Bilingual shelf code with world language prefix in the call number; should be classed for English collection</description>
+	</error>
+	<error id = "35" code = "ErrB008" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%16%" AND bibs.b_call IS NOT NULL AND (bibs.c_division != "ss" OR bibs.c_dewey IS NULL)</query>
+		<description>SST (16) order location with incorrect Dewey range</description>
+	</error>
+	<error id = "36" code = "ErrB009" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, b_call, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%13%" AND bibs.c_division != "hb" AND bibs.c_type != "bio" AND orders.o_shelf NOT LIKE "%bc%" AND orders.o_shelf NOT LIKE "%rf%" </query>
+		<description>HBR (13) order location with incorrect Dewey range; optionally change to 13abc - includes all Dewey ranges</description>
+	</error>
+	<error id = "37" code = "ErrB010" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%11%" AND (bibs.c_division != "ar" OR bibs.c_dewey IS NULL)</query>
+		<description>AMS (11) order location with incorrect Dewey range</description>
+	</error>
+	<error id = "38" code = "ErrB011" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_branch LIKE "%14%" AND bibs.c_dewey IS NOT NULL AND bibs.c_division != "ll" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf NOT LIKE "%dv%"</query>
+		<description>LL (14) order location with incorrect Dewey range</description>
+	</error>
+	<error id = "39" code = "ErrB012" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_shelf LIKE "%bt%" AND bibs.b_call NOT LIKE "%KIT %" AND bibs.b_call NOT LIKE "%BOOK %"</query>
+		<description>Book and CD order code without proper format prefix</description>
+	</error>
+	<error id = "40" code = "ErrC001" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%cc%" AND orders.o_shelf IS NOT NULL AND orders.o_branch NOT LIKE "%16%"</query>
+		<description>SST Core Collection PO per line without 16 as a location</description>
+	</error>
+	<error id = "41" code = "ErrC002" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%easy%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%er%"</query>
+		<description>Easy Reader PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "42" code = "ErrC003" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%rd%" AND orders.o_shelf NOT LIKE "%br%"</query>
+		<description>REF PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "43" code = "ErrC004" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%bio%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%bi%" AND orders.o_shelf != "nb"</query>
+		<description>BIO PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "44" code = "ErrC005" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "a" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%as%"</query>
+		<description>A (assigment) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "45" code = "ErrC006" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "r" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%fc%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_shelf != "nb"</query>
+		<description>R (romance) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "46" code = "ErrC007" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "m" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%my%" AND orders.o_shelf NOT LIKE "%nb%" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_audn NOT LIKE "%j%"</query>
+		<description>M (myster) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "47" code = "ErrC008" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
+		<description>S (science fiction) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "48" code = "ErrC009" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "y" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sh%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
+		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
+	</error>
+	<error id = "49" code = "ErrB013" tier = "bib-ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%")</query>
+		<description>Likely incorrect graphic novel label</description>
+	</error>
+	<error id = "50" code = "ErrC011" tier = "ord">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "pic" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%je%"</query>
+		<description>PIC (JE regular) PO per line with incorrect shelf code(s); all location should be coded as "jje"</description>
+	</error>
+	<error id = "51" code = "ErrA028" tier = "bib">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type IS NULL</query>
+		<description>Missing or not used by library type of call number</description>
+	</error>
+	<error id = "52" code = "ErrA029" tier = "bib">
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_wl = 1 AND bibs.b_call LIKE "%UND %"</query>
+		<description>UND as a language prefix</description>
 	</error>
 </conflicts>

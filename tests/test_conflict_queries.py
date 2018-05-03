@@ -39,7 +39,7 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error2_non_fic_without_cutter(self):
+    def test_error2_digit_for_cutter(self):
         res = worker.run_query(self.session, self.queries[2])
         ids = sorted([2])
         hits = sorted([r.bid for r in res])
@@ -78,7 +78,7 @@ class TestConflictQueries(unittest.TestCase):
 
     def test_error8_time_table_in_chinese_literature(self):
         res = worker.run_query(self.session, self.queries[8])
-        ids = sorted([4, 10]) # false positive for 4, but that ok
+        ids = sorted([10])
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
@@ -106,7 +106,7 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error13_missing_lang_prefix(self):
+    def test_error13_lang_prefix_for_textbooks_for_english_speakers(self):
         res = worker.run_query(self.session, self.queries[13])
         ids = sorted([17, 17])
         hits = sorted([r.bid for r in res])
@@ -180,7 +180,7 @@ class TestConflictQueries(unittest.TestCase):
 
     def test_error25_not_guidebook_in_911_919_dewey_range(self):
         res = worker.run_query(self.session, self.queries[25])
-        ids = sorted([30])
+        ids = sorted([30, 30])
         hits = sorted([r.bid for r in res])
         self.assertEqual(hits, ids)
 
@@ -203,27 +203,149 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error29_02_central_location_without_juvenile_call_number(self):
+    def test_error29_general_juvenile_call_number_with_wrong_shelf_location(self):
         res = worker.run_query(self.session, self.queries[29])
-        # matching ids is a list of tuples with bib id and order id
-        ids = sorted([(24, 36), (24, 37)])
-        hits = sorted([(r.bid, r.oid) for r in res])
-        self.assertEqual(hits, ids)
-
-    def test_error30_general_juvenile_call_number_with_wrong_shelf_location(self):
-        res = worker.run_query(self.session, self.queries[30])
         ids = sorted([(17, 38)])
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error31_adult_young_adult_call_number_with_wrong_shelf_location(self):
-        res = worker.run_query(self.session, self.queries[31])
+    def test_error30_adult_young_adult_call_number_with_wrong_shelf_location(self):
+        res = worker.run_query(self.session, self.queries[30])
         ids = sorted([(24, 36)])
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error32_biograpy_call_number_with_wrong_order_shelf_location(self):
-        pass
+    def test_error31_biograpy_call_number_with_wrong_order_shelf_location(self):
+        res = worker.run_query(self.session, self.queries[31])
+        ids = sorted([(35, 39), (35, 41)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error32_non_fic_call_number_with_wrong_order_shelf_location(self):
+        res = worker.run_query(self.session, self.queries[32])
+        ids = sorted([(30, 31)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error33_fiction_call_number_with_wrong_order_shelf_location(self):
+        res = worker.run_query(self.session, self.queries[33])
+        ids = sorted([(24, 36)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error34_bilingual_order_shelf_location_with_language_prefix_in_call_number(self):
+        res = worker.run_query(self.session, self.queries[34])
+        ids = sorted([(17, 18)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error35_SST_order_location_with_wrong_dewey_range_in_call_number(self):
+        res = worker.run_query(self.session, self.queries[35])
+        ids = sorted([(2, 2), (31, 32)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_36_HBR_order_location_with_wrong_dewey_range_in_call_number(self):
+        res = worker.run_query(self.session, self.queries[36])
+        ids = sorted([(30, 31), (30, 40)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_37_AMS_order_location_with_wrong_dewey_range_in_call_number(self):
+        res = worker.run_query(self.session, self.queries[37])
+        ids = sorted([(35, 41)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_38_LL_order_location_with_wrong_dewey_range_in_call_number(self):
+        res = worker.run_query(self.session, self.queries[38])
+        ids = sorted([(36, 42)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_39_BOOK_CD_order_with_incorrect_call_number(self):
+        res = worker.run_query(self.session, self.queries[39])
+        ids = sorted([(37, 43)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_40_SST_core_coll_has_16_as_location(self):
+        res = worker.run_query(self.session, self.queries[40])
+        ids = sorted([(39, 45)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_41_easy_reader_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[41])
+        ids = sorted([(40, 46)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_42_reference_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[42])
+        ids = sorted([(39, 47)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_43_bio_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[43])
+        ids = sorted([(41, 48)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_44_assigment_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[44])
+        ids = sorted([(42, 49)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_45_romance_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[45])
+        ids = sorted([(43, 50)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_46_mystery_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[46])
+        ids = sorted([(44, 51)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_47_sciencefiction_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[47])
+        ids = sorted([(45, 52)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_48_shortstories_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[48])
+        ids = sorted([(46, 53)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_49_graphicnovel_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[49])
+        ids = sorted([(47, 54)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_50_picture_book_po_per_line_with_incorrect_shelf_codes(self):
+        res = worker.run_query(self.session, self.queries[50])
+        ids = sorted([(48, 55)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_51_missing_or_unused_call_number_type(self):
+        res = worker.run_query(self.session, self.queries[51])
+        ids = sorted([(49, 56)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
+    def test_error_52_UND_as_lang_prefix(self):
+        res = worker.run_query(self.session, self.queries[52])
+        ids = sorted([(50, 57)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
 
 if __name__ == '__main__':
     unittest.main()
