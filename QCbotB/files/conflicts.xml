@@ -129,7 +129,7 @@
 		<description>Biography call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "32" code = "ErrB005" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_type = "dew" OR bibs.c_type = "des") AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%nf%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%bb%" AND orders.o_shelf NOT LIKE "%fd%" AND (orders.o_shelf NOT LIKE "%dk%" AND orders.o_branch != "19")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_type = "dew" OR bibs.c_type = "des") AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%nf%" AND orders.o_shelf NOT LIKE "%wl%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%li%" AND orders.o_shelf NOT LIKE "%ej%" AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%as%" AND orders.o_shelf NOT LIKE "%au%" AND orders.o_shelf NOT LIKE "%cp%" AND orders.o_shelf NOT LIKE "%bt%" AND orders.o_shelf NOT LIKE "%dv%" AND orders.o_shelf NOT LIKE "%lp%" AND orders.o_shelf NOT LIKE "%tp%" AND orders.o_shelf NOT LIKE "%bb%" AND orders.o_shelf NOT LIKE "%fd%" AND (orders.o_shelf NOT LIKE "%dk%" AND orders.o_branch != "19") AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%bc%"</query>
 		<description>Non-fiction call number with incorrect order shelf location(s)</description>
 	</error>
 	<error id = "33" code = "ErrB006" tier = "bib-ord">
@@ -169,7 +169,7 @@
 		<description>Easy Reader PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "42" code = "ErrC003" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%rd%" AND orders.o_shelf NOT LIKE "%br%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note LIKE "%ref%" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%rf%" AND orders.o_shelf NOT LIKE "%rd%" AND orders.o_shelf NOT LIKE "%br%" AND orders.o_shelf NOT LIKE "%bc%"</query>
 		<description>REF PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "43" code = "ErrC004" tier = "ord">

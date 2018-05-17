@@ -899,6 +899,22 @@ b53 = db.Bibs(
     c_division=None,
     crit_work=None,
     b_call='J FIC HERGE')
+b54 = db.Bibs(
+    c_format='pr',
+    c_dewey='307.1216',
+    b_type=None,
+    c_wl=False,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='a',
+    id=54,
+    c_type='dew',
+    author=None,
+    title='SST title',
+    c_cutter=True,
+    subjects='City planning -- New York (State) -- New York.~Urban renewal -- New York (State) -- New York.~Gentrification -- New York (State) -- New York.',
+    c_division='ss',
+    crit_work=None,
+    b_call='307.1216 B')
 
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
@@ -908,7 +924,7 @@ BIBS = [
     b28, b29, b30, b31, b32, b33, b34,
     b35, b36, b37, b38, b39, b40, b41,
     b42, b43, b44, b45, b46, b47, b48,
-    b49, b50, b51, b52, b53]
+    b49, b50, b51, b52, b53, b54]
 
 c1 = db.Orders(
     bid=1,
@@ -1450,6 +1466,24 @@ c60 = db.Orders(
     o_audn='j',
     o_shelf='fc',
     ven_note='g')
+c61 = db.Orders(
+    id=61,
+    bid=54,
+    o_branch='04',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf='bc',
+    ven_note='ref')
+c62 = db.Orders(
+    id=62,
+    bid=54,
+    o_branch='04',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf='br',
+    ven_note='ref')
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
@@ -1458,7 +1492,7 @@ ORDERS = [
     c29, c30, c31, c32, c33, c34, c35, c36, c37,
     c38, c39, c40, c41, c42, c43, c44, c45, c46,
     c47, c48, c49, c50, c51, c52, c53, c54, c55,
-    c56, c57, c58, c59, c60
+    c56, c57, c58, c59, c60, c61, c62
 ]
 
 
