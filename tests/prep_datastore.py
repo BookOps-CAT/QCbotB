@@ -915,6 +915,22 @@ b54 = db.Bibs(
     c_division='ss',
     crit_work=None,
     b_call='307.1216 B')
+b55 = db.Bibs(
+    c_format='pr',
+    c_dewey=None,
+    b_type=None,
+    c_wl=False,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='a',
+    id=55,
+    c_type='fic',
+    author='DEMURIEL',
+    title='False positive Shakespeare criticism',
+    c_cutter=True,
+    subjects='Shakespeare, William, 1564-1616. Macbeth -- Fiction.~Murder -- Investigation -- Fiction.~Private investigators -- Fiction.~Theater -- Fiction.~Edinburgh (Scotland) -- Fiction.~Mystery fiction. gsafd',
+    c_division='ll',
+    crit_work=True,
+    b_call='FIC DEMURIEL')
 
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
@@ -924,7 +940,7 @@ BIBS = [
     b28, b29, b30, b31, b32, b33, b34,
     b35, b36, b37, b38, b39, b40, b41,
     b42, b43, b44, b45, b46, b47, b48,
-    b49, b50, b51, b52, b53, b54]
+    b49, b50, b51, b52, b53, b54, b55]
 
 c1 = db.Orders(
     bid=1,
@@ -1484,6 +1500,15 @@ c62 = db.Orders(
     o_audn='a',
     o_shelf='br',
     ven_note='ref')
+c63 = db.Orders(
+    id=63,
+    bid=55,
+    o_branch='14',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf='nb',
+    ven_note='n')
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
@@ -1492,7 +1517,7 @@ ORDERS = [
     c29, c30, c31, c32, c33, c34, c35, c36, c37,
     c38, c39, c40, c41, c42, c43, c44, c45, c46,
     c47, c48, c49, c50, c51, c52, c53, c54, c55,
-    c56, c57, c58, c59, c60, c61, c62
+    c56, c57, c58, c59, c60, c61, c62, c63
 ]
 
 
