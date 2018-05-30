@@ -81,7 +81,7 @@
 		<description>Criticism of works of author missing authors name in call number, example: 813 ASIMOV A</description>
 	</error>
 	<error id = "20" code = "ErrA020" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "fic" AND bibs.author IS NOT NULL AND bibs.subject_person IS NOT NULL AND (bibs.title like "%annotated%" OR bibs.crit_work = 1)</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_type = "fic" AND bibs.author IS NOT NULL AND bibs.subject_person IS NOT NULL AND bibs.subjects NOT LIKE "%Adaptations.%" AND (bibs.title like "%annotated%" OR bibs.crit_work = 1)</query>
 		<description>Likely annotated fiction edition - consider Dewey instead</description>
 	</error>
 	<error id = "21" code = "ErrA021" tier = "bib">
