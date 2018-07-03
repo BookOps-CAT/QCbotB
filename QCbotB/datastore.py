@@ -2,13 +2,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (Column, ForeignKey, Integer, String, Boolean,
                         create_engine)
 from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy.exc import IntegrityError
 from datetime import datetime
 from contextlib import contextmanager
-import logging
 
-
-module_logger = logging.getLogger('QCBtests')
 
 Base = declarative_base()
 conn_string = 'sqlite:///datastore.db'
