@@ -292,6 +292,4 @@ if __name__ == "__main__":
             'older than {} days'.format(args.retention)
 
     else:
-        # while testing provide report test file
-        # fh = 'C:/Users/tomaszkalata/Desktop/B&T Files/BookOpsQC.20180630063000'
         analize()
