@@ -108,3 +108,6 @@ temp.py
 work_notes.txt
 # local settings
 settings
+
+# temp reports
+./files/report.txt
