@@ -2,6 +2,7 @@ import shelve
 import logging
 import logging.config
 import loggly.handlers
+from datetime import date
 
 from logging_setup import LOGGING
 from sierra_parser import report_data
@@ -11,7 +12,10 @@ from db_worker import (insert_or_ignore, delete_table_data,
 from datastore import (Bibs, Orders, Conflicts, Tickets,
                        TickConfJoiner, Copies, session_scope)
 from conflict_parser import conflict2dict
+from conflict_report import create_report
 from ftp_worker import ftp_download, ftp_maintenance
+from comms import create_message, send_message, create_gmail_service, \
+    get_addresses
 
 
 def analize(report_fh=None):
@@ -109,7 +113,20 @@ def analize(report_fh=None):
                     '{}, {}: {}'.format(
                         e, row, cid))
 
-    # # ToDo: report findings
+    # email error report
+
+    service = create_gmail_service()
+
+    report = create_report()
+    addresses = get_addresses()
+    to = ','.join(addresses['to'])
+    sender = addresses['from']
+    subject = 'BPL QC Report for {}'.format(date.today().strftime('%Y-%m-%d'))
+    msg = create_message(sender, to, subject, report)
+
+    # send message
+    send_message(service, 'me', msg)
+
     # # call servicenow_worker
 
 
@@ -276,5 +293,5 @@ if __name__ == "__main__":
 
     else:
         # while testing provide report test file
-        # fh = './files/report.txt'
+        # fh = 'C:/Users/tomaszkalata/Desktop/B&T Files/BookOpsQC.20180630063000'
         analize()
