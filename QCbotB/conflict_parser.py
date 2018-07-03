@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import logging
 
 
-module_logger = logging.getLogger('QCBtests')
+module_logger = logging.getLogger('QCBtests.conflict2dict')
 
 
 def conflict2dict(conflicts_file=None):
@@ -73,7 +73,3 @@ def conflict2dict(conflicts_file=None):
         return conflicts
     else:
         return []
-
-
-if __name__ == '__main__':
-    print conflict2dict('./files/conflicts.xml')
