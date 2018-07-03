@@ -6,9 +6,24 @@ from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 from os.path import expanduser, join
+import json
 
 
 module_logger = logging.getLogger('QCBtests.emails')
+
+
+def get_addresses():
+    """
+    Returns:
+        dictionary of addresses that includes from str and list of to
+    """
+    module_logger.info(
+        'Getting contact addresses for email.')
+    home = join(expanduser('~'), '.google')
+    with open(join(home, 'gmail_contacts.json'), 'r') as fh:
+        data = fh.read()
+        data = json.loads(data)
+        return data
 
 
 def create_message(sender, to, subject, message_text):
@@ -81,3 +96,7 @@ def create_gmail_service():
         creds = tools.run_flow(flow, store)
     service = build('gmail', 'v1', http=creds.authorize(Http()))
     return service
+
+
+if __name__ == "__main__":
+    print get_addresses()
