@@ -4,10 +4,14 @@ from sqlalchemy import (Column, ForeignKey, Integer, String, Boolean,
 from sqlalchemy.orm import relationship, sessionmaker
 from datetime import datetime
 from contextlib import contextmanager
+from os.path import expanduser, join
 
+
+user = expanduser('~')
+db_fh = join(user, r'AppData\Roaming\QCbot-B\datastore.db')
 
 Base = declarative_base()
-conn_string = 'sqlite:///datastore.db'
+conn_string = 'sqlite:///{}'.format(db_fh)
 
 
 class Bibs(Base):
