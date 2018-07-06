@@ -96,7 +96,3 @@ def create_gmail_service():
         creds = tools.run_flow(flow, store)
     service = build('gmail', 'v1', http=creds.authorize(Http()))
     return service
-
-
-if __name__ == "__main__":
-    print get_addresses()
