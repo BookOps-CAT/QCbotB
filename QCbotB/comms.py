@@ -5,7 +5,7 @@ from googleapiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
-from os.path import expanduser, join
+from os.path import expanduser, join, isfile
 import json
 
 
@@ -20,10 +20,15 @@ def get_addresses():
     module_logger.info(
         'Getting contact addresses for email.')
     home = join(expanduser('~'), '.google')
-    with open(join(home, 'gmail_contacts.json'), 'r') as fh:
-        data = fh.read()
-        data = json.loads(data)
-        return data
+    try:
+        with open(join(home, 'gmail_contacts.json'), 'r') as fh:
+            data = fh.read()
+            data = json.loads(data)
+            return data
+    except IOError:
+        module_logger.error(
+            'Unable to find required file: {}'.format(
+                join(home, 'gmail_contacts.json')))
 
 
 def create_message(sender, to, subject, message_text):
@@ -87,12 +92,17 @@ def create_gmail_service():
     scopes = 'https://www.googleapis.com/auth/gmail.send'
 
     # credentials folder
-    home = join(expanduser('~'), '.google')
-    store = file.Storage(join(home, 'credentials.json'))
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets(
-            join(home, 'client_secret.json'), scopes)
-        creds = tools.run_flow(flow, store)
-    service = build('gmail', 'v1', http=creds.authorize(Http()))
-    return service
+    try:
+        home = join(expanduser('~'), '.google')
+        store = file.Storage(join(home, 'credentials.json'))
+        creds = store.get()
+        if not creds or creds.invalid:
+            flow = client.flow_from_clientsecrets(
+                join(home, 'client_secret.json'), scopes)
+            creds = tools.run_flow(flow, store)
+        service = build('gmail', 'v1', http=creds.authorize(Http()))
+        return service
+    except IOError:
+        module_logger.error(
+            'Unable to find required file: {}'.format(
+                join(home, 'client_secret.json')))
