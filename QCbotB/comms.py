@@ -5,7 +5,7 @@ from googleapiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
-from os.path import expanduser, join, isfile
+from os.path import expanduser, join
 import json
 
 
