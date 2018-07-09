@@ -3,7 +3,8 @@ import logging
 import logging.config
 import loggly.handlers
 from datetime import date
-from os.path import expanduser, join
+from os.path import expanduser, join, isdir
+from os import mkdir
 
 from logging_setup import LOGGING
 from sierra_parser import report_data
@@ -202,10 +203,25 @@ if __name__ == "__main__":
     import argparse
     from datetime import datetime
 
+    # create log folder if does not exist
+    if not isdir('./log'):
+        mkdir('./log')
+
     logging.config.dictConfig(LOGGING)
     main_logger = logging.getLogger('qcbot_log')
 
     today = datetime.strftime(datetime.now(), '%d-%m-%y')
+
+    # make sure appropriate folders are present
+    if not isdir('./files'):
+        main_logger.info(
+            'Missing "files" folder. Creating one.')
+        mkdir('./files')
+
+    if not isdir(join(expanduser('~'), r'AppData\Roaming\QCbot-B')):
+        main_logger.info(
+            'Missing "QCbot-B" foldere in AppData. Creating one.')
+        mkdir(join(expanduser('~'), r'AppData\Roaming\QCbot-B'))
 
     settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
 
