@@ -3,6 +3,7 @@ import logging
 import logging.config
 import loggly.handlers
 from datetime import date
+from os.path import expanduser, join
 
 from logging_setup import LOGGING
 from sierra_parser import report_data
@@ -26,9 +27,11 @@ def analize(report_fh=None):
         delete_table_data(session, Orders)
         delete_table_data(session, Bibs)
 
+    settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+
     fetched = False
     if report_fh is None:
-        s = shelve.open('settings', flag='r')
+        s = shelve.open(settings, flag='r')
         host = s['ftp_host']
         user = s['ftp_user']
         passw = s['ftp_pass']
@@ -46,7 +49,7 @@ def analize(report_fh=None):
         ftp_maintenance(host, user, passw, 'bpl')
 
     else:
-        s = shelve.open('settings', flag='r')
+        s = shelve.open(settings, flag='r')
         ret = s['orders_retention']
         data_generator = report_data(report_fh, ret)
         fetched = True
@@ -168,13 +171,16 @@ def validate_dates(dates):
 def set_settings(**kwargs):
     """Sets FTP and orders retention parameters"""
     try:
-        s = shelve.open('settings')
+        settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+        s = shelve.open(settings)
         if 'ftp' in kwargs:
             s['ftp_host'] = kwargs['ftp'][0]
             s['ftp_user'] = kwargs['ftp'][1]
             s['ftp_pass'] = kwargs['ftp'][2]
         if 'orders_retention' in kwargs:
             s['orders_retention'] = kwargs['orders_retention']
+    except Exception as e:
+        print 'Unable to save FTP settings. Error: {}'.format(e)
     finally:
         s.close()
 
@@ -182,9 +188,12 @@ def set_settings(**kwargs):
 def get_settings():
     """Returns current FTP and orders retention settings"""
     try:
-        s = shelve.open('settings', flag='r')
+        settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+        s = shelve.open(settings, flag='r')
         v = dict(s)
         return v
+    except Exception as e:
+        print 'Unable to retrieve current FTP settings. Error: {}'.format(e)
     finally:
         s.close()
 
@@ -194,11 +203,14 @@ if __name__ == "__main__":
     from datetime import datetime
 
     logging.config.dictConfig(LOGGING)
-    main_logger = logging.getLogger('QCBtests')
+    main_logger = logging.getLogger('qcbot_log')
+
     today = datetime.strftime(datetime.now(), '%d-%m-%y')
 
+    settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+
     # verify settings are present and if not add generic ones
-    s = shelve.open('settings')
+    s = shelve.open(settings)
     if 'ftp_host' not in s:
         s['ftp_host'] = None
     if 'ftp_user' not in s:

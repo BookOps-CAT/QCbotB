@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import logging
 
 
-module_logger = logging.getLogger('QCBtests.conflict2dict')
+module_logger = logging.getLogger('qcbot_log.conflict2dict')
 
 
 def conflict2dict(conflicts_file=None):

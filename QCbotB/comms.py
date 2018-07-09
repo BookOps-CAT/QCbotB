@@ -9,7 +9,7 @@ from os.path import expanduser, join
 import json
 
 
-module_logger = logging.getLogger('QCBtests.emails')
+module_logger = logging.getLogger('qcbot_log.emails')
 
 
 def get_addresses():

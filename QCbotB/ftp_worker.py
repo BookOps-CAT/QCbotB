@@ -6,7 +6,7 @@ import logging
 
 # ToDo: tests for find_todays_file and aged_out_report
 
-module_logger = logging.getLogger('QCBtests.ftp_worker')
+module_logger = logging.getLogger('qcbot_log.ftp_worker')
 
 
 def find_todays_file(dir_list=None):

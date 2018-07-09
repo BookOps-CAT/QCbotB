@@ -37,7 +37,7 @@ from patterns import IDS, CFORMAT, CAUDN, \
     SUBJECT_PERSON_FALSE, SUBJECT_PERSON, \
     CRITICAL_WORKS
 
-module_logger = logging.getLogger('QCBtests')
+module_logger = logging.getLogger('qcbot_log.sierra_parser')
 
 
 def parse_dates(value=None):
