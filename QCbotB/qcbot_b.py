@@ -28,7 +28,7 @@ def analize(report_fh=None):
         delete_table_data(session, Orders)
         delete_table_data(session, Bibs)
 
-    settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+    settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
 
     fetched = False
     if report_fh is None:
@@ -172,7 +172,7 @@ def validate_dates(dates):
 def set_settings(**kwargs):
     """Sets FTP and orders retention parameters"""
     try:
-        settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+        settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
         s = shelve.open(settings)
         if 'ftp' in kwargs:
             s['ftp_host'] = kwargs['ftp'][0]
@@ -189,7 +189,7 @@ def set_settings(**kwargs):
 def get_settings():
     """Returns current FTP and orders retention settings"""
     try:
-        settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+        settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
         s = shelve.open(settings, flag='r')
         v = dict(s)
         return v
@@ -218,12 +218,12 @@ if __name__ == "__main__":
             'Missing "files" folder. Creating one.')
         mkdir('./files')
 
-    if not isdir(join(expanduser('~'), r'AppData\Roaming\QCbot-B')):
+    if not isdir(join(expanduser('~'), r'AppData\Local\QCbot-B')):
         main_logger.info(
             'Missing "QCbot-B" foldere in AppData. Creating one.')
-        mkdir(join(expanduser('~'), r'AppData\Roaming\QCbot-B'))
+        mkdir(join(expanduser('~'), r'AppData\Local\QCbot-B'))
 
-    settings = join(expanduser('~'), r'AppData\Roaming\QCbot-B\settings')
+    settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
 
     # verify settings are present and if not add generic ones
     s = shelve.open(settings)

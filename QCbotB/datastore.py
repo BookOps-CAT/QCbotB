@@ -8,7 +8,7 @@ from os.path import expanduser, join
 
 
 user = expanduser('~')
-db_fh = join(user, r'AppData\Roaming\QCbot-B\datastore.db')
+db_fh = join(user, r'AppData\Local\QCbot-B\datastore.db')
 
 Base = declarative_base()
 conn_string = 'sqlite:///{}'.format(db_fh)
