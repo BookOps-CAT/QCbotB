@@ -1,7 +1,6 @@
 import shelve
 import logging
 import logging.config
-import loggly.handlers
 from datetime import date
 from os.path import expanduser, join, isdir
 from os import mkdir
