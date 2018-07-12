@@ -4,9 +4,12 @@ from datetime import datetime, timedelta
 import logging
 
 
+from setup_dirs import DATA
+
+
 # ToDo: tests for find_todays_file and aged_out_report
 
-module_logger = logging.getLogger('QCBtests')
+module_logger = logging.getLogger('qcbot_log.ftp_worker')
 
 
 def find_todays_file(dir_list=None):
@@ -59,7 +62,7 @@ def ftp_maintenance(host, user, passw, folder):
             files = ftp.nlst()  # retrieve all files in the folder
             todays_file = find_todays_file(files)
             if todays_file is not None:
-                files.remove(todays_file)  # skip todays file in the maintenence
+                files.remove(todays_file)
             try:
                 module_logger.info(
                     'ftp_worker: Begining moving old files to archive...')
@@ -136,7 +139,7 @@ def ftp_download(host, user, passw, folder):
                         todays_file))
                 ftp.retrbinary(
                     'RETR {}'.format(todays_file),
-                    open('./files/report.txt', 'wb').write)
+                    open(DATA, 'wb').write)
                 fetched = True
                 module_logger.info(
                     'fpt_worker: Downloaded todays sierra report')

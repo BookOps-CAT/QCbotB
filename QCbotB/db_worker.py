@@ -1,10 +1,5 @@
 # methods to access and query datastore
 
-import logging
-
-
-module_logger = logging.getLogger('QCBtests')
-
 
 def insert_or_update(session, model, **kwargs):
     """

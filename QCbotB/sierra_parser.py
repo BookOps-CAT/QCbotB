@@ -37,7 +37,7 @@ from patterns import IDS, CFORMAT, CAUDN, \
     SUBJECT_PERSON_FALSE, SUBJECT_PERSON, \
     CRITICAL_WORKS
 
-module_logger = logging.getLogger('QCBtests')
+module_logger = logging.getLogger('qcbot_log.sierra_parser')
 
 
 def parse_dates(value=None):
@@ -439,22 +439,3 @@ def report_data(fh, order_age_in_days):
                     'enumerated value: {}'.format(
                         list(enumerate(row))))
                 continue
-
-
-if __name__ == '__main__':
-    import logging.config
-    import loggly.handlers
-
-    from logging_setup import LOGGING
-
-    logging.config.dictConfig(LOGGING)
-
-    test_fh = './files/report_test1.txt'
-    data = report_data(test_fh, 900)
-    for x in data:
-        try:
-            if x[0]['crit_work'] is not None:
-                print(x[0]['crit_work'], x[0]['subjects'])
-            # print(x[1])
-        except:
-            pass

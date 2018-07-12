@@ -534,6 +534,9 @@ class TestParser(unittest.TestCase):
                 '005.133 SWIFT S'), 'des')
         self.assertEqual(
             sierra_parser.parse_call_type(
+                '004.1675 IPAD H'), 'des')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
                 '818 P'), 'dew')
         self.assertEqual(
             sierra_parser.parse_call_type(

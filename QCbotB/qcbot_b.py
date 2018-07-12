@@ -1,9 +1,12 @@
 import shelve
 import logging
 import logging.config
-import loggly.handlers
+from datetime import date
+from os.path import isdir, split
+from os import mkdir
 
 from logging_setup import LOGGING
+from setup_dirs import LOG, DATA, SETTINGS, LOCAL
 from sierra_parser import report_data
 from db_worker import (insert_or_ignore, delete_table_data,
                        insert_or_update,
@@ -11,7 +14,10 @@ from db_worker import (insert_or_ignore, delete_table_data,
 from datastore import (Bibs, Orders, Conflicts, Tickets,
                        TickConfJoiner, Copies, session_scope)
 from conflict_parser import conflict2dict
+from conflict_report import create_report
 from ftp_worker import ftp_download, ftp_maintenance
+from comms import create_message, send_message, create_gmail_service, \
+    get_addresses
 
 
 def analize(report_fh=None):
@@ -24,7 +30,7 @@ def analize(report_fh=None):
 
     fetched = False
     if report_fh is None:
-        s = shelve.open('settings', flag='r')
+        s = shelve.open(SETTINGS, flag='r')
         host = s['ftp_host']
         user = s['ftp_user']
         passw = s['ftp_pass']
@@ -33,7 +39,7 @@ def analize(report_fh=None):
         fetched = ftp_download(host, user, passw, 'bpl')
         s.close()
         if fetched:
-            data_generator = report_data('./files/report.txt', ret)
+            data_generator = report_data(DATA, ret)
         else:
             main_logger.warning(
                 'No new sierra report - skippig analysis')
@@ -42,7 +48,7 @@ def analize(report_fh=None):
         ftp_maintenance(host, user, passw, 'bpl')
 
     else:
-        s = shelve.open('settings', flag='r')
+        s = shelve.open(settings, flag='r')
         ret = s['orders_retention']
         data_generator = report_data(report_fh, ret)
         fetched = True
@@ -109,7 +115,20 @@ def analize(report_fh=None):
                     '{}, {}: {}'.format(
                         e, row, cid))
 
-    # # ToDo: report findings
+    # email error report
+
+    service = create_gmail_service()
+
+    report = create_report()
+    addresses = get_addresses()
+    to = ','.join(addresses['to'])
+    sender = addresses['from']
+    subject = 'BPL QC Report for {}'.format(date.today().strftime('%Y-%m-%d'))
+    msg = create_message(sender, to, subject, report)
+
+    # send message
+    send_message(service, 'me', msg)
+
     # # call servicenow_worker
 
 
@@ -151,13 +170,17 @@ def validate_dates(dates):
 def set_settings(**kwargs):
     """Sets FTP and orders retention parameters"""
     try:
-        s = shelve.open('settings')
+        s = shelve.open(SETTINGS)
         if 'ftp' in kwargs:
             s['ftp_host'] = kwargs['ftp'][0]
             s['ftp_user'] = kwargs['ftp'][1]
             s['ftp_pass'] = kwargs['ftp'][2]
         if 'orders_retention' in kwargs:
             s['orders_retention'] = kwargs['orders_retention']
+    except Exception as e:
+        m = 'Unable to save FTP settings. Error: {}'.format(e)
+        main_logger.error(m)
+        print m
     finally:
         s.close()
 
@@ -165,9 +188,13 @@ def set_settings(**kwargs):
 def get_settings():
     """Returns current FTP and orders retention settings"""
     try:
-        s = shelve.open('settings', flag='r')
+        s = shelve.open(SETTINGS, flag='r')
         v = dict(s)
         return v
+    except Exception as e:
+        m = 'Unable to retrieve current FTP settings. Error: {}'.format(e)
+        main_logger.error(m)
+        print m
     finally:
         s.close()
 
@@ -176,12 +203,28 @@ if __name__ == "__main__":
     import argparse
     from datetime import datetime
 
+    # create log folder if does not exist
+    if not isdir(split(LOG)[0]):
+        mkdir(split(LOG)[0])
+
     logging.config.dictConfig(LOGGING)
-    main_logger = logging.getLogger('QCBtests')
+    main_logger = logging.getLogger('qcbot_log')
+
     today = datetime.strftime(datetime.now(), '%d-%m-%y')
 
+    # make sure appropriate folders are present
+    if not isdir(split(DATA)[0]):
+        main_logger.info(
+            'Missing "files" folder. Creating one.')
+        mkdir(split(DATA)[0])
+
+    if not isdir(LOCAL):
+        main_logger.info(
+            'Missing "QCbot-B" foldere in AppData. Creating one.')
+        mkdir(LOCAL)
+
     # verify settings are present and if not add generic ones
-    s = shelve.open('settings')
+    s = shelve.open(SETTINGS)
     if 'ftp_host' not in s:
         s['ftp_host'] = None
     if 'ftp_user' not in s:
@@ -232,7 +275,7 @@ if __name__ == "__main__":
         '--version',
         help="display bot's version",
         action='version',
-        version='v.0.0.1')  # auto pull from version?
+        version='v.0.1.1')  # auto pull from version?
     group.add_argument(
         '--view',
         help='view conflicts found on particular date, used dd-mm-yy',
@@ -275,6 +318,4 @@ if __name__ == "__main__":
             'older than {} days'.format(args.retention)
 
     else:
-        # while testing provide report test file
-        # fh = './files/report.txt'
         analize()

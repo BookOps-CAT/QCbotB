@@ -13,7 +13,6 @@ class TestConflictQueries(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         db.dal.conn_string = 'sqlite:///:memory:'
-        # db.dal.con_string = 'sqlite:///test_datastore.db'
         db.dal.connect()
         init_session = db.dal.Session()
         enter_test_data(init_session)
