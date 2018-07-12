@@ -2,6 +2,8 @@ import xml.etree.ElementTree as ET
 import logging
 
 
+from setup_dirs import CONFLICTS
+
 module_logger = logging.getLogger('qcbot_log.conflict2dict')
 
 
@@ -29,7 +31,7 @@ def conflict2dict(conflicts_file=None):
 
     try:
         if conflicts_file is None:
-            tree = ET.parse('./files/conflicts.xml')
+            tree = ET.parse(CONFLICTS)
         else:
             tree = ET.parse(conflicts_file)
     except IOError:

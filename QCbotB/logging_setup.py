@@ -1,3 +1,6 @@
+from setup_dirs import LOG
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -16,7 +19,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'simple',
-            'filename': './log/qcbotb.log',
+            'filename': LOG,
             'maxBytes': 1024 * 1000,
             'backupCount': 5
         },

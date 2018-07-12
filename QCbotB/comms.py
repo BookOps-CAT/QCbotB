@@ -5,9 +5,10 @@ from googleapiclient import errors
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
-from os.path import expanduser, join
 import json
 
+
+from setup_dirs import ADDR, CRED, SECR
 
 module_logger = logging.getLogger('qcbot_log.emails')
 
@@ -19,16 +20,15 @@ def get_addresses():
     """
     module_logger.info(
         'Getting contact addresses for email.')
-    home = join(expanduser('~'), '.google')
     try:
-        with open(join(home, 'gmail_contacts.json'), 'r') as fh:
+        with open(ADDR, 'r') as fh:
             data = fh.read()
             data = json.loads(data)
             return data
     except IOError:
         module_logger.error(
             'Unable to find required file: {}'.format(
-                join(home, 'gmail_contacts.json')))
+                ADDR))
 
 
 def create_message(sender, to, subject, message_text):
@@ -93,16 +93,15 @@ def create_gmail_service():
 
     # credentials folder
     try:
-        home = join(expanduser('~'), '.google')
-        store = file.Storage(join(home, 'credentials.json'))
+        store = file.Storage(CRED)
         creds = store.get()
         if not creds or creds.invalid:
             flow = client.flow_from_clientsecrets(
-                join(home, 'client_secret.json'), scopes)
+                SECR, scopes)
             creds = tools.run_flow(flow, store)
         service = build('gmail', 'v1', http=creds.authorize(Http()))
         return service
     except IOError:
         module_logger.error(
             'Unable to find required file: {}'.format(
-                join(home, 'client_secret.json')))
+                SECR))

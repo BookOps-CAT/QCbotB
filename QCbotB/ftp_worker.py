@@ -4,6 +4,9 @@ from datetime import datetime, timedelta
 import logging
 
 
+from setup_dirs import DATA
+
+
 # ToDo: tests for find_todays_file and aged_out_report
 
 module_logger = logging.getLogger('qcbot_log.ftp_worker')
@@ -136,7 +139,7 @@ def ftp_download(host, user, passw, folder):
                         todays_file))
                 ftp.retrbinary(
                     'RETR {}'.format(todays_file),
-                    open('./files/report.txt', 'wb').write)
+                    open(DATA, 'wb').write)
                 fetched = True
                 module_logger.info(
                     'fpt_worker: Downloaded todays sierra report')

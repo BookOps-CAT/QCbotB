@@ -2,10 +2,11 @@ import shelve
 import logging
 import logging.config
 from datetime import date
-from os.path import expanduser, join, isdir
+from os.path import isdir, split
 from os import mkdir
 
 from logging_setup import LOGGING
+from setup_dirs import LOG, DATA, SETTINGS, LOCAL
 from sierra_parser import report_data
 from db_worker import (insert_or_ignore, delete_table_data,
                        insert_or_update,
@@ -27,11 +28,9 @@ def analize(report_fh=None):
         delete_table_data(session, Orders)
         delete_table_data(session, Bibs)
 
-    settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
-
     fetched = False
     if report_fh is None:
-        s = shelve.open(settings, flag='r')
+        s = shelve.open(SETTINGS, flag='r')
         host = s['ftp_host']
         user = s['ftp_user']
         passw = s['ftp_pass']
@@ -40,7 +39,7 @@ def analize(report_fh=None):
         fetched = ftp_download(host, user, passw, 'bpl')
         s.close()
         if fetched:
-            data_generator = report_data('./files/report.txt', ret)
+            data_generator = report_data(DATA, ret)
         else:
             main_logger.warning(
                 'No new sierra report - skippig analysis')
@@ -171,8 +170,7 @@ def validate_dates(dates):
 def set_settings(**kwargs):
     """Sets FTP and orders retention parameters"""
     try:
-        settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
-        s = shelve.open(settings)
+        s = shelve.open(SETTINGS)
         if 'ftp' in kwargs:
             s['ftp_host'] = kwargs['ftp'][0]
             s['ftp_user'] = kwargs['ftp'][1]
@@ -180,7 +178,9 @@ def set_settings(**kwargs):
         if 'orders_retention' in kwargs:
             s['orders_retention'] = kwargs['orders_retention']
     except Exception as e:
-        print 'Unable to save FTP settings. Error: {}'.format(e)
+        m = 'Unable to save FTP settings. Error: {}'.format(e)
+        main_logger.error(m)
+        print m
     finally:
         s.close()
 
@@ -188,12 +188,13 @@ def set_settings(**kwargs):
 def get_settings():
     """Returns current FTP and orders retention settings"""
     try:
-        settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
-        s = shelve.open(settings, flag='r')
+        s = shelve.open(SETTINGS, flag='r')
         v = dict(s)
         return v
     except Exception as e:
-        print 'Unable to retrieve current FTP settings. Error: {}'.format(e)
+        m = 'Unable to retrieve current FTP settings. Error: {}'.format(e)
+        main_logger.error(m)
+        print m
     finally:
         s.close()
 
@@ -203,8 +204,8 @@ if __name__ == "__main__":
     from datetime import datetime
 
     # create log folder if does not exist
-    if not isdir('./log'):
-        mkdir('./log')
+    if not isdir(split(LOG)[0]):
+        mkdir(split(LOG)[0])
 
     logging.config.dictConfig(LOGGING)
     main_logger = logging.getLogger('qcbot_log')
@@ -212,20 +213,18 @@ if __name__ == "__main__":
     today = datetime.strftime(datetime.now(), '%d-%m-%y')
 
     # make sure appropriate folders are present
-    if not isdir('./files'):
+    if not isdir(split(DATA)[0]):
         main_logger.info(
             'Missing "files" folder. Creating one.')
-        mkdir('./files')
+        mkdir(split(DATA)[0])
 
-    if not isdir(join(expanduser('~'), r'AppData\Local\QCbot-B')):
+    if not isdir(LOCAL):
         main_logger.info(
             'Missing "QCbot-B" foldere in AppData. Creating one.')
-        mkdir(join(expanduser('~'), r'AppData\Local\QCbot-B'))
-
-    settings = join(expanduser('~'), r'AppData\Local\QCbot-B\settings')
+        mkdir(LOCAL)
 
     # verify settings are present and if not add generic ones
-    s = shelve.open(settings)
+    s = shelve.open(SETTINGS)
     if 'ftp_host' not in s:
         s['ftp_host'] = None
     if 'ftp_user' not in s:
