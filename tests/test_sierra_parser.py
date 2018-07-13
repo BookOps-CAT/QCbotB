@@ -321,6 +321,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_audn(
                 'CD J WORLD JEWISH COLLECTION'), 'j')
+        self.assertEqual(
+            sierra_parser.parse_call_audn(
+                'DVD J FRE'), 'a')  # this is incorrect call #; corr: DVD FRE J
 
     def test_world_language_prefix(self):
         self.assertFalse(
