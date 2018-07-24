@@ -197,7 +197,7 @@
 		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "49" code = "ErrB013" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%" OR bibs.subjects LIKE "%Comics (Graphic works)%" OR bibs.subjects LIKE "% comics.%" OR bibs.subjects LIKE "%Comics adaptations%")</query>
 		<description>Likely incorrect graphic novel label</description>
 	</error>
 	<error id = "50" code = "ErrC011" tier = "ord">

@@ -346,5 +346,12 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
+    def test_error_53_graphicnovel_po_per_line_with_additianal_subjects(self):
+        res = worker.run_query(self.session, self.queries[49])
+        ids = sorted([(56)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertNotIn(hits, ids)
+
+
 if __name__ == '__main__':
     unittest.main()
