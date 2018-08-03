@@ -5,11 +5,11 @@
 <!--URL TO SCHEMA HERE-->
 <conflicts>
 	<error id = "1" code = "ErrA001" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_cutter = 0 AND bibs.c_type != "fea" AND bibs.c_type != "eas") OR (bibs.c_cutter = 0 AND bibs.c_type = "eas" AND bibs.author IS NOT NULL)</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE (bibs.c_cutter = 0 AND bibs.c_type != "eas") OR (bibs.c_cutter = 0 AND bibs.c_type = "eas" AND bibs.author IS NOT NULL)</query>
 		<description>Missing cutter in the call number</description>
 	</error>
 	<error id = "2" code = "ErrA002" tier = "bib">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_call IS NOT NULL AND (bibs.b_call LIKE "% 0" OR bibs.b_call LIKE "% 1" OR bibs.b_call LIKE "% 2" OR bibs.b_call LIKE "% 3" OR bibs.b_call LIKE "% 4" OR bibs.b_call LIKE "% 5" OR bibs.b_call LIKE "% 6" OR bibs.b_call LIKE "% 7" OR bibs.b_call LIKE "% 8" OR bibs.b_call LIKE "% 9")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.b_call IS NOT NULL AND bibs.c_format != "dv" AND (bibs.b_call LIKE "% 0" OR bibs.b_call LIKE "% 1" OR bibs.b_call LIKE "% 2" OR bibs.b_call LIKE "% 3" OR bibs.b_call LIKE "% 4" OR bibs.b_call LIKE "% 5" OR bibs.b_call LIKE "% 6" OR bibs.b_call LIKE "% 7" OR bibs.b_call LIKE "% 8" OR bibs.b_call LIKE "% 9")</query>
 		<description>Call number cutter is a digit</description>
 	</error>
 	<error id = "3" code = "ErrA003" tier = "bib">
@@ -189,7 +189,7 @@
 		<description>M (myster) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "47" code = "ErrC008" tier = "ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf != "nb" AND orders.o_audn NOT LIKE "%j%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "s" AND orders.o_shelf IS NOT NULL AND orders.o_shelf NOT LIKE "%sf%" AND orders.o_shelf != "nb" AND orders.o_shelf NOT LIKE "%pb%" AND orders.o_audn NOT LIKE "%j%"</query>
 		<description>S (science fiction) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "48" code = "ErrC009" tier = "ord">
@@ -197,7 +197,7 @@
 		<description>Y (short stories) PO per line with incorrect shelf code(s)</description>
 	</error>
 	<error id = "49" code = "ErrB013" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%")</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE ven_note = "g" AND NOT (bibs.subjects LIKE "%Comic books, strips, etc%" OR bibs.subjects LIKE "%Graphic novels%" OR bibs.subjects LIKE "%Comics (Graphic works)%" OR bibs.subjects LIKE "% comics.%" OR bibs.subjects LIKE "%Comics adaptations%")</query>
 		<description>Likely incorrect graphic novel label</description>
 	</error>
 	<error id = "50" code = "ErrC011" tier = "ord">

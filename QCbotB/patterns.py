@@ -82,13 +82,36 @@ CTYPE = [
 
 CDEW = r'(\d{3})\s|(\d{3}\.\d{1,})\s'
 
-CCUTTER = r'(?!DVD).{3,}\s[A-Z]$' \
-          r'|(?!DVD).{3,}\s[A-Z]\d$' \
+
+CCUTTER = r'DV(?!D$|D\sJ$' \
+          r'|D ALB$|D ALB J$' \
+          r'|D ARA$|DARA J$' \
+          r'|D BEN$|D BEN J$' \
+          r'|D CHI$|D CHI J$' \
+          r'|D FRE$|D FRE J$' \
+          r'|D GER$|D GER J$' \
+          r'|D HAT$|D HAT J$' \
+          r'|D HEB$|D HEB J$' \
+          r'|D HIN$|D HIN J$' \
+          r'|D HUN$|D HUN J$' \
+          r'|D ITA$|D ITA J$' \
+          r'|D JPN$|D JPN J$' \
+          r'|D KOR$|D KOR J$' \
+          r'|D PAN$|D PAN J$' \
+          r'|D POL$|D POL J$' \
+          r'|D POR$|D POR J$' \
+          r'|D RUS$|D RUS J$' \
+          r'|D SAN$|D SAN J$' \
+          r'|D SPA$|D SPA J$' \
+          r'|D UKR$|D UKR J$' \
+          r'|D UND$|D UND J$' \
+          r'|D URD$|D URD J$' \
+          r'|D YID$|D YID J$)' \
           r'|FIC\s*[A-Z]{1,}.*$' \
           r'|J-E\s*[A-Z]{1,}.*$' \
           r'|CD\s*[A-Z]{1,}.*\s[A-Z].*' \
           r'|\d{3}.*?\s(?!S52$|B582$)' \
-          # r'|\d{3}.*?\s[A-Z]\d{1,3}$'
+          r'|B\s[A-Z]{1,}.*\s[A-Z]$'
 
 OAUDN = [
     'a',  # adult

@@ -26,7 +26,7 @@ class Test_FTP_worker(unittest.TestCase):
 
     def test_aged_out_report(self):
         fh1 = 'BookOpsQC.{}'.format(
-            datetime.strftime(datetime.now() - timedelta(days=15), '%Y%m%d%H%M%S'))
+            datetime.strftime(datetime.now() - timedelta(days=31), '%Y%m%d%H%M%S'))
         self.assertTrue(
             aged_out_report(fh1))
 
