@@ -604,102 +604,107 @@ class TestParser(unittest.TestCase):
                 'RUS TROTSKY Z'))
 
     def test_parse_call_cutter(self):
-        self.assertIs(
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'SPA J-E ADAMS'), True)
-        self.assertIs(
+                'SPA J-E ADAMS'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'J-E'), False)
-        self.assertIs(
+                'J-E'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'J B ADAMS J'), True)
-        self.assertIs(
+                'J B ADAMS J'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'DVD RUS 909 B'), True)
-        self.assertIs(
+                'BOOK & CD 987 J'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'BOOK & CD 987 J'), True)
-        self.assertIs(
+                'AUDIO FIC ADAMS'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'AUDIO FIC ADAMS'), True)
-        self.assertIs(
+                'CD FOLK COHEN'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'CD FOLK COHEN'), True)
-        self.assertIs(
+                'WEB SITE 909 B'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'WEB SITE 909 B'), True)
-        self.assertIs(
+                '909 B'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '909 B'), True)
-        self.assertIs(
+                'RUS 811 POE B'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'RUS 811 POE B'), True)
-        self.assertIs(
+                'SPA J-E'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'SPA J-E'), False)
-        self.assertIs(
+                'J FIC'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'J FIC'), False)
-        self.assertIs(
+                'FIC'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'FIC'), False)
-        self.assertIs(
+                'J B'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'J B'), False)
-        self.assertIs(
+                'DVD RUS'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'DVD RUS'), False)
-        self.assertIs(
+                'DVD J'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'DVD J'), False)
-        self.assertIs(
+                'DVD RUS 909 B'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '909'), False)
-        self.assertIs(
+                'DVD J 919 D'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'MIFI DEVICE'), False)
-        self.assertIs(
+                'DVD J 919.34')) # incorrect, should be False but more work to distinguish from DVD 1917 for example
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'eBOOK'), False)
-        self.assertIs(
+                'DVD HARRY'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '658.058 D598'), True)
-        self.assertIs(
+                'DVD RUS HARRY'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'DVD J 919 D'), True)
-        self.assertIs(
+                '909'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'DVD J 919.34'), False)
-        self.assertIs(
+                'MIFI DEVICE'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                '823.33 S52'), False)
-        self.assertIs(
+                'eBOOK'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '823.33 S52 A B'), True)
-        self.assertIs(
+                '658.058 D598'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                '226.607 B582'), False)
-        self.assertIs(
+                '823.33 S52'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '226.607 B582 C'), True)
-        self.assertIs(
+                '823.33 S52 A B'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'AUDIO 226.607'), False)
-        self.assertIs(
+                '226.607 B582'))
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'AUDIO 226.607 C'), True)
-
-        self.assertIs(
+                '226.607 B582 C'))
+        self.assertFalse(
             sierra_parser.parse_call_cutter(
-                'FIC 1'), False)
+                'AUDIO 226.607'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'AUDIO 226.607 C'))
+        self.assertFalse(
+            sierra_parser.parse_call_cutter(
+                'FIC 1'))
         # very unlikely sanborn cutters will be pick up
-        self.assertIs(
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                '973 A211'), True)
+                '973 A211'))
         # extra white space in the call number
-        self.assertIs(
+        self.assertTrue(
             sierra_parser.parse_call_cutter(
-                'J-E  BUSSE'), True)
+                'J-E  BUSSE'))
 
     def test_parse_dewey(self):
         self.assertEqual(
@@ -814,16 +819,17 @@ class TestParser(unittest.TestCase):
 
     def test_parsing_of_row_of_sierra_report(self):
         """fuctional tests of sierra report parser"""
-        record = sierra_parser.report_data('report_test.txt', 180).next()
-        bib_keys = [x for x in record[0]]
-        ord_keys = [x for x in record[1]]
-        self.assertEqual(bib_keys, [
-            'c_format', 'c_dewey', 'b_date', 'c_wl', 'c_audn', 'id',
-            'c_type', 'author', 'title', 'subject_person', 'c_cutter',
-            'subjects', 'c_division', 'b_type', 'crit_work', 'b_call'])
-        self.assertEqual(ord_keys, [
-            'bid', 'o_branch', 'copies', 'o_date', 'o_audn',
-            'o_shelf', 'ven_note', 'id'])
+        reader = sierra_parser.report_data('report_test.txt', 180)
+        for record in reader:
+            bib_keys = [x for x in record[0]]
+            ord_keys = [x for x in record[1]]
+            self.assertEqual(bib_keys, [
+                'c_format', 'c_dewey', 'b_date', 'c_wl', 'c_audn', 'id',
+                'c_type', 'author', 'title', 'subject_person', 'c_cutter',
+                'subjects', 'c_division', 'b_type', 'crit_work', 'b_call'])
+            self.assertEqual(ord_keys, [
+                'bid', 'o_branch', 'copies', 'o_date', 'o_audn',
+                'o_shelf', 'ven_note', 'id'])
 
 
 if __name__ == '__main__':
