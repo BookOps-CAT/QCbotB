@@ -275,7 +275,7 @@ if __name__ == "__main__":
         '--version',
         help="display bot's version",
         action='version',
-        version='v.0.1.1')  # auto pull from version?
+        version='v.0.1.3')  # auto pull from version?
     group.add_argument(
         '--view',
         help='view conflicts found on particular date, used dd-mm-yy',
