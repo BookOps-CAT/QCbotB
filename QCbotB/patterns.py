@@ -71,7 +71,7 @@ CLANG2 = [
 CTYPE = [
     [r'J-E$|J-E\s\D', 'eas'],
     [r'^FIC|\sFIC', 'fic'],
-    [r'DVD$|DVD\s[A-Z]{3}$|DVD\sJ$|DVD\s[A-Z]{3}\sJ$', 'fea'],
+    [r'DVD\s(?!B\s|\d{3}\s|\d{3}\.\d{1,}\s).{1,}$|DVD\s[A-Z]{3}\s(?!B\s).{1,}$|DVD\sJ\s(?!B\s).{1,}$|DVD\s[A-Z]{3}\sJ\s(?!B\s).{1,}$', 'fea'],
     [r'B\s[A-Z].*\s[A-Z]', 'bio'],
     [r'\d{3}.*\s[A-Z]{1}.*\s[A-Z]$|\d{3}.*[A-Z]{1}.*\s[A-Z]\d$', 'des'],
     [r'\d{3}', 'dew'],

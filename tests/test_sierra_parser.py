@@ -551,9 +551,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 '929.2 H241 B2'), 'des')
-        self.assertEqual(
+        self.assertIsNone(
             sierra_parser.parse_call_type(
-                'DVD'), 'fea')
+                'DVD'))
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'DVD J'), 'fea')
@@ -664,6 +664,12 @@ class TestParser(unittest.TestCase):
         self.assertTrue(
             sierra_parser.parse_call_cutter(
                 'DVD RUS HARRY'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'DVD FRE FAMILLE'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'DVD FRE J STELLA'))
         self.assertFalse(
             sierra_parser.parse_call_cutter(
                 '909'))
