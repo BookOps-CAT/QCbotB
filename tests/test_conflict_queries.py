@@ -352,6 +352,12 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertNotIn(hits, ids)
 
+    def test_error_54_missing_wl_prefix_in_call_number_when_item_coded_as_wl(self):
+        res = worker.run_query(self.session, self.queries[53])
+        ids = sorted([(57, 66)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
+
 
 if __name__ == '__main__':
     unittest.main()

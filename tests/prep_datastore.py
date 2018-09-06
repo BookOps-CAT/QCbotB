@@ -949,6 +949,23 @@ b56 = db.Bibs(
     crit_work=True,
     b_call='FIC DEMURIEL')
 
+b57 = db.Bibs(
+    c_format='pr',
+    c_dewey=None,
+    b_type=None,
+    c_wl=False,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='e',
+    id=57,
+    c_type='eas',
+    author='DEMURIEL',
+    title='bilingual book for world lang',
+    c_cutter=True,
+    subjects='Sports comics. lcgft',
+    c_division=None,
+    crit_work=False,
+    b_call='J-E JARAMILLO')
+
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
     b8, b9, b10, b11, b12, b13,
@@ -958,7 +975,7 @@ BIBS = [
     b35, b36, b37, b38, b39, b40, b41,
     b42, b43, b44, b45, b46, b47, b48,
     b49, b50, b51, b52, b53, b54, b55,
-    b56]
+    b56, b57]
 
 c1 = db.Orders(
     bid=1,
@@ -984,8 +1001,8 @@ c3 = db.Orders(
     copies=3,
     o_date=datetime.datetime(2017, 8, 3, 0, 0),
     o_audn='j',
-    o_shelf=u'er',
-    ven_note=u'n',
+    o_shelf='er',
+    ven_note='n',
     id=3)
 c4 = db.Orders(
     bid=4,
@@ -1527,7 +1544,6 @@ c63 = db.Orders(
     o_audn='a',
     o_shelf='nb',
     ven_note='n')
-
 c64 = db.Orders(
     id=64,
     bid=56,
@@ -1537,7 +1553,6 @@ c64 = db.Orders(
     o_audn='a',
     o_shelf='fc',
     ven_note='g')
-
 c65 = db.Orders(
     id=65,
     bid=34,
@@ -1547,6 +1562,15 @@ c65 = db.Orders(
     o_audn='j',
     o_shelf='dv',
     ven_note=None)
+c66 = db.Orders(
+    id=66,
+    bid=57,
+    o_branch='02',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='j',
+    o_shelf='wl',
+    ven_note='bil')
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
@@ -1556,7 +1580,7 @@ ORDERS = [
     c38, c39, c40, c41, c42, c43, c44, c45, c46,
     c47, c48, c49, c50, c51, c52, c53, c54, c55,
     c56, c57, c58, c59, c60, c61, c62, c63, c64,
-    c65
+    c65, c66
 ]
 
 
