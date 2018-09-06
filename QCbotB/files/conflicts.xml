@@ -213,7 +213,7 @@
 		<description>UND as a language prefix</description>
 	</error>
 	<error id = "53" code = "ErrB014" tier = "bib-ord">
-		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE bibs.c_wl = 0 AND orders.o_shelf IS NOT NULL AND orders.o_shelf LIKE "%wl%"</query>
+		<query>SELECT bibs.id AS bid, title, orders.id AS oid, copies FROM bibs JOIN orders ON orders.bid = bibs.id WHERE orders.o_shelf IS NOT NULL AND orders.o_shelf LIKE "%wl%" AND bibs.c_wl = 0 AND NOT (bibs.subjects LIKE "%language Textbooks for foreign speakers English.%" OR bibs.subjects LIKE "%language Conversation and phrase books English%" OR bibs.subjects LIKE "%language Sound recordings for foreign speakers English.%" OR bibs.subjects LIKE "%Study and teaching English speakers.%" OR bibs.subjects LIKE "%language Dictionaries, Juvenile English.%" OR bibs.subjects LIKE "%language Dictionaries English.%")</query>
 		<description>UND as a language prefix</description>
 	</error>
 </conflicts>

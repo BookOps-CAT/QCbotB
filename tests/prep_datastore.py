@@ -931,7 +931,6 @@ b55 = db.Bibs(
     c_division='ll',
     crit_work=True,
     b_call='FIC DEMURIEL')
-
 b56 = db.Bibs(
     c_format='pr',
     c_dewey=None,
@@ -948,7 +947,6 @@ b56 = db.Bibs(
     c_division='ll',
     crit_work=True,
     b_call='FIC DEMURIEL')
-
 b57 = db.Bibs(
     c_format='pr',
     c_dewey=None,
@@ -965,6 +963,22 @@ b57 = db.Bibs(
     c_division=None,
     crit_work=False,
     b_call='J-E JARAMILLO')
+b58 = db.Bibs(
+    c_format='pr',
+    c_dewey='493',
+    b_type=None,
+    c_wl=False,
+    b_date=datetime.datetime(2017, 12, 7, 0, 0),
+    c_audn='a',
+    id=58,
+    c_type='dew',
+    author='DEMURIEL',
+    title='bilingual textbook for English collection',
+    c_cutter=True,
+    subjects='Spanish language Textbooks for foreign speakers English.',
+    c_division='ll',
+    crit_work=False,
+    b_call='493 C')
 
 BIBS = [
     b1, b2, b3, b4, b5, b6, b7,
@@ -975,7 +989,7 @@ BIBS = [
     b35, b36, b37, b38, b39, b40, b41,
     b42, b43, b44, b45, b46, b47, b48,
     b49, b50, b51, b52, b53, b54, b55,
-    b56, b57]
+    b56, b57, b58]
 
 c1 = db.Orders(
     bid=1,
@@ -1571,6 +1585,15 @@ c66 = db.Orders(
     o_audn='j',
     o_shelf='wl',
     ven_note='bil')
+c67 = db.Orders(
+    id=67,
+    bid=58,
+    o_branch='14',
+    copies=1,
+    o_date=datetime.datetime(2017, 8, 11, 0, 0),
+    o_audn='a',
+    o_shelf='wl',
+    ven_note=None)
 
 ORDERS = [
     c1, c2, c3, c4, c5, c6, c7, c8, c9, c10,
@@ -1580,7 +1603,7 @@ ORDERS = [
     c38, c39, c40, c41, c42, c43, c44, c45, c46,
     c47, c48, c49, c50, c51, c52, c53, c54, c55,
     c56, c57, c58, c59, c60, c61, c62, c63, c64,
-    c65, c66
+    c65, c66, c67
 ]
 
 
