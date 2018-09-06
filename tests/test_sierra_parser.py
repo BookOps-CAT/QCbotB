@@ -328,7 +328,10 @@ class TestParser(unittest.TestCase):
     def test_world_language_prefix(self):
         self.assertFalse(
             sierra_parser.world_lang_prefix(
-                'DVD'))
+                'DVD OFF'))
+        self.assertFalse(
+            sierra_parser.world_lang_prefix(
+                'DVD OFFICE'))
         self.assertFalse(
             sierra_parser.world_lang_prefix(
                 'DVD 909 B'))
@@ -340,7 +343,7 @@ class TestParser(unittest.TestCase):
                 'DVD J B ADAMS A'))
         self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD CHI'))
+                'DVD CHI OFFICE'))
         self.assertTrue(
             sierra_parser.world_lang_prefix(
                 'DVD CHI J B ADAMS B'))
@@ -352,7 +355,7 @@ class TestParser(unittest.TestCase):
                 ''))
         self.assertTrue(
             sierra_parser.world_lang_prefix(
-                'DVD ARA J'))
+                'DVD ARA J HOME'))
         self.assertTrue(
             sierra_parser.world_lang_prefix(
                 'DVD ARA J 909 A'))
@@ -469,6 +472,9 @@ class TestParser(unittest.TestCase):
                 'J-E ADAMS'))
         self.assertFalse(
             sierra_parser.world_lang_prefix(
+                'J-E JARAMILLO'))
+        self.assertFalse(
+            sierra_parser.world_lang_prefix(
                 'J-E'))
         self.assertFalse(
             sierra_parser.world_lang_prefix(
@@ -487,6 +493,9 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'SPA J-E ADAMS'), 'eas')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'J-E JARAMILLO'), 'eas')
         self.assertEqual(
             sierra_parser.parse_call_type(
                 'J-E ADAMS'), 'eas')

@@ -42,9 +42,8 @@ CAUDN = [
 ]
 
 CLANG1 = [
-    r'DVD\s[A-Z]{3}$',
+    r'^DVD\s[A-Z]{3}\s.*',
     r'^DVD\s[A-Z]{3}\s\d{3}.*',
-    r'^DVD\s[A-Z]{3}\s[JB].*',
     r'^KIT\s[A-Z]{3}\s\d{3}.*',
     r'^KIT\s[A-Z]{3}\sJ.*',
     r'^LIB\s[A-S]{3}\s\d{3}.*',
