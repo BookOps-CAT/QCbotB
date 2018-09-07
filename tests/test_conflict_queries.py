@@ -346,18 +346,23 @@ class TestConflictQueries(unittest.TestCase):
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
-    def test_error_53_graphicnovel_po_per_line_with_additianal_subjects(self):
+    def test_error_49_graphicnovel_po_per_line_with_additianal_subjects(self):
         res = worker.run_query(self.session, self.queries[49])
         ids = sorted([(56)])
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertNotIn(hits, ids)
 
-    def test_error_54_missing_wl_prefix_in_call_number_when_item_coded_as_wl(self):
+    def test_error_53_missing_wl_prefix_in_call_number_when_item_coded_as_wl(self):
         res = worker.run_query(self.session, self.queries[53])
         ids = sorted([(57, 66)])
         hits = sorted([(r.bid, r.oid) for r in res])
         self.assertEqual(hits, ids)
 
+    def test_error_54_readalong_call_format_with_incorrect_item_codes(self):
+        res = worker.run_query(self.session, self.queries[54])
+        ids = sorted([(60, 70)])
+        hits = sorted([(r.bid, r.oid) for r in res])
+        self.assertEqual(hits, ids)
 
 
 if __name__ == '__main__':
