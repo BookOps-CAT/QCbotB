@@ -34,11 +34,12 @@ CFORMAT = [
     [r'^Mu', 'mu'],
     [r'^NM', 'nm'],
     [r'^VIDEO', 'vi'],
-    [r'^MIFI', 'mi']]
+    [r'^MIFI', 'mi'],
+    [r'^READALONG', 'ra']]
 
 CAUDN = [
     [r'J-E$|J-E\s\D', 'e'],
-    [r'J\s[0-9]|J\sFIC|J\sB\s|DVD\sJ$|^DVD\s[A-Z]{3}\sJ|^CD\sJ\s[A-Z]*', 'j']
+    [r'J\s[0-9]|J\sFIC|J\sB\s|DVD\sJ\s|^DVD\s[A-Z]{3}\sJ\s|^CD\sJ\s[A-Z]*|^READALONG\sJ\s|^READALONG\s[A-Z]{3}\sJ\s', 'j']
 ]
 
 CLANG1 = [
@@ -60,6 +61,7 @@ CLANG2 = [
     r'^AUDIO\s[A-Z]{3}\s\d{3}.*',
     r'^AUDIO\s[A-Z]{3}\s[JB]\s.*',
     r'^VIDEO\s[A-Z]{3}.*',
+    r'^READALONG\s[A-Z]{3}\sJ\s[FB\d].*',  # juv fic, bio, dewey
     r'^[A-Z]{3}\sFIC\s.*',
     r'^[A-Z]{3}\sJ\s[FB\d].*',  # juv fic, bio, dewey
     r'[A-Z]{3}\sJ-E.*',

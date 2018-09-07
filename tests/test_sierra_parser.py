@@ -244,6 +244,12 @@ class TestParser(unittest.TestCase):
         self.assertEqual(
             sierra_parser.parse_call_format(
                 ''), 'pr')
+        self.assertEqual(
+            sierra_parser.parse_call_format(
+                'READALONG J 811 A'), 'ra')
+        self.assertEqual(
+            sierra_parser.parse_call_format(
+                'READALONG J FIC ADAMS'), 'ra')
 
     def test_parse_call_audn(self):
         self.assertEqual(
@@ -269,10 +275,10 @@ class TestParser(unittest.TestCase):
                 'J B ADAMS W'), 'j')
         self.assertEqual(
             sierra_parser.parse_call_audn(
-                'DVD J'), 'j')
+                'DVD J ANIMATION'), 'j')
         self.assertEqual(
             sierra_parser.parse_call_audn(
-                'DVD RUS J'), 'j')
+                'DVD RUS J ANIMATION'), 'j')
         self.assertEqual(
             sierra_parser.parse_call_audn(
                 'DVD SPA J B ADAMS'), 'j')
@@ -323,7 +329,13 @@ class TestParser(unittest.TestCase):
                 'CD J WORLD JEWISH COLLECTION'), 'j')
         self.assertEqual(
             sierra_parser.parse_call_audn(
-                'DVD J FRE'), 'a')  # this is incorrect call #; corr: DVD FRE J
+                'DVD J FRE'), 'j')  # this can cause records with inverted order to miss the QC
+        self.assertEqual(
+            sierra_parser.parse_call_audn(
+                'READALONG J FIC ADAMS'), 'j')
+        self.assertEqual(
+            sierra_parser.parse_call_audn(
+                'READALONG J 811 A'), 'j')
 
     def test_world_language_prefix(self):
         self.assertFalse(
@@ -488,6 +500,15 @@ class TestParser(unittest.TestCase):
         self.assertFalse(
             sierra_parser.world_lang_prefix(
                 'FIC JOHNSTONE'))
+        self.assertFalse(
+            sierra_parser.world_lang_prefix(
+                'READALONG J FIC ADAMS'))
+        self.assertTrue(
+            sierra_parser.world_lang_prefix(
+                'READALONG SPA J FIC ADAMS'))
+        self.assertTrue(
+            sierra_parser.world_lang_prefix(
+                'READALONG SPA J 811 A'))
 
     def test_parse_call_type(self):
         self.assertEqual(
@@ -611,6 +632,12 @@ class TestParser(unittest.TestCase):
         self.assertIsNone(
             sierra_parser.parse_call_type(
                 'RUS TROTSKY Z'))
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'READALONG J FIC ADAMS'), 'fic')
+        self.assertEqual(
+            sierra_parser.parse_call_type(
+                'READALONG J 811 A'), 'dew')
 
     def test_parse_call_cutter(self):
         self.assertTrue(
@@ -720,6 +747,21 @@ class TestParser(unittest.TestCase):
         self.assertTrue(
             sierra_parser.parse_call_cutter(
                 'J-E  BUSSE'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'READALONG J FIC ADAMS'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'READALONG J 811 A'))
+        self.assertFalse(
+            sierra_parser.parse_call_cutter(
+                'READALONG J FIC'))
+        self.assertFalse(
+            sierra_parser.parse_call_cutter(
+                'READALONG SPA J FIC'))
+        self.assertTrue(
+            sierra_parser.parse_call_cutter(
+                'READALONG SPA J FIC ADAMS'))
 
     def test_parse_dewey(self):
         self.assertEqual(
@@ -749,6 +791,12 @@ class TestParser(unittest.TestCase):
         self.assertIsNone(
             sierra_parser.parse_call_dewey(
                 'J-E ADAMS'))
+        self.assertIsNone(
+            sierra_parser.parse_call_dewey(
+                'READALONG J FIC ADAMS'))
+        self.assertEqual(
+            sierra_parser.parse_call_dewey(
+                'READALONG J 945.2 A'), '945.2')
 
     def test_identify_dewey_range(self):
         self.assertEqual(
@@ -831,6 +879,9 @@ class TestParser(unittest.TestCase):
         self.assertIsNone(
             sierra_parser.parse_ord_audn(
                 ''))
+        self.assertEqual(
+            sierra_parser.parse_ord_audn(
+                'jra'), 'j')
 
     def test_parsing_of_row_of_sierra_report(self):
         """fuctional tests of sierra report parser"""
